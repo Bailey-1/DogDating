@@ -19,6 +19,7 @@ body {
 
 a.link {
 	color: white;
+	text-decoration: none;
 }
 
 a.link:hover {
@@ -173,16 +174,18 @@ div.profile div.details div.detailItem {
 	margin-bottom: 1em;
 }
 
-div.profile h1 {
+h1 {
 	background-color: #191c20;
 	border-radius: 0.5em;
 	padding: 0.5em;
 
 	font-family: 'RobotoThin';
+	color: #0088cc;
 }
 
 div.profile h2 {
 	font-family: 'RobotoRegular';
+	color: #0088cc;
 	margin: 0em;
 }
 
@@ -194,4 +197,16 @@ div.profile div.ownerDetail {
 	background-color: #191c20;
 	border-radius: 1em;
 	padding: 1em;
+}
+
+div.ownerDetail div p1 {
+	font-family: 'RobotoLight';
+	font-size: 1.3em;
+	color: #0088cc;
+}
+
+div.ownerDetail div p2 {
+	font-family: 'RobotoLight';
+	font-size: 1.3em;
+	color: white;
 }
