@@ -1,0 +1,57 @@
+div.navbar ul {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+
+	background-color: darkslategrey;
+	list-style-type: none;
+}
+
+div.navbar ul li {
+	float: right;
+	border-right: 1px solid white;
+}
+
+div.navbar ul li a {
+	display: block;
+	padding: 10px 10px;
+	text-align: center;
+	text-decoration: none;
+	color: white;
+}
+
+body {
+	background-color: darkgray;
+}
+
+div.Profiles {
+	margin: 20px;
+	padding: 20px;
+}
+
+div.dogProfile {
+	border: 1px solid white;
+	padding: 10px;
+	margin: 10px;
+	display: inline-block;
+	vertical-align: ;
+}
+
+div.dogProfile h2 {
+	color: white;
+	text-decoration-line: underline;
+	font-family: arial;
+	font-size: 25px;
+}
+
+div.dogProfile img {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+}
+
+div.dogProfile h3 {
+	color: white;
+	font-family: arial;
+	font-size: 20px;
+}
