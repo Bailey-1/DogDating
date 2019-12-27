@@ -1,3 +1,11 @@
+/* Declaring variables to make it easier to mange colours */
+:root {
+	--main-bg-color: #2d2e31;
+	--main-blue: #0088cc;
+	--main-dark-blue: #191c20;
+}
+
+/* Custom fonts from local files */
 @font-face {
 	font-family: 'RobotoLight';
 	src: url('/fonts/Roboto-Light.ttf');
@@ -11,17 +19,31 @@
 	src: url('fonts/Roboto-Regular.ttf');
 }
 
-@keyframes fadein {
+/* Simple animations for the website */
+@keyframes fadeInInput {
 	from {
 		opacity: 0;
+		left: 30em;
 	}
 	to {
 		opacity: 1;
+		left: 0em;
 	}
 }
 
+@keyframes fadeInImage {
+	from {
+		opacity: 0;
+		right: 30em;
+	}
+	to {
+		opacity: 1;
+		right: 0em;
+	}
+}
+/* Global CSS */
 body {
-	background-color: #2d2e31;
+	background-color: var(--main-bg-color);
 	margin: 0em;
 	padding: 0em;
 }
@@ -32,9 +54,10 @@ a.link {
 }
 
 a.link:hover {
-	color: #0088cc;
+	color: var(--main-blue);
 }
 
+/* Navbar CCS*/
 div.navbar ul {
 	margin: 0;
 	padding: 0;
@@ -65,34 +88,30 @@ div.navbar ul li a {
 	font-size: 20px;
 }
 div.navbar ul li a:hover {
-	background-color: #0088cc;
+	background-color: var(--main-blue);
 	text-decoration: underline;
 	text-underline-offset: 5px;
 }
 
-@media (max-width: 100px) {
+@media (max-width: 600px) {
 	div.navbar ul li {
 		width: 100%;
 	}
 }
 
+/* index.html results page*/
 div.profiles {
 	margin: 1em;
 	padding: 1em;
 }
 
 div.dogProfile {
-	border-radius: 0.5em;
-	margin: 0.5em;
+	border-radius: 1em;
+	margin: 1em;
 	display: inline-block;
-	background-color: #191c20;
+	background-color: var(--main-dark-blue);
 
 	width: 250px;
-}
-div.dogProfile:hover {
-	box-shadow: 0px 15px 15px rgba(0, 0, 0, 1);
-	transform: scale(1.1);
-	border: 0.1em solid white;
 }
 
 div.dogProfile div.details {
@@ -128,7 +147,7 @@ div.dogProfile h3 {
 div.dogProfile div img.option {
 	width: 5em;
 	height: 5em;
-	border: #0088cc solid 0.2em;
+	border: var(--main-blue) solid 0.2em;
 	border-radius: 1em;
 	margin: 0.5em;
 }
@@ -137,17 +156,19 @@ div.dogProfile div img.option:hover {
 	filter: brightness(0) invert(100%);
 }
 
+/* Footer CCS*/
 div.footer {
-	background-color: #191c20;
+	background-color: var(--main-dark-blue);
 }
 
+/* profile.html CCS*/
 div.profile {
 	margin: 1em;
 	color: white;
 }
 
 div.profile div.profilePicture {
-	background-color: #191c20;
+	background-color: var(--main-dark-blue);
 	float: left;
 	border-radius: 1em;
 }
@@ -165,7 +186,7 @@ div.profile div.profilePicture div img {
 div.profile div.profilePicture img.option {
 	width: 5em;
 	height: 5em;
-	border: #0088cc solid 0.2em;
+	border: var(--main-blue) solid 0.2em;
 	border-radius: 1em;
 	margin: 1em;
 }
@@ -181,22 +202,22 @@ div.profile div.details {
 div.profile div.details div.detailItem {
 	padding: 1em;
 	border-radius: 1em;
-	background-color: #191c20;
+	background-color: var(--main-dark-blue);
 	margin-bottom: 1em;
 }
 
 h1 {
-	background-color: #191c20;
+	background-color: var(--main-dark-blue);
 	border-radius: 0.5em;
 	padding: 0.5em;
 
 	font-family: 'RobotoThin';
-	color: #0088cc;
+	color: var(--main-blue);
 }
 
 div.profile h2 {
 	font-family: 'RobotoRegular';
-	color: #0088cc;
+	color: var(--main-blue);
 	margin: 0em;
 }
 
@@ -205,7 +226,7 @@ div.profile h3 {
 }
 
 div.profile div.ownerDetail {
-	background-color: #191c20;
+	background-color: var(--main-dark-blue);
 	border-radius: 1em;
 	padding: 1em;
 }
@@ -213,7 +234,7 @@ div.profile div.ownerDetail {
 div.ownerDetail div p1 {
 	font-family: 'RobotoLight';
 	font-size: 1.3em;
-	color: #0088cc;
+	color: var(--main-blue);
 }
 
 div.ownerDetail div p2 {
@@ -222,9 +243,8 @@ div.ownerDetail div p2 {
 	color: white;
 }
 
+/* login.html CSS*/
 div.userLogin {
-	animation: fadein 5s;
-
 	height: 50vh;
 	display: flex;
 	justify-content: center;
@@ -232,8 +252,12 @@ div.userLogin {
 }
 
 div.userInput {
+	animation: fadeInInput 3s;
+	animation-timing-function: ease-out;
+	position: relative;
+
 	float: right;
-	background-color: #191c20;
+	background-color: var(--main-dark-blue);
 	border-radius: 1em;
 	padding: 1em;
 	margin: 1em 1em 1em 0em;
@@ -243,15 +267,14 @@ div.userInput {
 }
 
 div.loginText {
-	text-decoration-line: underline;
 	text-align: center;
-	color: #0088cc;
+	color: var(--main-blue);
 	font-size: 2.5em;
 	font-family: 'RobotoRegular';
 }
 
 .inputStyle {
-	background: #191c20;
+	background: var(--main-dark-blue);
 	border: none;
 	color: white;
 	font-size: 1.5em;
@@ -267,8 +290,12 @@ div.inputGroup {
 }
 
 div.loginImage {
+	animation: fadeInImage 3s;
+	animation-timing-function: ease-out;
+	position: relative;
+
 	float: left;
-	background-color: #191c20;
+	background-color: var(--main-dark-blue);
 	border-radius: 1em;
 	padding: 1em;
 	margin: 1em;
@@ -308,11 +335,11 @@ div.buttonGroup {
 .buttonStyleLogin {
 	color: white;
 	border: 0.1em solid white;
-	background-color: #0088cc;
+	background-color: var(--main-blue);
 }
 
 .buttonStyleSignUp {
-	color: #0088cc;
+	color: var(--main-blue);
 }
 
 .buttonStyleHelp {
@@ -321,7 +348,7 @@ div.buttonGroup {
 
 img.icon {
 	padding: 0em 1em 0em 0em;
-	color: #0088cc;
+	color: var(--main-blue);
 	width: 3em;
 	height: 3em;
 }
