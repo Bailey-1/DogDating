@@ -11,6 +11,15 @@
 	src: url('fonts/Roboto-Regular.ttf');
 }
 
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
 body {
 	background-color: #2d2e31;
 	margin: 0em;
@@ -67,19 +76,23 @@ div.navbar ul li a:hover {
 	}
 }
 
-div.Profiles {
+div.profiles {
 	margin: 1em;
 	padding: 1em;
 }
 
 div.dogProfile {
-	border: 0.1em solid white;
 	border-radius: 0.5em;
 	margin: 0.5em;
 	display: inline-block;
 	background-color: #191c20;
 
 	width: 250px;
+}
+div.dogProfile:hover {
+	box-shadow: 0px 15px 15px rgba(0, 0, 0, 1);
+	transform: scale(1.1);
+	border: 0.1em solid white;
 }
 
 div.dogProfile div.details {
@@ -210,6 +223,8 @@ div.ownerDetail div p2 {
 }
 
 div.userLogin {
+	animation: fadein 5s;
+
 	height: 50vh;
 	display: flex;
 	justify-content: center;
@@ -239,7 +254,6 @@ div.loginText {
 	background: #191c20;
 	border: none;
 	color: white;
-	height: 100%;
 	font-size: 1.5em;
 	font-family: 'RobotoLight';
 }
@@ -249,6 +263,7 @@ div.inputGroup {
 	border-radius: 1em;
 	margin: 1em;
 	padding: 1em;
+	display: flex;
 }
 
 div.loginImage {
@@ -304,8 +319,9 @@ div.buttonGroup {
 	color: grey;
 }
 
-a.icon {
-	padding: 0em;
-	font-size: 2em;
+img.icon {
+	padding: 0em 1em 0em 0em;
 	color: #0088cc;
+	width: 3em;
+	height: 3em;
 }
