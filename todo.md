@@ -7,7 +7,9 @@
 
 ## API:
 
----
+> use :account and :profile to see if the user should have access to those resources and deny them if the profile is not linked to the account.
+
+> Need to deal with real time messaging.
 
 ### **GET Requests**
 
