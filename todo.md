@@ -1,9 +1,10 @@
 # todo
 
-## Frontend
+## Frontend:
 
 1. Break up the main pages into templates.
-2.
+2. Improve the overall design and decide if I want to use "pages" or "Items" on the page to display a profile.
+3. Add a multi-filter to make it easy to find specific types of options and filter multiple options at the same time such as location and breed and age.
 
 ## API:
 

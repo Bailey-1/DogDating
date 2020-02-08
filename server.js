@@ -4,20 +4,34 @@ const app = express();
 const fs = require('fs');
 
 app.use(express.json()); //expect json data from client. get data as object
-
 app.use(express.static('public'));
 
-//Get data from files
+let profiles;
 
-let profiles = fs.readFileSync('profiles.json');
-
+function getProfiles() {
+	let fileData = fs.readFileSync('./profiles.json');
+	return JSON.parse(fileData);
+}
 // Return a array of json objects that would potentially be a match to the account.
-app.get('/api/discover', (req, res) => {
-	res.send(profiles);
+app.get('/api/get/discover', (req, res) => {
+	let temp = getProfiles();
+	console.log(temp);
+	res.send(temp);
 });
 
 //Return specific profile from object.
-app.get('/api/profile/:id', (req, res) => {
+app.get('/api/get/profile/:id', (req, res) => {
+	const id = req.params.id;
+	let temp = getProfiles();
+	console.log(temp);
+
+	for (const i of temp) {
+		if (i.id == id) {
+			res.send(i);
+			return;
+		}
+	}
+
 	res.send();
 });
 

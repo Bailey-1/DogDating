@@ -3,16 +3,130 @@
 		"id": 1,
 		"name": "dogname",
 		"age": 13,
+		"gender": "male",
+		"breed": "black",
 		"location": "portsmouth",
 		"profile-details": {
 			"introduction": "Some text here"
 		},
-		"account": {
-			"id": 10,
-			"username": "user10",
-			"phoneNum": 0103948242,
-			"email": "email@email.com"
+		"owner": "accountName",
+		"messages": {}
+	},
+	{
+		"id": 2,
+		"name": "dogname",
+		"age": 13,
+		"gender": "male",
+		"breed": "black",
+		"location": "portsmouth",
+		"profile-details": {
+			"introduction": "Some text here"
 		},
+		"owner": "accountName",
+		"messages": {}
+	},
+	{
+		"id": 3,
+		"name": "dogname",
+		"age": 13,
+		"gender": "male",
+		"breed": "black",
+		"location": "portsmouth",
+		"profile-details": {
+			"introduction": "Some text here"
+		},
+		"owner": "accountName",
+		"messages": {}
+	},
+	{
+		"id": 4,
+		"name": "Adogname",
+		"age": 13,
+		"gender": "male",
+		"breed": "black",
+		"location": "portsmouth",
+		"profile-details": {
+			"introduction": "Some text here"
+		},
+		"owner": "accountName",
+		"messages": {}
+	},
+	{
+		"id": 5,
+		"name": "Bdogname",
+		"age": 13,
+		"gender": "male",
+		"breed": "black",
+		"location": "portsmouth",
+		"profile-details": {
+			"introduction": "Some text here"
+		},
+		"owner": "accountName",
+		"messages": {}
+	},
+	{
+		"id": 6,
+		"name": "dogname",
+		"age": 13,
+		"gender": "male",
+		"breed": "black",
+		"location": "portsmouth",
+		"profile-details": {
+			"introduction": "Some text here"
+		},
+		"owner": "accountName",
+		"messages": {}
+	},
+	{
+		"id": 7,
+		"name": "dogname",
+		"age": 13,
+		"gender": "male",
+		"breed": "black",
+		"location": "portsmouth",
+		"profile-details": {
+			"introduction": "Some text here"
+		},
+		"owner": "accountName",
+		"messages": {}
+	},
+	{
+		"id": 8,
+		"name": "dogname",
+		"age": 13,
+		"gender": "male",
+		"breed": "black",
+		"location": "portsmouth",
+		"profile-details": {
+			"introduction": "Some text here"
+		},
+		"owner": "accountName",
+		"messages": {}
+	},
+	{
+		"id": 9,
+		"name": "dogname",
+		"age": 13,
+		"gender": "male",
+		"breed": "black",
+		"location": "portsmouth",
+		"profile-details": {
+			"introduction": "Some text here"
+		},
+		"owner": "accountName",
+		"messages": {}
+	},
+	{
+		"id": 10,
+		"name": "dogname",
+		"age": 13,
+		"gender": "male",
+		"breed": "black",
+		"location": "portsmouth",
+		"profile-details": {
+			"introduction": "Some text here"
+		},
+		"owner": "accountName",
 		"messages": {}
 	}
 ]

@@ -3,11 +3,10 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Dog Dating - Find Partners</title>
 
 		<link rel="stylesheet" href="style.css" />
-		<link type="text/javascript" href="index.js" />
+		<script defer src="./index.js"></script>
 	</head>
 	<body>
 		<div class="navbar">
@@ -23,7 +22,24 @@
                 <li class="websiteName"><a href="index.html">Doggy Dating</a></listyle="font-size: 30px;">
             </ul>
 		</div>
-		<div class="profiles">
+		<div id="main-body-content">
+
+        </div>
+    </body>
+    <template id="profile-item">
+        <div class="dogProfile">
+            <img src="images/0029338_border-collie-id-dog-tag.jpeg"></img>
+            <div class="details">
+                <h2 id="name" class="profile-name">Buster, 8</h2>
+                <h3 id="profile-location">Location:</h3>
+                <h3 id="profile-owner">Owner:</h3>
+                <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
+                <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
+            </div>
+        </div>
+    </template>
+    <template id="profile-filters">
+        <div id="discover-profiles" class="profiles">
             <h1 style="margin: 0.2em">Find Partners!</h1>
             <p style="color: white;">Type: <select>
                 <option value="all">All</option>
@@ -46,40 +62,46 @@
               </select>
             </p style="color: white;">
             <hr>
-			<div class="dogProfile">
-				<img src="images/0029338_border-collie-id-dog-tag.jpeg"></img>
-                <div class="details">
-                    <h2><a class="link" href="profile.html">Buster, 8</a></h2>
-                    <h3>Location: <a class="link">Portsmouth</a></h3>
-                    <h3>Owner: <a class="link">xXx_gamr_xXx</a></h3>
-                    <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
-                    <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
-                </div>
-            </div>
-            <div class="dogProfile">
-				<img src="images/golden-retriever-puppy.jpg"></img>
-                <div class="details">
-                    <h2><a class="link">Dave, 7</a></h2>
-                    <h3>Location: <a class="link">Southampton</a></h3>
-                    <h3>Owner: <a class="link">dogOwner81</a></h3>
-                    <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
-                    <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
-                </div>
-                
-            </div>
-            <div class="dogProfile">
-				<img src="images/gettyimages-590486672-e1508512743796.jpg"></img>
-                <div class="details">
-                    <h2><a class="link">Emily, 3</a></h2>
-                    <h3>Location: <a class="link">Fareham</a></h3>
-                    <h3>Owner: <a class="link">xXx_gamr_xXx</a></h3>
-                    <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
-                    <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
-                </div>
-			</div>
+			
         </div>
-        <!-- <div class="footer">
-            <h2>Hello </h2>
-        </div> -->
-	</body>
+    </template>
+    <template id="main-profile-content">
+        <div class="profile">
+            <h1>Buster, 8</h1>
+            <div class="profilePicture">
+                <div>
+                    <img src="/images/0029338_border-collie-id-dog-tag.jpeg"/>
+                </div>
+                <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
+                <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
+            </div>
+            <div class="details">
+                <div class="detailItem">
+                    <h2>About Me:</h2>
+                    <h3>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras placerat, purus et vulputate tincidunt, libero enim cursus ex, ut ultricies nisl sem luctus enim. Praesent vestibulum sagittis lorem eu semper. Maecenas interdum, nunc vel rhoncus elementum, dolor elit tristique ante, id blandit dolor augue et magna. Aliquam ac malesuada velit, vel cursus quam. Integer nec gravida quam, eu fermentum ligula. Integer tristique arcu id augue pulvinar dictum. Curabitur interdum, erat sit amet venenatis pretium, tortor purus condimentum ex, vitae bibendum mi quam sed libero. Ut posuere sollicitudin mollis. Sed et ullamcorper odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer sed elit justo. Cras convallis laoreet lorem, non malesuada mi porta ac. Quisque hendrerit dui at tortor vehicula cursus. Integer bibendum sem vel laoreet pellentesque. </h3>
+                </div>
+                <div class="detailItem">
+                    <h2>Location: </h2>
+                    <h3>Portsmouth, Hampshire</h3>
+                </div>
+                <div class="detailItem">
+                    <h2>Likes: </h2>
+                    <h3>Walks, toys and people</h3>
+                </div>
+                <div class="detailItem">
+                    <h2>Dislikes: </h2>
+                    <h3>Cars, cats and the postman</h3>
+                </div>
+                <div class="detailItem">
+                    <h2>Birth Day: </h2>
+                    <h3>12/11/1066</h3>
+                </div>
+                <div class="detailItem">
+                    <h2>My Anthem:</h2>
+                    <iframe style="border-radius: 1em; margin-top: 1em;" src="https://open.spotify.com/embed/track/1H5tvpoApNDxvxDexoaAUo" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                </div>
+            </div>
+        </div>
+    </template>
 </html>
