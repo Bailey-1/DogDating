@@ -93,7 +93,7 @@ div.navbar ul li a:hover {
 	text-underline-offset: 5px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 	div.navbar ul li {
 		width: 100%;
 	}

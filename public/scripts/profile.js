@@ -1,7 +1,7 @@
 // Functions for viewing a profile page
 
 //Create main profile page
-async function createProfilePage() {
+async function profilePage() {
 	console.log('Name is clicked');
 	const parentElementID = event.srcElement.parentElement.parentElement.id;
 	console.log('Parent Element: ', parentElementID);

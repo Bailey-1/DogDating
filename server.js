@@ -19,6 +19,21 @@ app.get('/api/get/discover', (req, res) => {
 	res.send(temp);
 });
 
+app.get('/api/get/profiles/:username', (req, res) => {
+	const username = req.params.username;
+
+	console.log('Username: ', username);
+
+	let temp = getProfiles();
+	let filtered = [];
+	for (let i = 0; i < temp.length; i++) {
+		if (temp[i].owner == username) {
+			filtered.push(temp[i]);
+		}
+	}
+	return filtered;
+});
+
 //Return specific profile from object.
 app.get('/api/get/profile/:id', (req, res) => {
 	const id = req.params.id;

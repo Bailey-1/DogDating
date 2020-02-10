@@ -25,12 +25,12 @@
 				style="background-image: linear-gradient(to right,#73D2F6,#08C 22%,#7FC400 36%,#FFD583 48%,#FFB21E 63%,#FF4D4D 76%,#503873); width: 100%; height: 0.2em;"
 			></div>
 			<ul>
-				<li style="border-right: 0px;"><a href="#">Settings</a></listyle="border-right: 0px;">
+				<li style="border-right: 0px;"><a href="#">Settings</a></li>
 				<li><a href="#">Log Out</a></li>
 				<li><a href="#">Change Profile</a></li>
 				<li><a href="#">Profile</a></li>
-                <li><a href="index.html">Find Matches</a></li>
-                <li class="websiteName"><a href="index.html">Doggy Dating</a></listyle="font-size: 30px;">
+                <li><a id="home">Find Matches</a></li>
+                <li class="websiteName" style="font-size: 30px;"><a href="http://127.0.0.1:8080">Doggy Dating</a></li>
             </ul>
 		</div>
 		<div id="main-body-content">
@@ -112,6 +112,56 @@
                     <h2>My Anthem:</h2>
                     <iframe style="border-radius: 1em; margin-top: 1em;" src="https://open.spotify.com/embed/track/1H5tvpoApNDxvxDexoaAUo" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="loginPage">
+        <div class="userLogin">
+			<div class="centreDisplay">
+				<div class="loginImage">
+					<img src="./web-images/dog-computer.jpg" />
+				</div>
+				<div class="userInput">
+					<div class="loginText">Login:</div>
+					<div class="inputGroup">
+						<img src="./svg/user.svg" class="icon" />
+						<input
+							class="inputStyle"
+							type="text"
+							placeholder="Username / Email"
+						/>
+					</div>
+					<div class="inputGroup">
+						<img src="./svg/lock.svg" class="icon" />
+						<input class="inputStyle" type="password" placeholder="Password" />
+					</div>
+					<div class="buttonGroup">
+						<div class="buttonText buttonStyleHelp">Help</div>
+						<div class="buttonText buttonStyleSignUp">Sign Up</div>
+						<div class="buttonText buttonStyleLogin" id="loginButton">Login</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </template>
+
+    <template id="profile-selection">
+        <div id="discover-profiles" class="profiles">
+            <h1 style="margin: 0.2em">Select a Profile!</h1>
+            <hr>
+			
+        </div>
+    </template>
+
+    <template id="profile-selection-item">
+        <div class="dogProfile">
+            <img src="images/0029338_border-collie-id-dog-tag.jpeg"></img>
+            <div class="details">
+                <h2 id="name" class="profile-name">Buster, 8</h2>
+                <h3 id="profile-location">Location:</h3>
+                <h3 id="profile-owner">Owner:</h3>
+                <div style="float: left;"><img class="option"/>Select</div>
             </div>
         </div>
     </template>

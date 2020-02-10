@@ -1,11 +1,18 @@
 // Functions for discovery page
 
 async function discoverPage() {
+	removeContentFrom(document.querySelector('#main-body-content'));
+
 	const template = document.querySelector('#profile-filters');
 	const clone = document.importNode(template.content, true);
 	document.querySelector('#main-body-content').appendChild(clone);
 	const profiles = await getProfiles();
 	profiles.forEach(createProfileElement);
+
+	const items = document.querySelectorAll('.profile-name');
+	for (const i of items) {
+		i.addEventListener('click', profilePage);
+	}
 }
 
 function createProfileElement(profile) {
