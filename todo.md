@@ -6,6 +6,7 @@
 2. ~~Improve the overall design and decide if I want to use "pages" or "Items" on the page to display a profile.~~
 3. Add a multi-filter to make it easy to find specific types of options and filter multiple options at the same time such as location and breed and age.
 4. Allow the user to create a "profile" for their dog on the front end and develop the APIs needed to save and store the data.
+5. Improve the efficency of the CSS and use multiple classes for items.
 
 ---
 
