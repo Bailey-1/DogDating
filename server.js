@@ -4,7 +4,14 @@ const app = express();
 const fs = require('fs');
 
 app.use(express.json()); //expect json data from client. get data as object
-app.use(express.static('public', { extensions: ['html'] }));
+
+// Prevent .html showing in the url and change the default page to be 'profile-selection.html' instead of 'index.html'
+app.use(
+	express.static('public', {
+		index: 'profile-selection.html',
+		extensions: ['html']
+	})
+);
 
 let profiles;
 
@@ -49,6 +56,10 @@ app.get('/api/get/profile/:id', (req, res) => {
 
 app.get('/api/account/edit/', (req, res) => {
 	res.send();
+});
+
+app.get('', function(req, res) {
+	res.redirect('./profile-selection.html');
 });
 
 app.listen(8080);
