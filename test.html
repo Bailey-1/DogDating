@@ -3,67 +3,61 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>Test</title>
+		<title>Dog Dating - Find Partners</title>
+		<!-- Style -->
+		<link rel="stylesheet" href="./public/stylesheets/style.css" />
+
+		<!-- Scripts -->
+		<script src="./scripts/utility.js"></script>
+		<!-- Utility Functions-->
+		<script src="./scripts/login.js"></script>
+		<!-- Login page functions -->
+		<script src="./scripts/discovery.js"></script>
+		<!-- Discovery page functions-->
+		<script src="./scripts/my-profile.js"></script>
+		<!-- User profile page -->
+		<script src="./scripts/new-profile.js"></script>
+		<!-- Create new profile page -->
+		<script src="./scripts/profile.js"></script>
+		<!-- View profile page functions -->
+		<script src="./scripts/profiles.js"></script>
+		<!-- View account profiles page functions -->
+
+		<script defer src="./index.js"></script>
 	</head>
 	<body>
-		<button id="mainButton">main Button</button>
-		<button id="profileButton">main Button</button>
-
-		<template id="mainTemp">
-			<h2 class="mainText">Main HTML Template</h2>
-			<h3 class="profile">Profile 1</h3>
-			<h3 class="profile">Profile 2</h3>
-			<h3 class="profile">Profile 3</h3>
-		</template>
-
-		<template id="profileTemp">
-			<h2 class="profileText">Profile HTML Template</h2>
-			<h3 class="name">.</h3>
-		</template>
-
-		<script>
-			function clicked(event) {
-				console.log(event.originalTarget.textContent);
-				let temp = document.querySelector('#profileTemp');
-				let clon = temp.content.cloneNode(true);
-				clon.children[1].textContent = event.originalTarget.textContent;
-				document.body.appendChild(clon);
-			}
-
-			function showMain() {
-				let temp = document.querySelector('#mainTemp');
-				let clon = temp.content.cloneNode(true);
-				document.body.appendChild(clon);
-				let items = document.querySelectorAll('h3.profile');
-
-				for (const i of items) {
-					i.addEventListener('click', clicked);
-				}
-			}
-
-			function showProfile() {
-				let temp = document.querySelector('#profileTemp');
-				let clon = temp.content.cloneNode(true);
-				document.body.appendChild(clon);
-				let items = document.querySelectorAll('h2.profileText');
-
-				for (const i of items) {
-					i.addEventListener('click', clicked);
-				}
-			}
-
-			function addEvents() {
-				document
-					.querySelector('#mainButton')
-					.addEventListener('click', showMain);
-
-				document
-					.querySelector('#profileButton')
-					.addEventListener('click', showProfile);
-			}
-
-			window.addEventListener('load', addEvents);
-		</script>
+		<div class="navbar">
+			<div
+				style="background-image: linear-gradient(to right,#73D2F6,#08C 22%,#7FC400 36%,#FFD583 48%,#FFB21E 63%,#FF4D4D 76%,#503873); width: 100%; height: 0.2em;"
+			></div>
+			<ul>
+				<li style="border-right: 0px;"><a href="#">Settings</a></li>
+				<li><a href="#">Log Out</a></li>
+				<li><a href="#">Change Profile</a></li>
+				<li><a href="#">Profile</a></li>
+				<li><a id="home" class="selected">Find Matches</a></li>
+				<li class="websiteName" style="font-size: 30px;">
+					<a href="http://127.0.0.1:8080">Doggy Dating</a>
+				</li>
+			</ul>
+		</div>
+		<div id="main-body-content">
+			<div class="userLogin">
+				<div class="profile-item">
+					<p>Hey</p>
+				</div>
+				<div class="profile-item">
+					<p>Hey</p>
+				</div>
+				<div class="profile-item">
+					<p>Hey</p>
+				</div>
+				<div class="profile-item">
+					<p>Hey</p>
+				</div>
+			</div>
+		</div>
 	</body>
+
+	<template id="loginPage"> </template>
 </html>

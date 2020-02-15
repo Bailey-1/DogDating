@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Dog Dating - Find Partners</title>
+        <!-- Style -->
+        <link rel="stylesheet" href="./stylesheets/style.css" />
+        
+        <!-- Scripts -->
+        <script src="./scripts/utility.js"></script> <!-- Utility Functions-->
+
+        <script defer src="./index.js"></script>
+	</head>
+	<body>
+		<div class="navbar">
+			<div
+				style="background-image: linear-gradient(to right,#73D2F6,#08C 22%,#7FC400 36%,#FFD583 48%,#FFB21E 63%,#FF4D4D 76%,#503873); width: 100%; height: 0.2em;"
+			></div>
+			<ul>
+				<li style="border-right: 0px;"><a href="#">Settings</a></li>
+				<li><a href="login">Log Out</a></li>
+				<li><a class="selected" href="profile-selection">Change Profile</a></li>
+				<li><a href="profile"> My Profile</a></li>
+				<li>
+					<a href="discovery">Find Matches</a>
+				</li>
+				<li class="websiteName" style="font-size: 30px;">
+					<a href="index">Doggy Dating</a>
+				</li>
+			</ul>
+		</div>
+		<div id="main-body-content">
+			<div id="discover-profiles" class="profiles">
+				<h1 style="margin: 0.2em">Select a Profile!</h1>
+				<hr>
+				
+			</div>
+        </div>
+    </body>
+
+    <template id="profile-selection-item">
+        <div class="dogProfile">
+            <img src="images/0029338_border-collie-id-dog-tag.jpeg"></img>
+            <div class="details">
+                <h2 id="name" class="profile-name">Buster, 8</h2>
+                <h3 id="profile-location">Location:</h3>
+                <h3 id="profile-owner">Owner:</h3>
+                <div style="float: left;"><img class="option"/>Select</div>
+            </div>
+        </div>
+    </template>
+</html>

@@ -4,165 +4,35 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Dog Dating - Find Partners</title>
-        <!-- Style -->
-        <link rel="stylesheet" href="style.css" />
-        
-        <!-- Scripts -->
-        <script src="./scripts/utility.js"></script> <!-- Utility Functions-->
-        <script src="./scripts/login.js"></script> <!-- Login page functions -->
-        <script src="./scripts/discovery.js"></script> <!-- Discovery page functions-->
-        <script src="./scripts/my-profile.js"></script> <!-- User profile page -->
-        <script src="./scripts/new-profile.js"></script> <!-- Create new profile page -->
-        <script src="./scripts/profile.js"></script> <!-- View profile page functions -->
-        <script src="./scripts/profiles.js"></script> <!-- View account profiles page functions -->
+		<!-- Style -->
+		<link rel="stylesheet" href="./stylesheets/style.css" />
 
+		<!-- Scripts -->
+		<script src="./scripts/utility.js"></script>
+		<!-- Utility Functions-->
 
-        <script defer src="./index.js"></script>
+		<script defer src="./index.js"></script>
 	</head>
 	<body>
 		<div class="navbar">
-            <div
+			<div
 				style="background-image: linear-gradient(to right,#73D2F6,#08C 22%,#7FC400 36%,#FFD583 48%,#FFB21E 63%,#FF4D4D 76%,#503873); width: 100%; height: 0.2em;"
 			></div>
 			<ul>
 				<li style="border-right: 0px;"><a href="#">Settings</a></li>
-				<li><a href="#">Log Out</a></li>
-				<li><a href="#">Change Profile</a></li>
-				<li><a href="#">Profile</a></li>
-                <li><a id="home">Find Matches</a></li>
-                <li class="websiteName" style="font-size: 30px;"><a href="http://127.0.0.1:8080">Doggy Dating</a></li>
-            </ul>
+				<li><a href="login">Log Out</a></li>
+				<li><a href="profile-selection">Change Profile</a></li>
+				<li><a href="profile"> My Profile</a></li>
+				<li>
+					<a href="discovery">Find Matches</a>
+				</li>
+				<li class="websiteName" style="font-size: 30px;">
+					<a href="index">Doggy Dating</a>
+				</li>
+			</ul>
 		</div>
 		<div id="main-body-content">
-
-        </div>
-    </body>
-    <template id="profile-item">
-        <div class="dogProfile">
-            <img src="images/0029338_border-collie-id-dog-tag.jpeg"></img>
-            <div class="details">
-                <h2 id="name" class="profile-name">Buster, 8</h2>
-                <h3 id="profile-location">Location:</h3>
-                <h3 id="profile-owner">Owner:</h3>
-                <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
-                <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
-            </div>
-        </div>
-    </template>
-    <template id="profile-filters">
-        <div id="discover-profiles" class="profiles">
-            <h1 style="margin: 0.2em">Find Partners!</h1>
-            <p style="color: white;">Type: <select>
-                <option value="all">All</option>
-                <option value="b1">Breed 1</option>
-                <option value="b2">Breed 2</option>
-                <option value="b3">Breed 3</option>
-              </select>
-            </p>
-            <p style="color: white;">Location: <select>
-                <option value="all">All</option>
-                <option value="l1">Fareham</option>
-                <option value="l2">Portsmouth</option>
-                <option value="l3">Southampton</option>
-              </select>
-            </p style="color: white;">
-            <p style="color: white;">Gender: <select>
-                <option value="all">All</option>
-                <option value="g1">Male</option>
-                <option value="g2">Female</option>
-              </select>
-            </p style="color: white;">
-            <hr>
-			
-        </div>
-    </template>
-    <template id="main-profile-content">
-        <div class="profile">
-            <h1 id="profile-page-name">Buster, 8</h1>
-            <div class="profilePicture">
-                <div>
-                    <img src="/images/0029338_border-collie-id-dog-tag.jpeg"/>
-                </div>
-                <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
-                <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
-            </div>
-            <div class="details">
-                <div class="detailItem">
-                    <h2>About Me:</h2>
-                    <h3 id="profile-page-about-me">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras placerat, purus et vulputate tincidunt, libero enim cursus ex, ut ultricies nisl sem luctus enim. Praesent vestibulum sagittis lorem eu semper. Maecenas interdum, nunc vel rhoncus elementum, dolor elit tristique ante, id blandit dolor augue et magna. Aliquam ac malesuada velit, vel cursus quam. Integer nec gravida quam, eu fermentum ligula. Integer tristique arcu id augue pulvinar dictum. Curabitur interdum, erat sit amet venenatis pretium, tortor purus condimentum ex, vitae bibendum mi quam sed libero. Ut posuere sollicitudin mollis. Sed et ullamcorper odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer sed elit justo. Cras convallis laoreet lorem, non malesuada mi porta ac. Quisque hendrerit dui at tortor vehicula cursus. Integer bibendum sem vel laoreet pellentesque. </h3>
-                </div>
-                <div class="detailItem">
-                    <h2>Location: </h2>
-                    <h3 id="profile-page-location">Portsmouth, Hampshire</h3>
-                </div>
-                <div class="detailItem">
-                    <h2>Likes: </h2>
-                    <h3 id="profile-page-likes">Walks, toys and people</h3>
-                </div>
-                <div class="detailItem">
-                    <h2>Dislikes: </h2>
-                    <h3 id="profile-page-dislikes">Cars, cats and the postman</h3>
-                </div>
-                <div class="detailItem">
-                    <h2>Birth Day (MM/DD/YYYY): </h2>
-                    <h3 id="profile-page-birthday">12/11/1066</h3>
-                </div>
-                <div class="detailItem">
-                    <h2>My Anthem:</h2>
-                    <iframe style="border-radius: 1em; margin-top: 1em;" src="https://open.spotify.com/embed/track/1H5tvpoApNDxvxDexoaAUo" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                </div>
-            </div>
-        </div>
-    </template>
-
-    <template id="loginPage">
-        <div class="userLogin">
-			<div class="centreDisplay">
-				<div class="loginImage">
-					<img src="./web-images/dog-computer.jpg" />
-				</div>
-				<div class="userInput">
-					<div class="loginText">Login:</div>
-					<div class="inputGroup">
-						<img src="./svg/user.svg" class="icon" />
-						<input
-							class="inputStyle"
-							type="text"
-							placeholder="Username / Email"
-						/>
-					</div>
-					<div class="inputGroup">
-						<img src="./svg/lock.svg" class="icon" />
-						<input class="inputStyle" type="password" placeholder="Password" />
-					</div>
-					<div class="buttonGroup">
-						<div class="buttonText buttonStyleHelp">Help</div>
-						<div class="buttonText buttonStyleSignUp">Sign Up</div>
-						<div class="buttonText buttonStyleLogin" id="loginButton">Login</div>
-					</div>
-				</div>
-			</div>
+			<h1 style="color: white;">Index</h1>
 		</div>
-    </template>
-
-    <template id="profile-selection">
-        <div id="discover-profiles" class="profiles">
-            <h1 style="margin: 0.2em">Select a Profile!</h1>
-            <hr>
-			
-        </div>
-    </template>
-
-    <template id="profile-selection-item">
-        <div class="dogProfile">
-            <img src="images/0029338_border-collie-id-dog-tag.jpeg"></img>
-            <div class="details">
-                <h2 id="name" class="profile-name">Buster, 8</h2>
-                <h3 id="profile-location">Location:</h3>
-                <h3 id="profile-owner">Owner:</h3>
-                <div style="float: left;"><img class="option"/>Select</div>
-            </div>
-        </div>
-    </template>
+	</body>
 </html>

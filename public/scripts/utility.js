@@ -11,9 +11,7 @@ function getAgeFromDate(date) {
 
 	//get todays date to compare the date with.
 	let today = new Date();
-	console.log('Date', date);
 	let birthDate = new Date(date);
-	console.log('Birthdate', birthDate);
 	let age = today.getFullYear() - birthDate.getFullYear();
 	let m = today.getMonth() - birthDate.getMonth();
 	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {

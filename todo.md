@@ -1,5 +1,9 @@
 # TODO
 
+## Plan:
+
+---
+
 ## Frontend:
 
 1. ~~Break up the main pages into templates.~~
@@ -63,3 +67,7 @@
 ```
 /api/post/:accountID/:profileID/image
 ```
+
+## Filter
+
+/api/get/discovery/:profileID/

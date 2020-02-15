@@ -4,7 +4,7 @@ const app = express();
 const fs = require('fs');
 
 app.use(express.json()); //expect json data from client. get data as object
-app.use(express.static('public'));
+app.use(express.static('public', { extensions: ['html'] }));
 
 let profiles;
 
@@ -15,7 +15,6 @@ function getProfiles() {
 // Return a array of json objects that would potentially be a match to the account.
 app.get('/api/get/discover', (req, res) => {
 	let temp = getProfiles();
-	console.log(temp);
 	res.send(temp);
 });
 
@@ -31,14 +30,13 @@ app.get('/api/get/profiles/:username', (req, res) => {
 			filtered.push(temp[i]);
 		}
 	}
-	return filtered;
+	res.send(filtered);
 });
 
 //Return specific profile from object.
 app.get('/api/get/profile/:id', (req, res) => {
 	const id = req.params.id;
 	let temp = getProfiles();
-	console.log(temp);
 
 	for (const i of temp) {
 		if (i.id == id) {
@@ -46,8 +44,7 @@ app.get('/api/get/profile/:id', (req, res) => {
 			return;
 		}
 	}
-
-	res.send();
+	res.status(404).send('Invalid Profile Selection');
 });
 
 app.get('/api/account/edit/', (req, res) => {
