@@ -21,7 +21,7 @@ function getAgeFromDate(date) {
 }
 
 // Returns array of all profiles
-async function getProfiles() {
+async function getDiscovery() {
 	const request = await fetch('./api/get/discover');
 	if (!request.ok) return console.warn('Could not get /api/get/discover');
 	const profileObj = await request.json();
@@ -35,3 +35,14 @@ async function getProfileById(id) {
 	const profileObj = await request.json();
 	return profileObj;
 }
+
+async function getProfilesByUserAccount() {
+	const request = await fetch(`./api/get/profiles/${account}`);
+	if (!request.ok) return console.warn(`Could not get /api/get/profile/${id}`);
+	if (!request.status == 200) return console.warn(`Request Status: ${request}`);
+	const profileObj = await request.json();
+	console.log(profileObj);
+	return profileObj;
+}
+
+export { getProfileById };

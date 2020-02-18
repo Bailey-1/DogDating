@@ -1,12 +1,13 @@
 const account = 'Tim'; //this would be changed if you could change accounts
 
+console.log('profile-selection.js');
+
 // Used to share data between different pages.
-localStorage.setItem('currentAccount', account); //Current User Account
+localStorage.setItem('currentAccount', account); //Current User
 
 //localStorage.setItem('currentProfile', null); //Current Profile ID
 
-// Get profile objects from the server
-async function getProfiles() {
+async function getProfilesByUserAccount() {
 	const request = await fetch(`./api/get/profiles/${account}`);
 	if (!request.ok) return console.warn(`Could not get /api/get/profile/${id}`);
 	if (!request.status == 200) return console.warn(`Request Status: ${request}`);
@@ -15,6 +16,7 @@ async function getProfiles() {
 	return profileObj;
 }
 
+// Creates each profile element from a template and adds it
 function createProfileElement(profile) {
 	const template = document.querySelector('#profile-item');
 	const clone = document.importNode(template.content, true);
@@ -26,10 +28,13 @@ function createProfileElement(profile) {
 	document.querySelector('#user-profiles').appendChild(clone);
 }
 
+// Adds the selectedBtn class to the pushed button and removes it from the rest
 function selectedProfile() {
 	//Not the nicest way but if it works it works.
 	const selectedId = event.originalTarget.parentElement.parentElement.id;
-	document.location.hash = selectedId;
+
+	//This line is haunted idk y
+	//document.location.hash = selectedId;
 
 	console.log('Selected ID: ', selectedId);
 
@@ -50,7 +55,7 @@ function selectedProfile() {
 
 // Show profiles user can view as. This changes recommended profiles, my profile etc
 async function showProfiles() {
-	const profiles = await getProfiles();
+	const profiles = await getProfilesByUserAccount();
 	profiles.forEach(createProfileElement);
 }
 
@@ -72,6 +77,7 @@ function addClasses() {
 
 // Setup things
 async function pageLoaded() {
+	//Used await to allow all elements to display before handlers are created
 	await showProfiles();
 	createHandlers();
 	addClasses();

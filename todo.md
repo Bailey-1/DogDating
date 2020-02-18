@@ -2,8 +2,8 @@
 
 ## Plan:
 
-1. Implement get profile selection for the current account Tim.
-   - Use localstorage for the currentAccount and currentProfile
+1. ~~Implement get profile selection for the current account Tim.~~
+   - ~~Use localstorage for the currentAccount and currentProfile~~
    - Use the /api/get/profiles/:account to select all profiles by the same account.
 2. Fix the discovery page so the currentProfile will not show and only the opposite gender will.
 3. Create the home page to show recent matches and recommended profiles.
