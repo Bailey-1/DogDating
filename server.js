@@ -1,3 +1,5 @@
+const profileTable = require('./database/profiles');
+
 const express = require('express');
 const app = express();
 
@@ -61,5 +63,18 @@ app.get('/api/account/edit/', (req, res) => {
 app.get('', function(req, res) {
 	res.redirect('./profile-selection.html');
 });
+
+async function getNames(req, res) {
+	res.json(await profileTable.listProfiles());
+}
+
+// wrap async function for express.js error handling
+function asyncWrap(f) {
+	return (req, res, next) => {
+		Promise.resolve(f(req, res, next)).catch(e => next(e || new Error()));
+	};
+}
+
+app.get('/api/names', asyncWrap(getNames));
 
 app.listen(8080);
