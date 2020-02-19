@@ -32,8 +32,18 @@ async function getProfileById(id) {
 	return result.rows;
 }
 
+async function getDiscoveryById(id) {
+	let q = `SELECT pro_gender FROM profiles WHERE pro_id = '${id}'`;
+	const userGender = await sql.query(q);
+	console.log(userGender.rows[0].pro_gender);
+	q = `SELECT * FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}' AND pro_id != '${id}'`;
+	let result = await sql.query(q);
+	return result;
+}
+
 module.exports = {
 	listProfiles,
 	getProfilesByAccountId,
-	getProfileById
+	getProfileById,
+	getDiscoveryById
 };

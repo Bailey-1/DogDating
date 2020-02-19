@@ -29,6 +29,10 @@ async function getProfileById(req, res) {
 	res.json(await db.getProfileById(req.params.id));
 }
 
+async function getDiscoveryById(req, res) {
+	res.json(await db.getDiscoveryById(req.params.id));
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -43,5 +47,6 @@ app.get(
 );
 
 app.get('/api/database/get/profileById/:id', asyncWrap(getProfileById));
+app.get('/api/database/get/discoveryById/:id', asyncWrap(getDiscoveryById));
 
 app.listen(8080);

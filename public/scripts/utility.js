@@ -45,3 +45,11 @@ async function getProfilesByUserAccount(id) {
 	const profileObj = await request.json();
 	return profileObj;
 }
+
+async function getDiscoveryById(id) {
+	const request = await fetch(`./api/database/get/discoveryById/${id}`);
+	if (!request.ok)
+		return console.warn(`Could not get /api/database/get/discoveryById/${id}`);
+	const profileObj = await request.json();
+	return profileObj;
+}
