@@ -20,7 +20,8 @@ function createProfileElement(profile) {
 // Adds the selectedBtn class to the pushed button and removes it from the rest
 function selectedProfile() {
 	//Not the nicest way but if it works it works.
-	const selectedId = event.originalTarget.parentElement.parentElement.id;
+	console.log(event);
+	const selectedId = event.srcElement.parentElement.parentElement.id;
 
 	//This line is haunted idk y
 	//document.location.hash = selectedId;
