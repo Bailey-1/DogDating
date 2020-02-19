@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "nodemon server.js",
 		"start": "node server.js",
-		"setup": "createdb doggydating && psql doggydating < database/profiles.sql"
+		"setup": "createdb doggydating && psql doggydating < database/database-setup.sql"
 	},
 	"repository": {
 		"type": "git",

@@ -1,5 +1,4 @@
 // Utility functions
-
 function removeContentFrom(what) {
 	while (what.firstElementChild) {
 		what.firstElementChild.remove();
@@ -30,19 +29,19 @@ async function getDiscovery() {
 
 // Returns single object of profile - first to have same ID.
 async function getProfileById(id) {
-	const request = await fetch(`./api/get/profile/${id}`);
-	if (!request.ok) return console.warn(`Could not get /api/get/profile/${id}`);
+	const request = await fetch(`./api/database/get/profileById/${id}`);
+	if (!request.ok)
+		return console.warn(`Could not get /api/database/get/profileById/${id}`);
 	const profileObj = await request.json();
 	return profileObj;
 }
 
-async function getProfilesByUserAccount() {
-	const request = await fetch(`./api/get/profiles/${account}`);
-	if (!request.ok) return console.warn(`Could not get /api/get/profile/${id}`);
-	if (!request.status == 200) return console.warn(`Request Status: ${request}`);
+async function getProfilesByUserAccount(id) {
+	const request = await fetch(`./api/database/get/profilesByAccountId/${id}`);
+	if (!request.ok)
+		return console.warn(
+			`Could not get /api/database/get/profilesByAccountId/${id}`
+		);
 	const profileObj = await request.json();
-	console.log(profileObj);
 	return profileObj;
 }
-
-export { getProfileById };
