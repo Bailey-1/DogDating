@@ -54,8 +54,10 @@ async function getDiscoveryById(id) {
 	return profileObj;
 }
 
-async function getFilters() {
-	const request = await fetch(`./api/database/get/distinctFilterProperties`);
+async function getFilters(id) {
+	const request = await fetch(
+		`./api/database/get/distinctFilterProperties/${id}`
+	);
 	if (!request.ok)
 		return console.warn(
 			`Could not get /api/database/get/distinctFilterProperties`

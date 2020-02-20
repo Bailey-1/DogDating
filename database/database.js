@@ -34,28 +34,33 @@ async function getProfileById(id) {
 
 async function getDiscoveryById(id) {
 	let q = `SELECT pro_gender FROM profiles WHERE pro_id = '${id}'`;
-	console.log(q);
+	//console.log(q);
 	const userGender = await sql.query(q);
 	console.log(userGender.rows[0].pro_gender);
-	q = `SELECT * FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}' AND pro_id != '${id}'`;
-	console.log(q);
+	q = `SELECT * FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}'`;
+	//console.log(q);
 	let result = await sql.query(q);
 	return result;
 }
 
 // Get distinct valyes for the filter options on the wesite.
-async function getDistinctFilterProperties() {
+async function getDistinctFilterProperties(id) {
+	console.log('id: ', id);
+	let q = `SELECT pro_gender FROM profiles WHERE pro_id = '${id}'`;
+	//console.log(q);
+	const userGender = await sql.query(q);
+	console.log(userGender.rows[0].pro_gender);
 	let distinctItems = { location: '', breed: '', kennelClubMembership: '' };
-	let q = `SELECT DISTINCT pro_location FROM profiles`;
+	q = `SELECT DISTINCT pro_location FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}'`;
 	//console.log(q);
 	distinctItems.location = await sql.query(q);
-	q = `SELECT DISTINCT pro_breed FROM profiles`;
+	q = `SELECT DISTINCT pro_breed FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}'`;
 	//console.log(q);
 	distinctItems.breed = await sql.query(q);
 	q = `SELECT unnest(enum_range(NULL::kennelclubmembership)) AS "membership_type"`;
 	//console.log(q);
 	distinctItems.kennelClubMembership = await sql.query(q);
-	console.log(distinctItems);
+	//console.log(distinctItems);
 	return distinctItems;
 }
 

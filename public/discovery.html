@@ -33,22 +33,25 @@
 		<div id="discover-profiles" class="profiles">
             <h1 style="margin: 0.2em" id="welcomeName">Find Partners!</h1>
             <h2 style="color: white;" id="resultsNum"></h2>
-            <p style="color: white;">Location: 
-                <select id="select-location">
-
+            <div>
+                <p style="color: white; display: inline-block;" id="location-tag">Location: </p>
+                <select style="display: inline-block;" id="select-location">
+                    <option value="all">All</option>
                 </select>
-            </p>
-            <p style="color: white;">Breed: 
-                <select id="select-breed">
-
+            </div>
+            <div>
+                <p style="color: white; display: inline-block;" id="breed-tag">Breed:</p>
+                <select style="display: inline-block;" id="select-breed">
+                    <option value="all">All</option>
                 </select>
-            </p>
-            <p style="color: white;">Kennel Club Membership: 
-                <select id="select-kennelclub">
-
+            </div>
+            <div>
+                <p style="color: white; display: inline-block;" id="kennelclub-tag">Kennel Club Membership: </p>
+                <select style="display: inline-block;" id="select-kennelclub">
+                    <option value="all">All</option>
                 </select>
-            </p>
-            <p><button>Update</button></p>
+            </div>
+            <button>Update</button>
             <hr>
         </div>
     </body>
