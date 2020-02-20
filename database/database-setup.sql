@@ -3,9 +3,13 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 DROP TABLE IF EXISTS profiles;
 DROP TABLE IF EXISTS accounts;
 
+CREATE TYPE gender AS ENUM ('Male', 'Female');
+CREATE TYPE kennelclubmembership AS ENUM ('Member', 'Associate', 'Affiliate', 'None');
+
 CREATE TABLE IF NOT EXISTS accounts (
     acc_id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
     acc_createTime timestamp DEFAULT now(),
+    acc_kennelclubmembership kennelclubmembership DEFAULT 'None',
     acc_name TEXT
 );
 
@@ -14,7 +18,7 @@ CREATE TABLE IF NOT EXISTS profiles (
     pro_name TEXT,
     pro_location TEXT,
     pro_birthday TEXT,
-    pro_gender TEXT,
+    pro_gender gender,
     pro_breed TEXT,
     pro_aboutme TEXT,
     pro_likes TEXT,
@@ -22,20 +26,22 @@ CREATE TABLE IF NOT EXISTS profiles (
     acc_id uuid REFERENCES accounts(acc_id) 
 );
 
-INSERT INTO accounts (acc_id, acc_name) VALUES
-('cee3a7e6-5339-11ea-8d77-2e728ce88125', 'Tim'),
-('cee3aaa2-5339-11ea-8d77-2e728ce88125', 'Bob'),
-('e21df604-5339-11ea-8d77-2e728ce88125', 'Jim');
+INSERT INTO accounts (acc_id, acc_name, acc_kennelClubMembership) VALUES
+('cee3a7e6-5339-11ea-8d77-2e728ce88125', 'Tim', 'Member'),
+('cee3aaa2-5339-11ea-8d77-2e728ce88125', 'Bob', 'Member'),
+('e21df604-5339-11ea-8d77-2e728ce88125', 'Jim', 'None'),
+('e21df605-5339-11ea-8d77-2e728ce88125', 'Jim2', NULL);
+
 
 INSERT INTO profiles (pro_name, pro_location, pro_birthday, pro_breed, acc_id, pro_gender) VALUES
 ('name1', 'Portsmouth', '10/20/2015', 'Pug', 'cee3a7e6-5339-11ea-8d77-2e728ce88125', 'Male'),
 ('name2', 'Portsmouth', '10/20/2015', 'Pug', 'e21df604-5339-11ea-8d77-2e728ce88125', 'Female'),
 ('name3', 'Portsmouth', '10/20/2015', 'Pug', 'cee3a7e6-5339-11ea-8d77-2e728ce88125', 'Male');
 
-INSERT INTO profiles(pro_name,pro_birthday,pro_gender,pro_breed,pro_location,pro_aboutme,pro_likes,pro_dislikes, acc_id) VALUES ('Benny','1/1/2018','Male','black','portsmouth','Some text here','Some likes listed','Some dislikes listed', 'cee3a7e6-5339-11ea-8d77-2e728ce88125');
+INSERT INTO profiles(pro_name,pro_birthday,pro_gender,pro_breed,pro_location,pro_aboutme,pro_likes,pro_dislikes, acc_id) VALUES ('Benny','1/1/2018','Male','black','Portsmouth','Some text here','Some likes listed','Some dislikes listed', 'cee3a7e6-5339-11ea-8d77-2e728ce88125');
 INSERT INTO profiles(pro_name,pro_birthday,pro_gender,pro_breed,pro_location,pro_aboutme,pro_likes,pro_dislikes, acc_id) VALUES ('Ailey','11/13/2002','Female','Indian red admiral','Lap Lae','Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula.','Devolved holistic project','Re-contextualized fresh-thinking knowledge base', 'cee3a7e6-5339-11ea-8d77-2e728ce88125');
-INSERT INTO profiles(pro_name,pro_birthday,pro_gender,pro_breed,pro_location,pro_aboutme,pro_likes,pro_dislikes) VALUES ('Nickolai','08/13/2013','Male','Bontebok','Las Breñas','Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor. Duis mattis egestas metus.','Right-sized incremental artificial intelligence','Persistent 4th generation analyzer');
-INSERT INTO profiles(pro_name,pro_birthday,pro_gender,pro_breed,pro_location,pro_aboutme,pro_likes,pro_dislikes) VALUES ('Mellicent','05/12/2007','Female','Netted rock dragon','Ciyu','Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis.','Persistent clear-thinking customer loyalty','Cross-group executive projection');
+INSERT INTO profiles(pro_name,pro_birthday,pro_gender,pro_breed,pro_location,pro_aboutme,pro_likes,pro_dislikes, acc_id) VALUES ('Nickolai','08/13/2013','Male','Bontebok','Las Breñas','Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor. Duis mattis egestas metus.','Right-sized incremental artificial intelligence','Persistent 4th generation analyzer', 'e21df604-5339-11ea-8d77-2e728ce88125');
+INSERT INTO profiles(pro_name,pro_birthday,pro_gender,pro_breed,pro_location,pro_aboutme,pro_likes,pro_dislikes, acc_id) VALUES ('Mellicent','05/12/2007','Female','Netted rock dragon','Ciyu','Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis.','Persistent clear-thinking customer loyalty','Cross-group executive projection', 'e21df604-5339-11ea-8d77-2e728ce88125');
 INSERT INTO profiles(pro_name,pro_birthday,pro_gender,pro_breed,pro_location,pro_aboutme,pro_likes,pro_dislikes, acc_id) VALUES ('Maje','06/25/2009','Male','Monkey, rhesus','København','Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus.','Persevering human-resource benchmark','Horizontal reciprocal infrastructure', 'cee3a7e6-5339-11ea-8d77-2e728ce88125');
 INSERT INTO profiles(pro_name,pro_birthday,pro_gender,pro_breed,pro_location,pro_aboutme,pro_likes,pro_dislikes) VALUES ('Hussein','05/12/2012','Male','African fish eagle','Guacarí','Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum.','Team-oriented eco-centric complexity','Triple-buffered reciprocal superstructure');
 INSERT INTO profiles(pro_name,pro_birthday,pro_gender,pro_breed,pro_location,pro_aboutme,pro_likes,pro_dislikes) VALUES ('Tommie','08/03/2014','Male','Savannah deer','Kaolack','Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.','Programmable optimizing ability','Front-line content-based workforce');

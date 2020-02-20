@@ -33,6 +33,20 @@ async function getDiscoveryById(req, res) {
 	res.json(await db.getDiscoveryById(req.params.id));
 }
 
+/* Pass the query parameters to the server through a POST request
+because it is easier / neater than using a very long URL and Route. */
+async function getDistinctProfileProperties(req, res) {
+	console.log('Body: ', req.body);
+	console.log('Location: ', req.body.location);
+	console.log('Breed: ', req.body.breed);
+
+	res.json(await db.getDistinctFilterProperties(req.body));
+}
+
+async function getDiscoveryByFilter(req, res) {
+	//Null
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -48,5 +62,15 @@ app.get(
 
 app.get('/api/database/get/profileById/:id', asyncWrap(getProfileById));
 app.get('/api/database/get/discoveryById/:id', asyncWrap(getDiscoveryById));
+app.get(
+	'/api/database/get/distinctFilterProperties',
+	asyncWrap(getDistinctProfileProperties)
+);
+
+app.post(
+	'/api/database/post/discoveryByFilter',
+	express.json(),
+	asyncWrap(getDiscoveryByFilter)
+);
 
 app.listen(8080);

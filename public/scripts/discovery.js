@@ -27,12 +27,36 @@ async function loadProfiles() {
 	numOfResults = profiles.rowCount;
 }
 
+async function loadFilters() {
+	const filters = await getFilters();
+	//filters.location.rows.forEach(createOptions);
+
+	for (option of filters.location.rows) {
+		createOptions('select-location', option.pro_location);
+	}
+	for (option of filters.breed.rows) {
+		createOptions('select-breed', option.pro_breed);
+	}
+	for (option of filters.kennelClubMembership.rows) {
+		console.log(option);
+		createOptions('select-kennelclub', option.membership_type);
+	}
+}
+
+function createOptions(element, value) {
+	console.log(value);
+	const locOption = document.createElement('option');
+	locOption.appendChild(document.createTextNode(value));
+	document.querySelector(`#${element}`).appendChild(locOption);
+}
+
 function createHandlers() {
 	document.querySelector('#resultsNum').textContent = `${numOfResults} Results`;
 }
 
 async function pageLoaded() {
 	await loadProfiles();
+	await loadFilters();
 	createHandlers();
 }
 
