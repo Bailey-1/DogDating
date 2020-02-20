@@ -51,16 +51,15 @@ async function getDistinctFilterProperties(id) {
 	const userGender = await sql.query(q);
 	console.log(userGender.rows[0].pro_gender);
 	let distinctItems = { location: '', breed: '', kennelClubMembership: '' };
-	q = `SELECT DISTINCT pro_location FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}'`;
-	//console.log(q);
+	q = `SELECT DISTINCT pro_location FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}' ORDER BY pro_location`;
 	distinctItems.location = await sql.query(q);
-	q = `SELECT DISTINCT pro_breed FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}'`;
-	//console.log(q);
+
+	q = `SELECT DISTINCT pro_breed FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}' ORDER BY pro_breed`;
 	distinctItems.breed = await sql.query(q);
-	q = `SELECT unnest(enum_range(NULL::kennelclubmembership)) AS "membership_type"`;
-	//console.log(q);
+
+	q = `SELECT unnest(enum_range(NULL::kennelclubmembership)) AS "membership_type" ORDER BY "membership_type"`;
 	distinctItems.kennelClubMembership = await sql.query(q);
-	//console.log(distinctItems);
+
 	return distinctItems;
 }
 
@@ -72,10 +71,14 @@ async function getDiscoveryByFilters(body) {
 	//console.log(q);
 	const userGender = await sql.query(q);
 
-	q = `SELECT * FROM profiles WHERE pro_gender !='${userGender.rows[0].pro_gender}'`;
-	if (body.location != 'all' ? (q = q + ` AND pro_location = '${body.location}'`) : q);
-	if (body.breed != 'all' ? (q = q + ` AND pro_breed = '${body.breed}'`) : q);
-	if (body.kennelclub != 'all' ? (q = q + ` AND pro_location = '${body.kennelclub}'`) : q);
+	q = `SELECT * FROM profiles INNER JOIN accounts ON profiles.acc_id = accounts.acc_id WHERE pro_gender !='${userGender.rows[0].pro_gender}'`;
+	if (body.location != 'all' ? (q = q + ` AND profiles.pro_location = '${body.location}'`) : q);
+	if (body.breed != 'all' ? (q = q + ` AND profiles.pro_breed = '${body.breed}'`) : q);
+	if (
+		body.kennelclub != 'all'
+			? (q = q + ` AND accounts.acc_kennelclubmembership = '${body.kennelclub}'`)
+			: q
+	);
 	console.log(q);
 
 	let result = await sql.query(q);
