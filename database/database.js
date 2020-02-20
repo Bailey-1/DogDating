@@ -64,10 +64,29 @@ async function getDistinctFilterProperties(id) {
 	return distinctItems;
 }
 
+async function getDiscoveryByFilters(body) {
+	//console.table(body);
+	console.table(body);
+
+	let q = `SELECT pro_gender FROM profiles WHERE pro_id = '${body.id}'`;
+	//console.log(q);
+	const userGender = await sql.query(q);
+
+	q = `SELECT * FROM profiles WHERE pro_gender !='${userGender.rows[0].pro_gender}'`;
+	if (body.location != 'all' ? (q = q + ` AND pro_location = '${body.location}'`) : q);
+	if (body.breed != 'all' ? (q = q + ` AND pro_breed = '${body.breed}'`) : q);
+	if (body.kennelclub != 'all' ? (q = q + ` AND pro_location = '${body.kennelclub}'`) : q);
+	console.log(q);
+
+	let result = await sql.query(q);
+	return result;
+}
+
 module.exports = {
 	listProfiles,
 	getProfilesByAccountId,
 	getProfileById,
 	getDiscoveryById,
-	getDistinctFilterProperties
+	getDistinctFilterProperties,
+	getDiscoveryByFilters
 };

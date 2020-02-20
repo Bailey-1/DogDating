@@ -40,7 +40,8 @@ async function getDistinctProfileProperties(req, res) {
 }
 
 async function getDiscoveryByFilter(req, res) {
-	//Null
+	//console.log('Body: ', req.body);
+	res.json(await db.getDiscoveryByFilters(req.body));
 }
 
 // wrap async function for express.js error handling
@@ -51,22 +52,12 @@ function asyncWrap(f) {
 }
 
 app.get('/api/names', asyncWrap(getNames));
-app.get(
-	'/api/database/get/profilesByAccountId/:id',
-	asyncWrap(getProfilesByAccountId)
-);
+app.get('/api/database/get/profilesByAccountId/:id', asyncWrap(getProfilesByAccountId));
 
 app.get('/api/database/get/profileById/:id', asyncWrap(getProfileById));
 app.get('/api/database/get/discoveryById/:id', asyncWrap(getDiscoveryById));
-app.get(
-	'/api/database/get/distinctFilterProperties/:id',
-	asyncWrap(getDistinctProfileProperties)
-);
+app.get('/api/database/get/distinctFilterProperties/:id', asyncWrap(getDistinctProfileProperties));
 
-app.post(
-	'/api/database/post/discoveryByFilter',
-	express.json(),
-	asyncWrap(getDiscoveryByFilter)
-);
+app.post('/api/database/post/discoveryByFilter', express.json(), asyncWrap(getDiscoveryByFilter));
 
 app.listen(8080);

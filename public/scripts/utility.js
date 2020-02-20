@@ -30,38 +30,39 @@ async function getDiscovery() {
 // Returns single object of profile - first to have same ID.
 async function getProfileById(id) {
 	const request = await fetch(`./api/database/get/profileById/${id}`);
-	if (!request.ok)
-		return console.warn(`Could not get /api/database/get/profileById/${id}`);
+	if (!request.ok) return console.warn(`Could not get /api/database/get/profileById/${id}`);
 	const profileObj = await request.json();
 	return profileObj;
 }
 
 async function getProfilesByUserAccount(id) {
 	const request = await fetch(`./api/database/get/profilesByAccountId/${id}`);
-	if (!request.ok)
-		return console.warn(
-			`Could not get /api/database/get/profilesByAccountId/${id}`
-		);
+	if (!request.ok) return console.warn(`Could not get /api/database/get/profilesByAccountId/${id}`);
 	const profileObj = await request.json();
 	return profileObj;
 }
 
 async function getDiscoveryById(id) {
 	const request = await fetch(`./api/database/get/discoveryById/${id}`);
-	if (!request.ok)
-		return console.warn(`Could not get /api/database/get/discoveryById/${id}`);
+	if (!request.ok) return console.warn(`Could not get /api/database/get/discoveryById/${id}`);
 	const profileObj = await request.json();
 	return profileObj;
 }
 
 async function getFilters(id) {
-	const request = await fetch(
-		`./api/database/get/distinctFilterProperties/${id}`
-	);
-	if (!request.ok)
-		return console.warn(
-			`Could not get /api/database/get/distinctFilterProperties`
-		);
+	const request = await fetch(`./api/database/get/distinctFilterProperties/${id}`);
+	if (!request.ok) return console.warn(`Could not get /api/database/get/distinctFilterProperties`);
 	const filterObj = await request.json();
 	return filterObj;
+}
+
+async function getDiscoveryByFilters(filters) {
+	const request = await fetch('/api/database/post/discoveryByFilter', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(filters)
+	});
+	if (!request.ok) return console.warn(`Could not POST /api/database/post/discoveryByFilter`);
+	const profileObj = await request.json();
+	return profileObj;
 }

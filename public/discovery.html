@@ -51,8 +51,11 @@
                     <option value="all">All</option>
                 </select>
             </div>
-            <button>Update</button>
+            <button id="updateProfiles">Update</button>
             <hr>
+            <div id="profiles-area">
+
+            </div>
         </div>
     </body>
     <template id="profile-item">
@@ -60,8 +63,8 @@
             <img src="images/0029338_border-collie-id-dog-tag.jpeg"></img>
             <div class="details">
                 <h2><a id="name" class="profile-name"></a></h2>
-                <h3 id="location">Location:</h3>
-                <h3 id="owner">Owner:</h3>
+                <h3 id="location"></h3>
+                <h3 id="breed"></h3>
                 <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
                 <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
             </div>

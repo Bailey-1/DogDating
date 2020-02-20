@@ -1,5 +1,3 @@
-let numOfResults = 0; //Number of results for the selected profile
-
 function createProfileElement(profile) {
 	console.log('profile: ', profile.pro_gender);
 	const template = document.querySelector('#profile-item');
@@ -13,9 +11,10 @@ function createProfileElement(profile) {
 		12
 	)}`;
 
+	clone.querySelector('#breed').textContent = profile.pro_breed;
 	clone.querySelector('#name').href = `profile#${profile.pro_id}`;
 
-	document.querySelector('#discover-profiles').appendChild(clone);
+	document.querySelector('#profiles-area').appendChild(clone);
 }
 
 async function loadProfiles() {
@@ -23,7 +22,7 @@ async function loadProfiles() {
 	//console.log(currentProfile);
 	const profiles = await getDiscoveryById(currentProfile);
 	profiles.rows.forEach(createProfileElement);
-	numOfResults = profiles.rowCount;
+	document.querySelector('#resultsNum').textContent = `${profiles.rowCount} Results`;
 }
 
 async function loadFilters() {
@@ -56,8 +55,22 @@ function createOptions(element, value) {
 	document.querySelector(`#${element}`).appendChild(locOption);
 }
 
+async function updateProfilesSelection() {
+	let selectedFilters = { id: '', location: '', breed: '', kennelclub: '' };
+	selectedFilters.id = localStorage.getItem('currentProfile').substring(8);
+	selectedFilters.location = document.querySelector('#select-location').value;
+	selectedFilters.breed = document.querySelector('#select-breed').value;
+	selectedFilters.kennelclub = document.querySelector('#select-kennelclub').value;
+	console.log(selectedFilters);
+	const profiles = await getDiscoveryByFilters(selectedFilters);
+	console.log('Profiles ', profiles);
+	removeContentFrom(document.querySelector('#profiles-area'));
+	profiles.rows.forEach(createProfileElement);
+	document.querySelector('#resultsNum').textContent = `${profiles.rowCount} Results`;
+}
+
 function createHandlers() {
-	document.querySelector('#resultsNum').textContent = `${numOfResults} Results`;
+	document.querySelector('#updateProfiles').addEventListener('click', updateProfilesSelection);
 }
 
 async function pageLoaded() {
