@@ -3,9 +3,9 @@ function createProfileElement(profile) {
 	const template = document.querySelector('#profile-item');
 	const clone = document.importNode(template.content, true);
 	clone.querySelector('.dogProfile').id = `profile-${profile.pro_id}`;
-	clone.querySelector('#name').textContent = `(${profile.pro_gender == 'Male' ? 'M' : 'F'}) ${
-		profile.pro_name
-	}, ${getAgeFromDate(profile.pro_birthday)}`;
+	clone.querySelector('#name').textContent = `${profile.pro_name}, ${getAgeFromDate(
+		profile.pro_birthday
+	)}`;
 	clone.querySelector('#location').textContent = profile.pro_location;
 
 	clone.querySelector('#breed').textContent = profile.pro_breed;

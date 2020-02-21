@@ -16,7 +16,8 @@ async function showProfile() {
 	document.querySelector('#likes').textContent = profileObj[0].pro_likes;
 	document.querySelector('#dislikes').textContent = profileObj[0].pro_dislikes;
 	document.querySelector('#birthday').textContent = profileObj[0].pro_birthday;
-	document.querySelector('#aboutme').textContent = profileObj[0].pro_aboutme;
+	document.querySelector('#aboutme').value = '';
+	document.querySelector('#aboutme').value = profileObj[0].pro_aboutme;
 
 	document.title = `Doggy Dating - ${profileObj[0].pro_name}'s Profile`;
 }

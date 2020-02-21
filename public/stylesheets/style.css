@@ -375,3 +375,18 @@ img.icon {
 	width: 10em;
 	border-radius: 1em;
 }
+
+.selectBtn {
+	color: white;
+	border: 0.2em solid white;
+	padding: 0.5em;
+	border-radius: 0.5em;
+	margin: 1em;
+	text-align: center;
+	font-family: 'RobotoRegular';
+}
+
+.selectBtn:hover {
+	color: var(--main-blue);
+	border-color: var(--main-blue);
+}
