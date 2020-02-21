@@ -67,7 +67,9 @@ async function updateProfilesSelection() {
 }
 
 function createHandlers() {
-	document.querySelector('#updateProfiles').addEventListener('click', updateProfilesSelection);
+	document.querySelector('#select-breed').addEventListener('change', updateProfilesSelection);
+	document.querySelector('#select-location').addEventListener('change', updateProfilesSelection);
+	document.querySelector('#select-kennelclub').addEventListener('change', updateProfilesSelection);
 }
 
 async function pageLoaded() {
