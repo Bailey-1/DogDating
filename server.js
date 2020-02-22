@@ -44,6 +44,10 @@ async function getDiscoveryByFilter(req, res) {
 	res.json(await db.getDiscoveryByFilters(req.body));
 }
 
+async function postUpdateProfileByUUID(req, res) {
+	res.json(await db.updateProfileByUUID(req.body));
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -59,5 +63,11 @@ app.get('/api/database/get/discoveryById/:id', asyncWrap(getDiscoveryById));
 app.get('/api/database/get/distinctFilterProperties/:id', asyncWrap(getDistinctProfileProperties));
 
 app.post('/api/database/post/discoveryByFilter', express.json(), asyncWrap(getDiscoveryByFilter));
+
+app.post(
+	'/api/database/post/updateProfileByUUID',
+	express.json(),
+	asyncWrap(postUpdateProfileByUUID)
+);
 
 app.listen(8080);

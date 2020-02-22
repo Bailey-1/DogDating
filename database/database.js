@@ -85,11 +85,37 @@ async function getDiscoveryByFilters(body) {
 	return result;
 }
 
+async function updateProfileByUUID(body) {
+	console.log('Body: ', body);
+	let result = await sql.query(
+		`UPDATE profiles SET pro_name = $2, 
+		pro_breed = $3, 
+		pro_location = $4, 
+		pro_likes = $5, 
+		pro_dislikes = $6, 
+		pro_birthday = $7, 
+		pro_aboutme = $8
+		WHERE pro_id = $1`,
+		[
+			body.id,
+			body.name,
+			body.breed,
+			body.location,
+			body.likes,
+			body.dislikes,
+			body.birthday,
+			body.aboutme
+		]
+	);
+	return result;
+}
+
 module.exports = {
 	listProfiles,
 	getProfilesByAccountId,
 	getProfileById,
 	getDiscoveryById,
 	getDistinctFilterProperties,
-	getDiscoveryByFilters
+	getDiscoveryByFilters,
+	updateProfileByUUID
 };

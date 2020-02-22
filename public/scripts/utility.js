@@ -1,4 +1,6 @@
 // Utility functions
+// Single page to help manage API requests and to reuse them across the site
+
 function removeContentFrom(what) {
 	while (what.firstElementChild) {
 		what.firstElementChild.remove();
@@ -65,4 +67,12 @@ async function getDiscoveryByFilters(filters) {
 	if (!request.ok) return console.warn(`Could not POST /api/database/post/discoveryByFilter`);
 	const profileObj = await request.json();
 	return profileObj;
+}
+
+async function updateProfileByUUID(profile) {
+	const request = await fetch('/api/database/post/updateProfileByUUID', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(profile)
+	});
 }
