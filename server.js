@@ -2,8 +2,17 @@ const db = require('./database/database');
 
 const express = require('express');
 const app = express();
+const multer = require('multer');
 
-const fs = require('fs');
+const uploader = multer({
+	dest: 'upload',
+	limits: {
+		// for security
+		fields: 10,
+		fileSize: 5000 * 5000 * 20, // 20MB
+		files: 1
+	}
+});
 
 app.use(express.json()); //expect json data from client. get data as object
 
@@ -48,6 +57,13 @@ async function postUpdateProfileByUUID(req, res) {
 	res.json(await db.updateProfileByUUID(req.body));
 }
 
+async function uploadImage(req, res) {
+	console.log(req.body.id);
+	console.log(req.file);
+
+	res.json(await db.uploadImageToDatabase(req.body.id, req.file));
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -68,6 +84,13 @@ app.post(
 	'/api/database/post/updateProfileByUUID',
 	express.json(),
 	asyncWrap(postUpdateProfileByUUID)
+);
+
+app.post(
+	'/api/database/post/image',
+	uploader.single('photo'),
+	express.json(),
+	asyncWrap(uploadImage)
 );
 
 app.listen(8080);

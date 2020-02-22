@@ -1,6 +1,11 @@
 'use strict';
 const config = require('./config');
 const Postgres = require('pg').Client;
+const fs = require('fs');
+const util = require('util');
+const path = require('path');
+
+fs.renameAsync = fs.renameAsync || util.promisify(fs.rename);
 
 const sql = new Postgres(config);
 sql.connect();
@@ -110,6 +115,23 @@ async function updateProfileByUUID(body) {
 	return result;
 }
 
+async function uploadImageToDatabase(id, file) {
+	console.log('id', id);
+	console.log('file', file);
+
+	let newFilename;
+
+	if (file) {
+		// we should first check that the file is actually an image
+		// move the file where we want it
+		const fileExt = file.mimetype.split('/')[1] || 'png';
+		newFilename = file.filename + '.' + fileExt;
+		await fs.renameAsync(file.path, path.join('public', 'uploadedImages', newFilename));
+	}
+
+	return '';
+}
+
 module.exports = {
 	listProfiles,
 	getProfilesByAccountId,
@@ -117,5 +139,6 @@ module.exports = {
 	getDiscoveryById,
 	getDistinctFilterProperties,
 	getDiscoveryByFilters,
-	updateProfileByUUID
+	updateProfileByUUID,
+	uploadImageToDatabase
 };

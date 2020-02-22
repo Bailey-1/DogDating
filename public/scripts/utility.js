@@ -75,4 +75,17 @@ async function updateProfileByUUID(profile) {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(profile)
 	});
+	if (!request.ok) return console.warn(`Could not POST /api/database/post/discoveryByFilter`);
+	const response = await request.json();
+	return response;
+}
+
+async function uploadImageToServer(payload) {
+	const request = await fetch('/api/database/post/image', {
+		method: 'POST',
+		body: payload
+	});
+	if (!request.ok) return console.warn(`Could not POST /api/database/post/discoveryByFilter`);
+	const response = await request.json();
+	return response;
 }

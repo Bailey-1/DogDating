@@ -43,8 +43,26 @@ async function updateDetails() {
 	showProfile();
 }
 
+async function uploadImage() {
+	console.log('uploadImage function has been called');
+	const payload = new FormData();
+	const id = localStorage.getItem('currentProfile').substring(8);
+	console.log('id:', id);
+	payload.append('id', id);
+	const imageUpload = document.querySelector('#fileUpload');
+	console.log(imageUpload.files.length);
+
+	if (imageUpload.files.length) {
+		payload.append('photo', imageUpload.files[0]);
+	}
+
+	console.log(payload);
+	const response = await uploadImageToServer(payload);
+}
+
 function addHandlers() {
 	document.querySelector('#updateDetails').addEventListener('click', updateDetails);
+	document.querySelector('#uploadImageButton').addEventListener('click', uploadImage);
 }
 
 async function pageLoaded() {
