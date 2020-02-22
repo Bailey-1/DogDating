@@ -9,7 +9,7 @@ const uploader = multer({
 	limits: {
 		// for security
 		fields: 10,
-		fileSize: 5000 * 5000 * 20, // 20MB
+		fileSize: 5000 * 5000 * 20, // 20MB and 5000px by 5000px
 		files: 1
 	}
 });
@@ -23,12 +23,6 @@ app.use(
 		extensions: ['html']
 	})
 );
-
-//TODO REMOVE
-async function getNames(req, res) {
-	console.log('Get names');
-	res.json(await db.listProfiles());
-}
 
 async function getProfilesByAccountId(req, res) {
 	res.json(await db.getProfilesByAccountId(req.params.id));
@@ -58,9 +52,6 @@ async function postUpdateProfileByUUID(req, res) {
 }
 
 async function uploadImage(req, res) {
-	console.log(req.body.id);
-	console.log(req.file);
-
 	res.json(await db.uploadImageToDatabase(req.body.id, req.file));
 }
 
@@ -71,7 +62,6 @@ function asyncWrap(f) {
 	};
 }
 
-app.get('/api/names', asyncWrap(getNames));
 app.get('/api/database/get/profilesByAccountId/:id', asyncWrap(getProfilesByAccountId));
 
 app.get('/api/database/get/profileById/:id', asyncWrap(getProfileById));

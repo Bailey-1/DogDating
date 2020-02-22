@@ -15,12 +15,6 @@ sql.on('error', err => {
 	sql.end();
 });
 
-async function listProfiles() {
-	const q = 'SELECT * FROM profiles;';
-	const result = await sql.query(q);
-	return result.rows;
-}
-
 async function getProfilesByAccountId(id) {
 	console.log('id: ', id);
 	const q = `SELECT * FROM profiles WHERE acc_id = '${id}';`;
@@ -121,19 +115,24 @@ async function uploadImageToDatabase(id, file) {
 
 	let newFilename;
 
+	console.log('Minetype ', file.mimetype);
+
 	if (file) {
 		// we should first check that the file is actually an image
 		// move the file where we want it
+		//TODO deal with this.
 		const fileExt = file.mimetype.split('/')[1] || 'png';
+		console.log('FileExt', fileExt);
 		newFilename = file.filename + '.' + fileExt;
 		await fs.renameAsync(file.path, path.join('public', 'uploadedImages', newFilename));
+	} else {
+		return 'Upload failed';
 	}
 
-	return '';
+	return 'Upload Complete';
 }
 
 module.exports = {
-	listProfiles,
 	getProfilesByAccountId,
 	getProfileById,
 	getDiscoveryById,
