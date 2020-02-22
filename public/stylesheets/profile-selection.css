@@ -1,19 +1,4 @@
-.selectBtn {
-	color: white;
-	border: 0.2em solid white;
-	padding: 0.5em;
-	border-radius: 0.5em;
-	margin: 1em;
-	text-align: center;
-	font-family: 'RobotoRegular';
-}
-
 .selectedBtn {
-	color: var(--main-blue);
-	border-color: var(--main-blue);
-}
-
-.selectBtn:hover {
 	color: var(--main-blue);
 	border-color: var(--main-blue);
 }

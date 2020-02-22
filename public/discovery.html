@@ -9,7 +9,8 @@
         <link rel="stylesheet" href="./stylesheets/style.css"/>
         <link rel="stylesheet" href="./stylesheets/discovery.css"/>
 		<!-- Scripts -->
-		<script src="./scripts/discovery.js"></script>
+        <script src="./scripts/discovery.js"></script>
+        <script src="./scripts/utility.js"></script>
 	</head>
 	<body>
 		<div class="navbar">
@@ -18,7 +19,7 @@
 			></div>
 			<ul>
 				<li style="border-right: 0px;"><a href="#">Settings</a></li>
-				<li><a href="login">Log Out</a></li>
+				<li><a href="">Log Out</a></li>
 				<li><a href="profile-selection">Change Profile</a></li>
 				<li><a href="my-profile"> My Profile</a></li>
 				<li>
@@ -31,46 +32,28 @@
 		</div>
 		<div id="discover-profiles" class="profiles">
             <h1 style="margin: 0.2em" id="welcomeName">Find Partners!</h1>
-            <p style="color: white;">Type: <select>
-                <option value="all">All</option>
-                <option value="b1">Breed 1</option>
-                <option value="b2">Breed 2</option>
-                <option value="b3">Breed 3</option>
-              </select>
-            </p>
-            <p style="color: white;">Location: <select>
-                <option value="all">All</option>
-                <option value="l1">Fareham</option>
-                <option value="l2">Portsmouth</option>
-                <option value="l3">Southampton</option>
-              </select>
-            </p style="color: white;">
-            <p style="color: white;">Gender: <select>
-                <option value="all">All</option>
-                <option value="g1">Male</option>
-                <option value="g2">Female</option>
-              </select>
-            </p style="color: white;">
-            <hr>
-			<div class="dogProfile">
-                <img src="images/0029338_border-collie-id-dog-tag.jpeg"></img>
-                <div class="details">
-                    <h2 id="name" class="profile-name"><a href="profile#1">Buster, 8</a></h2>
-                    <h3 id="profile-location">Location:</h3>
-                    <h3 id="profile-owner">Owner:</h3>
-                    <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
-                    <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
-                </div>
+            <h2 style="color: white;" id="resultsNum"></h2>
+            <div>
+                <p style="color: white; display: inline-block;" id="location-tag">Location: </p>
+                <select style="display: inline-block;" id="select-location">
+                    <option value="all">All</option>
+                </select>
             </div>
-            <div class="dogProfile">
-                <img src="images/0029338_border-collie-id-dog-tag.jpeg"></img>
-                <div class="details">
-                    <h2 id="name" class="profile-name">Buster, 8</h2>
-                    <h3 id="profile-location">Location:</h3>
-                    <h3 id="profile-owner">Owner:</h3>
-                    <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
-                    <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
-                </div>
+            <div>
+                <p style="color: white; display: inline-block;" id="breed-tag">Breed:</p>
+                <select style="display: inline-block;" id="select-breed">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div>
+                <p style="color: white; display: inline-block;" id="kennelclub-tag">Kennel Club Membership: </p>
+                <select style="display: inline-block;" id="select-kennelclub">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <hr>
+            <div id="profiles-area">
+
             </div>
         </div>
     </body>
@@ -78,9 +61,9 @@
         <div class="dogProfile">
             <img src="images/0029338_border-collie-id-dog-tag.jpeg"></img>
             <div class="details">
-                <h2 id="name" class="profile-name">Buster, 8</h2>
-                <h3 id="profile-location">Location:</h3>
-                <h3 id="profile-owner">Owner:</h3>
+                <h2><a id="name" class="profile-name"></a></h2>
+                <h3 id="location"></h3>
+                <h3 id="breed"></h3>
                 <div style="float: left"><img class="option" src="svg/icons8-checkmark 120.svg"/></div>
                 <div style="float: right"><img class="option" src="svg/icons8-delete.svg"/></div>
             </div>

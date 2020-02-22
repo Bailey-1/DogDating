@@ -5,6 +5,16 @@
 	--main-dark-blue: #191c20;
 }
 
+a {
+	text-decoration: none;
+	color: white;
+}
+
+a:hover {
+	text-decoration: underline;
+	text-underline-offset: 0.4em;
+}
+
 /* Custom fonts from local files */
 @font-face {
 	font-family: 'RobotoLight';
@@ -364,4 +374,19 @@ img.icon {
 	height: 10em;
 	width: 10em;
 	border-radius: 1em;
+}
+
+.selectBtn {
+	color: white;
+	border: 0.2em solid white;
+	padding: 0.5em;
+	border-radius: 0.5em;
+	margin: 1em;
+	text-align: center;
+	font-family: 'RobotoRegular';
+}
+
+.selectBtn:hover {
+	color: var(--main-blue);
+	border-color: var(--main-blue);
 }

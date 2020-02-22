@@ -1,0 +1,4 @@
+{
+	"database": "doggydating",
+	"statement_timeout": 5000
+}

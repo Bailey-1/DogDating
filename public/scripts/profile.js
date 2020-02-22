@@ -3,31 +3,22 @@ function getProfile() {
 	return window.location.hash.substring(1);
 }
 
-// Request specific profile from the server
-async function getProfileById(id) {
-	const request = await fetch(`./api/get/profile/${id}`);
-	if (!request.ok) return console.warn(`Could not get /api/get/profile/${id}`);
-	if (!request.status == 200) return console.warn(`Request Status: ${request}`);
-	console.log(request);
-	const profileObj = await request.json();
-	return profileObj;
-}
-
 // Fill out the page with the details
 async function showProfile() {
 	const profileID = getProfile();
 	const profileObj = await getProfileById(profileID);
-	console.log(profileObj);
-	document.querySelector('#name').textContent = profileObj.name;
-	document.querySelector('#aboutme').textContent =
-		profileObj.profileDetails.aboutMe;
-	document.querySelector('#breed').textContent = profileObj.breed;
-	document.querySelector('#location').textContent = profileObj.location;
-	document.querySelector('#likes').textContent =
-		profileObj.profileDetails.likes;
-	document.querySelector('#dislikes').textContent =
-		profileObj.profileDetails.dislikes;
-	document.querySelector('#birthday').textContent = profileObj.birthday;
+	console.log(profileObj[0]);
+	document.querySelector('#name').textContent = `${profileObj[0].pro_name}, ${getAgeFromDate(
+		profileObj[0].pro_birthday
+	)}`;
+	document.querySelector('#breed').textContent = profileObj[0].pro_breed;
+	document.querySelector('#location').textContent = profileObj[0].pro_location;
+	document.querySelector('#likes').textContent = profileObj[0].pro_likes;
+	document.querySelector('#dislikes').textContent = profileObj[0].pro_dislikes;
+	document.querySelector('#birthday').textContent = profileObj[0].pro_birthday;
+	document.querySelector('#aboutme').textContent = profileObj[0].pro_aboutme;
+
+	document.title = `Doggy Dating - ${profileObj[0].pro_name}'s Profile`;
 }
 
 // Deal with setup of page
