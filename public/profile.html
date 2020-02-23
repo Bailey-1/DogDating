@@ -81,15 +81,22 @@
 					></iframe>
 				</div>
 			</div>
-			<div class="ownerDetail">
-				<h2>Owner's Details:</h2>
-				<div><p1>Name:</p1> <p2>firstName lastName</p2></div>
-				<div><p1>Username:</p1> <p2>username</p2></div>
-				<div><p1>Phone Number:</p1> <p2>099827382</p2></div>
-				<div><p1>Email:</p1> <p2>email@email.com</p2></div>
-				<div><p1>Address:</p1> <p2>29 street, city, portmouth</p2></div>
-				<div><p1>Address:</p1> <p2>29 street, city, portmouth</p2></div>
+			<div id="userImageArea" class="userImageArea">
+				<h1>User Images:</h1>
+				<hr />
+				<div id="images" class="images"></div>
 			</div>
 		</div>
 	</body>
+	<template id="profileImageTemplate">
+		<div class="imageDiv">
+			<img
+				id="userImage"
+				class="userImage"
+				src="./uploadedImages/b26a113d-c065-4fa6-8dc4-c34664f32745.jpeg"
+				alt=""
+			/>
+			<h2 id="imageDesc">Hello World</h2>
+		</div>
+	</template>
 </html>

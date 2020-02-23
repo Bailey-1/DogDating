@@ -21,9 +21,28 @@ async function showProfile() {
 	document.title = `Doggy Dating - ${profileObj[0].pro_name}'s Profile`;
 }
 
+async function showProfileImages() {
+	removeContentFrom(document.querySelector('#images'));
+	const id = getProfile();
+	const imageObj = await getImagesById(id);
+	console.log(imageObj.rows);
+	imageObj.rows.forEach(createImageElement);
+}
+
+function createImageElement(imageObj) {
+	const template = document.querySelector('#profileImageTemplate');
+	const clone = document.importNode(template.content, true);
+	clone.querySelector('#userImage').src = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
+
+	clone.querySelector('#imageDesc').textContent = imageObj.img_desc;
+
+	document.querySelector('#images').prepend(clone);
+}
+
 // Deal with setup of page
-function pageLoaded() {
-	showProfile();
+async function pageLoaded() {
+	await showProfile();
+	await showProfileImages();
 }
 
 // Entry
