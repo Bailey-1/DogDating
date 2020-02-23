@@ -85,7 +85,14 @@ async function uploadImageToServer(payload) {
 		method: 'POST',
 		body: payload
 	});
-	if (!request.ok) return console.warn(`Could not POST /api/database/post/discoveryByFilter`);
+	if (!request.ok) return console.warn(`Could not POST /api/database/post/image`);
+	const response = await request.json();
+	return response;
+}
+
+async function getImagesById(id) {
+	const request = await fetch(`./api/database/get/imagesFromId/${id}`);
+	if (!request.ok) return console.warn(`Could not GET /api/database/post/imagesFromId`);
 	const response = await request.json();
 	return response;
 }

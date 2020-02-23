@@ -112,7 +112,7 @@ div.navbar ul li a.selected {
 	}
 }
 
-/* index.html results page*/
+/* discovery.html results page*/
 div.profiles {
 	margin: 1em;
 	padding: 1em;
@@ -254,116 +254,6 @@ div.ownerDetail div p2 {
 	font-family: 'RobotoLight';
 	font-size: 1.3em;
 	color: white;
-}
-
-/* login.html CSS*/
-div.userLogin {
-	height: 50vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-div.userInput {
-	animation: fadeInInput 3s;
-	animation-timing-function: ease-out;
-	position: relative;
-
-	float: right;
-	background-color: var(--main-dark-blue);
-	border-radius: 1em;
-	padding: 1em;
-	margin: 1em 1em 1em 0em;
-	color: white;
-	float: right;
-	height: 100%;
-}
-
-div.loginText {
-	text-align: center;
-	color: var(--main-blue);
-	font-size: 2.5em;
-	font-family: 'RobotoRegular';
-}
-
-.inputStyle {
-	background: var(--main-dark-blue);
-	border: none;
-	color: white;
-	font-size: 1.5em;
-	font-family: 'RobotoLight';
-}
-
-div.inputGroup {
-	border: 0.1em white solid;
-	border-radius: 1em;
-	margin: 1em;
-	padding: 1em;
-	display: flex;
-}
-
-div.loginImage {
-	animation: fadeInImage 3s;
-	animation-timing-function: ease-out;
-	position: relative;
-
-	float: left;
-	background-color: var(--main-dark-blue);
-	border-radius: 1em;
-	padding: 1em;
-	margin: 1em;
-}
-
-div.loginImage img {
-	width: 300px;
-	height: 300px;
-	border-radius: 10em;
-	object-fit: cover;
-}
-
-div.centredDisplay {
-	padding: 1em;
-	position: absolute;
-}
-
-div.buttonGroup {
-	display: flex;
-	text-align: right;
-	float: right;
-}
-
-.buttonText {
-	color: white;
-	font-size: 1.2em;
-	font-family: 'RobotoLight';
-	border-radius: 1em;
-	margin-right: 1em;
-	padding: 0.5em;
-}
-
-.buttonText:hover {
-	text-decoration-line: underline;
-}
-
-.buttonStyleLogin {
-	color: white;
-	border: 0.1em solid white;
-	background-color: var(--main-blue);
-}
-
-.buttonStyleSignUp {
-	color: var(--main-blue);
-}
-
-.buttonStyleHelp {
-	color: grey;
-}
-
-img.icon {
-	padding: 0em 1em 0em 0em;
-	color: var(--main-blue);
-	width: 3em;
-	height: 3em;
 }
 
 /* Profile selection */

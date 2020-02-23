@@ -4,6 +4,7 @@ const Postgres = require('pg').Client;
 const fs = require('fs');
 const util = require('util');
 const path = require('path');
+const uuid = require('uuid-random');
 
 fs.renameAsync = fs.renameAsync || util.promisify(fs.rename);
 
@@ -113,23 +114,42 @@ async function uploadImageToDatabase(id, file) {
 	console.log('id', id);
 	console.log('file', file);
 
-	let newFilename;
+	let newFilename, result;
 
 	console.log('Minetype ', file.mimetype);
 
 	if (file) {
+		const img_id = uuid();
 		// we should first check that the file is actually an image
 		// move the file where we want it
 		//TODO deal with this.
 		const fileExt = file.mimetype.split('/')[1] || 'png';
 		console.log('FileExt', fileExt);
-		newFilename = file.filename + '.' + fileExt;
+		console.log('File Name: ', file.filename);
+		newFilename = img_id + '.' + fileExt;
 		await fs.renameAsync(file.path, path.join('public', 'uploadedImages', newFilename));
+
+		console.log(img_id);
+		result = await sql.query(
+			`INSERT INTO images (img_id ,img_desc, pro_id, img_ext)
+		VALUES ($1, $2, $3, $4)`,
+			[img_id, 'Hello world', id, fileExt]
+		);
 	} else {
 		return 'Upload failed';
 	}
 
-	return 'Upload Complete';
+	console.log(result);
+
+	return result;
+}
+
+// Get all of a profiles images using the profile ID
+async function getImagesFromId(id) {
+	console.log('Get Images from ID');
+	const result = await sql.query('SELECT * FROM images WHERE pro_id = $1', [id]);
+
+	return result;
 }
 
 module.exports = {
@@ -139,5 +159,6 @@ module.exports = {
 	getDistinctFilterProperties,
 	getDiscoveryByFilters,
 	updateProfileByUUID,
-	uploadImageToDatabase
+	uploadImageToDatabase,
+	getImagesFromId
 };

@@ -20,11 +20,13 @@ CREATE TABLE IF NOT EXISTS profiles (
   pro_likes TEXT,
   pro_dislikes TEXT,
   acc_id uuid REFERENCES accounts(acc_id)
-);
+);  
 CREATE TABLE IF NOT EXISTS images (
   img_id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+  img_ext TEXT,
   img_desc TEXT,
-  pro_id uuid REFERENCES profiles(pro_id),
+  img_time timestamp DEFAULT now(),
+  pro_id uuid REFERENCES profiles(pro_id)
 );
 INSERT INTO accounts (acc_id, acc_name, acc_kennelClubMembership)
 VALUES

@@ -55,6 +55,10 @@ async function uploadImage(req, res) {
 	res.json(await db.uploadImageToDatabase(req.body.id, req.file));
 }
 
+async function getImagesFromId(req, res) {
+	res.json(await db.getImagesFromId(req.params.id));
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -82,5 +86,7 @@ app.post(
 	express.json(),
 	asyncWrap(uploadImage)
 );
+
+app.get('/api/database/get/imagesFromId/:id', asyncWrap(getImagesFromId));
 
 app.listen(8080);

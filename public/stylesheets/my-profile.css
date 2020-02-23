@@ -1,0 +1,27 @@
+div.userImageArea {
+	margin: 1em;
+}
+
+div.imageDiv {
+	padding: 1em;
+	background-color: var(--main-dark-blue);
+	border-radius: 1em;
+	margin: 1em;
+	display: inline-block;
+}
+
+div.images {
+	text-align: center;
+}
+
+img.userImage {
+	width: 20em;
+	height: 20em;
+	border-radius: 1em;
+	object-fit: cover;
+}
+
+div.imageDiv h2 {
+	color: red;
+	font-family: 'RobotoThin';
+}

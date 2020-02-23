@@ -58,6 +58,25 @@ async function uploadImage() {
 
 	console.log(payload);
 	const response = await uploadImageToServer(payload);
+	showProfileImages();
+}
+
+async function showProfileImages() {
+	removeContentFrom(document.querySelector('#images'));
+	const id = localStorage.getItem('currentProfile').substring(8);
+	const imageObj = await getImagesById(id);
+	console.log(imageObj.rows);
+	imageObj.rows.forEach(createImageElement);
+}
+
+function createImageElement(imageObj) {
+	const template = document.querySelector('#profileImageTemplate');
+	const clone = document.importNode(template.content, true);
+	clone.querySelector('#userImage').src = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
+
+	clone.querySelector('#imageDesc').textContent = imageObj.img_desc;
+
+	document.querySelector('#images').prepend(clone);
 }
 
 function addHandlers() {
@@ -68,6 +87,7 @@ function addHandlers() {
 async function pageLoaded() {
 	await showProfile();
 	addHandlers();
+	await showProfileImages();
 }
 
 window.addEventListener('load', pageLoaded);
