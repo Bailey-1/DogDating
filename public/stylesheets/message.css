@@ -1,0 +1,37 @@
+table.messageTable {
+	width: 95vw;
+	font-size: 2em;
+	border-radius: 1em;
+}
+
+td.nameColumn {
+	width: 20%;
+}
+
+td.messageColumn {
+	width: 80%;
+}
+
+tr.sent {
+	background-color: lightblue;
+	font-family: 'RobotoThin';
+}
+
+tr.recieved {
+	background-color: grey;
+	font-family: 'RobotoRegular';
+}
+
+td.textColumn textarea {
+	width: 90%;
+	height: 5em;
+	font-size: 0.75em;
+	padding: 0.5em;
+	font-family: 'RobotoLight';
+}
+
+button.sendButton {
+	margin: 1em;
+	padding: 1em;
+	width: 5em;
+}

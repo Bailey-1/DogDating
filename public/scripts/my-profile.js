@@ -73,8 +73,8 @@ function createImageElement(imageObj) {
 	const template = document.querySelector('#profileImageTemplate');
 	const clone = document.importNode(template.content, true);
 	clone.querySelector('#userImage').src = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
-
 	clone.querySelector('#imageDesc').textContent = imageObj.img_desc;
+	clone.querySelector('#userImage').title = `Uploaded at: ${imageObj.img_time}`;
 
 	document.querySelector('#images').prepend(clone);
 }
