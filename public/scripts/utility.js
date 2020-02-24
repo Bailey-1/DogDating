@@ -37,6 +37,13 @@ async function getProfileById(id) {
 	return profileObj;
 }
 
+async function getAccountById(id) {
+	const request = await fetch(`./api/database/get/accountById/${id}`);
+	if (!request.ok) return console.warn(`Could not get /api/database/get/accountById/${id}`);
+	const accountObj = await request.json();
+	return accountObj;
+}
+
 async function getProfilesByUserAccount(id) {
 	const request = await fetch(`./api/database/get/profilesByAccountId/${id}`);
 	if (!request.ok) return console.warn(`Could not get /api/database/get/profilesByAccountId/${id}`);

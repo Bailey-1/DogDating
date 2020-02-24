@@ -32,6 +32,10 @@ async function getProfileById(req, res) {
 	res.json(await db.getProfileById(req.params.id));
 }
 
+async function getAccountById(req, res) {
+	res.json(await db.getAccountById(req.params.id));
+}
+
 async function getDiscoveryById(req, res) {
 	res.json(await db.getDiscoveryById(req.params.id));
 }
@@ -79,6 +83,7 @@ function asyncWrap(f) {
 }
 
 app.get('/api/database/get/profilesByAccountId/:id', asyncWrap(getProfilesByAccountId));
+app.get('/api/database/get/accountById/:id', asyncWrap(getAccountById));
 
 app.get('/api/database/get/profileById/:id', asyncWrap(getProfileById));
 app.get('/api/database/get/discoveryById/:id', asyncWrap(getDiscoveryById));

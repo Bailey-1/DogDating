@@ -45,7 +45,7 @@ function createTableRows(message, tempId, name) {
 
 	clone.querySelector('tr').id = `msg-${message.msg_id}`;
 
-	clone.querySelector('#name').textContent = name;
+	clone.querySelector('#name').textContent = `${name}:`;
 	clone.querySelector('#message').textContent = message.msg_content;
 	clone.querySelector('#time').textContent = `Time: ${message.msg_time.substring(
 		11,
@@ -54,7 +54,8 @@ function createTableRows(message, tempId, name) {
 	document.querySelector('#chatTable').appendChild(clone);
 }
 
-async function getMessageProperties() {
+// Get message properties to be sent to the server as a new message
+async function sendMessageProperties() {
 	const message = { sender: '', reciever: '', content: '' };
 	message.reciever = window.location.hash.substring(1);
 	message.sender = localStorage.getItem('currentProfile').substring(8);
@@ -65,6 +66,7 @@ async function getMessageProperties() {
 	console.log('newmessage: ', newMessage);
 
 	createTableRows(newMessage, '#sentMessage', currentProfile.pro_name);
+	document.querySelector('#messageBox').value = '';
 }
 
 async function mainLoop() {
@@ -83,15 +85,23 @@ async function mainLoop() {
 	}
 }
 
+function checkKeys(e) {
+	if (e.key == 'Enter') {
+		sendMessageProperties();
+	}
+}
+
 // Deal with setup of page
 async function pageLoaded() {
-	showMessages();
-	addEventHandlers();
+	await showMessages();
+	addEventListeners();
+	document.querySelector('#messageTitle').textContent = `Message ${recieverProfile.pro_name}`;
 	setInterval(mainLoop, 5000);
 }
 
-function addEventHandlers() {
-	document.querySelector('#sendButton').addEventListener('click', getMessageProperties);
+function addEventListeners() {
+	document.querySelector('#sendButton').addEventListener('click', sendMessageProperties);
+	document.querySelector('#messageBox').addEventListener('keyup', checkKeys);
 }
 
 // Entry

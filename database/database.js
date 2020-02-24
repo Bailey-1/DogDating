@@ -31,6 +31,13 @@ async function getProfileById(id) {
 	const result = await sql.query(q);
 	return result.rows;
 }
+async function getAccountById(id) {
+	console.log('pro_id: ', id);
+	const q = `SELECT * FROM accounts WHERE acc_id = '${id}';`;
+	console.log(q);
+	const result = await sql.query(q);
+	return result.rows;
+}
 
 async function getDiscoveryById(id) {
 	let q = `SELECT pro_gender FROM profiles WHERE pro_id = '${id}'`;
@@ -183,6 +190,7 @@ async function sendMessage(payload) {
 module.exports = {
 	getProfilesByAccountId,
 	getProfileById,
+	getAccountById,
 	getDiscoveryById,
 	getDistinctFilterProperties,
 	getDiscoveryByFilters,
