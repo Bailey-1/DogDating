@@ -136,3 +136,26 @@ async function getMessage(id) {
 	const result = await request.json();
 	return result.rows[0];
 }
+
+async function setProfilePic(body) {
+	const request = await fetch('/api/database/post/setProfilePic', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(body)
+	});
+	if (!request.ok) return console.warn(`Could not POST /api/database/post/getMessages`);
+	const result = await request.json();
+	return result;
+}
+
+async function getProfilePicById(id) {
+	const request = await fetch(`./api/database/get/getProfilePic/${id}`);
+	if (!request.ok) return console.warn(`Could not get /api/database/get/getProfilePic`);
+	const result = await request.json();
+
+	if (result.rowCount == 0) {
+		return false;
+	} else {
+		return result.rows[0];
+	}
+}

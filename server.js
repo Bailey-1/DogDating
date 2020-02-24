@@ -75,6 +75,13 @@ async function sendMessage(req, res) {
 	res.json(await db.sendMessage(req.body));
 }
 
+async function setProfilePic(req, res) {
+	res.json(await db.setProfilePic(req.body));
+}
+
+async function getProfilePicById(req, res) {
+	res.json(await db.getProfilePic(req.params.id));
+}
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -109,5 +116,9 @@ app.get('/api/database/get/imagesFromId/:id', asyncWrap(getImagesFromId));
 app.post('/api/database/post/getMessages', express.json(), asyncWrap(getMessages));
 app.get('/api/database/get/getMessage/:id', asyncWrap(getMessage));
 app.post('/api/database/post/sendMessage', express.json(), asyncWrap(sendMessage));
+
+app.post('/api/database/post/setProfilePic', express.json(), asyncWrap(setProfilePic));
+
+app.get('/api/database/get/getProfilePic/:id', asyncWrap(getProfilePicById));
 
 app.listen(8080);

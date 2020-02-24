@@ -23,9 +23,6 @@ function selectedProfile() {
 	console.log(event);
 	const selectedId = event.srcElement.parentElement.parentElement.id;
 
-	//This line is haunted idk y
-	//document.location.hash = selectedId;
-
 	console.log('Selected ID: ', selectedId);
 
 	const items = document.querySelectorAll('.selectBtn');

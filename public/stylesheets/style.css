@@ -178,11 +178,6 @@ div.dogProfile div img.option:hover {
 	filter: brightness(0) invert(100%);
 }
 
-/* Footer CCS*/
-div.footer {
-	background-color: var(--main-dark-blue);
-}
-
 /* profile.html CCS*/
 div.profile {
 	margin: 1em;
@@ -196,7 +191,8 @@ div.profile div.profilePicture {
 }
 
 div.profile div.profilePicture div img {
-	width: 300px;
+	width: 18em;
+	height: 18em;
 	padding: 1em;
 	object-fit: cover;
 	display: block;

@@ -2,6 +2,8 @@
 
 A dog dating website.
 
+> NOTE: FOR BETTER PERFORMANCE ENABLE THE CACHE OR YOU WILL DOWNLOAD THE FONTS EACH TIME WHICH SLOWS IT DOWN A NOTICABLE AMOUNT.
+
 # Features
 
 - User can "Discover" other profiles and filter then accordingly.
@@ -18,7 +20,7 @@ A dog dating website.
    > npm run setup
 4. Run the following command to start the web server:
    > npm run start
-5. Open a browser and either go to
+5. Open a browser and either go to localhost or the IP from another machine.
    > localhost:8080
 
 # TODO
@@ -29,12 +31,12 @@ A dog dating website.
   - See profiles who you have had a conversation with.
   - See "recommended" profiles from the discovery page.
 - Profile:
-  - Change profile picture
+  - ~~Change profile picture~~
   - Upload message with user uploaded images.
   - Allow user to delete specific images.
   - Allow users to leave a review and a star rating to rate previous interactions.
 - Messaging:
-  - Get simple messaging working.
+  - ~~Get simple messaging working.~~
   - Share images?
 - Profile Selection:
   - Allow the user to create a new profile directly from the profile-selection page.

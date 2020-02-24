@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS images (
   img_ext TEXT,
   img_desc TEXT,
   img_time timestamp DEFAULT now(),
+  img_profilePic bool DEFAULT false,
   pro_id uuid REFERENCES profiles(pro_id)
 );
 

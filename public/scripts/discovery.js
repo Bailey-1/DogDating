@@ -1,4 +1,4 @@
-function createProfileElement(profile) {
+async function createProfileElement(profile) {
 	console.log('profile: ', profile.pro_gender);
 	const template = document.querySelector('#profile-item');
 	const clone = document.importNode(template.content, true);
@@ -11,6 +11,17 @@ function createProfileElement(profile) {
 	clone.querySelector('#breed').textContent = profile.pro_breed;
 	clone.querySelector('#name').href = `profile#${profile.pro_id}`;
 	clone.querySelector('#messageBtn').href = `message#${profile.pro_id}`;
+
+	const imageObj = await getProfilePicById(profile.pro_id);
+	console.log(imageObj);
+	let profilePicSrc;
+	if (imageObj == false) {
+		profilePicSrc = `./images/user.png`;
+	} else {
+		profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
+	}
+	clone.querySelector('#profilePicElement').src = profilePicSrc;
+
 	document.querySelector('#profiles-area').appendChild(clone);
 }
 

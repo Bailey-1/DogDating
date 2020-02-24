@@ -187,6 +187,25 @@ async function sendMessage(payload) {
 	return msg_id;
 }
 
+// Set profile's profile picture and set everything else to be false
+async function setProfilePic(body) {
+	let result = await sql.query(`UPDATE images SET img_profilepic = False WHERE pro_id = $1;`, [
+		body.pro_id
+	]);
+
+	result = await sql.query(`UPDATE images SET img_profilepic = True WHERE img_id = $1;`, [
+		body.img_id
+	]);
+	return result;
+}
+
+async function getProfilePic(pro_id) {
+	let result = await sql.query('SELECT * FROM images WHERE pro_id = $1 AND img_profilepic = True', [
+		pro_id
+	]);
+	return result;
+}
+
 module.exports = {
 	getProfilesByAccountId,
 	getProfileById,
@@ -199,5 +218,7 @@ module.exports = {
 	getImagesFromId,
 	getMessages,
 	getMessage,
-	sendMessage
+	sendMessage,
+	setProfilePic,
+	getProfilePic
 };

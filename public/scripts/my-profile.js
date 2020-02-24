@@ -1,5 +1,6 @@
+let currentProfile = localStorage.getItem('currentProfile').substring(8);
+
 async function showProfile() {
-	const currentProfile = localStorage.getItem('currentProfile').substring(8);
 	const userProfile = await getProfileById(currentProfile);
 	console.log(userProfile[0]);
 
@@ -15,6 +16,20 @@ async function showProfile() {
 	document.querySelector('#aboutme').value = userProfile[0].pro_aboutme;
 
 	document.title = `Doggy Dating - ${userProfile[0].pro_name}'s Profile`;
+
+	await showProfilePic();
+}
+
+async function showProfilePic() {
+	const imageObj = await getProfilePicById(currentProfile);
+	console.log(imageObj);
+	let profilePicSrc;
+	if (imageObj == false) {
+		profilePicSrc = `./images/user.png`;
+	} else {
+		profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
+	}
+	document.querySelector('#profilePicElement').src = profilePicSrc;
 }
 
 async function updateDetails() {
@@ -67,11 +82,15 @@ async function showProfileImages() {
 	const imageObj = await getImagesById(id);
 	console.log(imageObj.rows);
 	imageObj.rows.forEach(createImageElement);
+
+	// Call addEventListeners again to add the click event to any new images without having to refresh the page
+	addEventListeners();
 }
 
 function createImageElement(imageObj) {
 	const template = document.querySelector('#profileImageTemplate');
 	const clone = document.importNode(template.content, true);
+	clone.querySelector('div.imageDiv').id = `img-${imageObj.img_id}`;
 	clone.querySelector('#userImage').src = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
 	clone.querySelector('#imageDesc').textContent = imageObj.img_desc;
 	clone.querySelector('#userImage').title = `Uploaded at: ${imageObj.img_time}`;
@@ -79,15 +98,28 @@ function createImageElement(imageObj) {
 	document.querySelector('#images').prepend(clone);
 }
 
-function addHandlers() {
+async function getProfilePic() {
+	// Cheeky way to get the id of the image for every user uploaded image.
+	const image_id = event.srcElement.parentElement.id.substring(4);
+	console.log(image_id);
+	const obj = { img_id: image_id, pro_id: localStorage.getItem('currentProfile').substring(8) };
+	const result = await setProfilePic(obj);
+	showProfilePic();
+}
+
+function addEventListeners() {
 	document.querySelector('#updateDetails').addEventListener('click', updateDetails);
 	document.querySelector('#uploadImageButton').addEventListener('click', uploadImage);
+	const items = document.querySelectorAll('button.setProfilePic');
+	for (const i of items) {
+		i.addEventListener('click', getProfilePic);
+	}
 }
 
 async function pageLoaded() {
 	await showProfile();
-	addHandlers();
 	await showProfileImages();
+	await addEventListeners();
 }
 
 window.addEventListener('load', pageLoaded);
