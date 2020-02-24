@@ -18,6 +18,17 @@ async function showProfile() {
 	document.querySelector('#birthday').textContent = profileObj[0].pro_birthday;
 	document.querySelector('#aboutme').textContent = profileObj[0].pro_aboutme;
 
+	document.querySelector('#messageBtn').href = `message#${profileObj[0].pro_id}`;
+
+	const imageObj = await getProfilePicById(profileObj[0].pro_id);
+	let profilePicSrc;
+	if (imageObj == false) {
+		profilePicSrc = `./images/user.png`;
+	} else {
+		profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
+	}
+	document.querySelector('#profilePicElement').src = profilePicSrc;
+
 	document.title = `Doggy Dating - ${profileObj[0].pro_name}'s Profile`;
 }
 

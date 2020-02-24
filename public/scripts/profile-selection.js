@@ -1,10 +1,9 @@
 const account = 'cee3a7e6-5339-11ea-8d77-2e728ce88125'; //this would be changed if you could change accounts
-
 // Used to share data between different pages.
 localStorage.setItem('currentAccount', account); //Current User
 
 // Creates each profile element from a template and adds it
-function createProfileElement(profile) {
+async function createProfileElement(profile) {
 	const template = document.querySelector('#profile-item');
 	const clone = document.importNode(template.content, true);
 	clone.querySelector('.dogProfile').id = `profile-${profile.pro_id}`;
@@ -13,6 +12,15 @@ function createProfileElement(profile) {
 	)}`;
 	clone.querySelector('#breed').textContent = profile.pro_breed;
 	clone.querySelector('#birthday').textContent = profile.pro_birthday;
+
+	const imageObj = await getProfilePicById(profile.pro_id);
+	let profilePicSrc;
+	if (imageObj == false) {
+		profilePicSrc = `./images/user.png`;
+	} else {
+		profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
+	}
+	clone.querySelector('#profilePicElement').src = profilePicSrc;
 
 	document.querySelector('#user-profiles').appendChild(clone);
 }
@@ -44,7 +52,10 @@ function selectedProfile() {
 async function showProfiles() {
 	const userId = localStorage.getItem('currentAccount');
 	const profiles = await getProfilesByUserAccount(userId);
-	profiles.forEach(createProfileElement);
+	//profiles.forEach(createProfileElement);
+	for (const profile of profiles) {
+		await createProfileElement(profile);
+	}
 }
 
 // Add event handlers to the page.

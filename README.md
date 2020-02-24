@@ -23,6 +23,10 @@ A dog dating website.
 5. Open a browser and either go to localhost or the IP from another machine.
    > localhost:8080
 
+# Troubleshoot
+
+1. Restart the browser and webserver. I had a issue where the website was very slow and was actually starting to slowdown my computer until I realised firefox was taking up 14GB of memory because I didnt closed the tab in hours.
+
 # TODO
 
 - Across the whole site

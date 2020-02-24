@@ -3,24 +3,28 @@ table.messageTable {
 	font-size: 2em;
 }
 
+tr {
+}
+
 td.nameColumn {
 	width: 20%;
+	font-family: 'RobotoLight';
 }
 
 td.messageColumn {
 	width: 80%;
 	text-align: right;
+	font-family: 'RobotoLight';
+	padding-right: 1em;
 }
 
 tr.sent {
-	background-color: lightblue;
-	font-family: 'RobotoRegular';
-	color: black;
+	background-color: var(--main-dark-blue);
+	color: var(--main-blue);
 }
 
 tr.recieved {
-	background-color: darkred;
-	font-family: 'RobotoRegular';
+	background-color: var(--main-dark-blue);
 	color: white;
 }
 
@@ -30,13 +34,15 @@ tr.sendBox {
 
 tr.sendBox td.nameColumn {
 	color: var(--main-blue);
-	font-family: 'RobotoRegular';
+	font-family: 'RobotoLight';
 }
 
 td.messageInfo {
 	font-size: 0.5em;
 	text-align: right;
-	font-family: 'RobotoRegular';
+	font-family: 'RobotoLight';
+	padding-right: 1em;
+	opacity: 50%;
 }
 
 td.textColumn textarea {
