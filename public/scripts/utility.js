@@ -92,7 +92,40 @@ async function uploadImageToServer(payload) {
 
 async function getImagesById(id) {
 	const request = await fetch(`./api/database/get/imagesFromId/${id}`);
-	if (!request.ok) return console.warn(`Could not GET /api/database/post/imagesFromId`);
+	if (!request.ok) return console.warn(`Could not GET /api/database/post/imagesFromId/${id}`);
 	const response = await request.json();
 	return response;
+}
+
+async function getMessages(to, from) {
+	const payload = { to: '', from: '' };
+	payload.to = to;
+	payload.from = from;
+
+	const request = await fetch('/api/database/post/getMessages', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(payload)
+	});
+	if (!request.ok) return console.warn(`Could not POST /api/database/post/getMessages`);
+	const profileObj = await request.json();
+	return profileObj;
+}
+
+async function sendMessage(message) {
+	const request = await fetch('/api/database/post/sendMessage', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(message)
+	});
+	if (!request.ok) return console.warn(`Could not POST /api/database/post/getMessages`);
+	const profileObj = await request.json();
+	return profileObj;
+}
+
+async function getMessage(id) {
+	const request = await fetch(`./api/database/get/getMessage/${id}`);
+	if (!request.ok) return console.warn(`Could not get /api/database/get/distinctFilterProperties`);
+	const result = await request.json();
+	return result.rows[0];
 }

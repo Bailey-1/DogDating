@@ -59,6 +59,18 @@ async function getImagesFromId(req, res) {
 	res.json(await db.getImagesFromId(req.params.id));
 }
 
+async function getMessages(req, res) {
+	res.json(await db.getMessages(req.body));
+}
+
+async function getMessage(req, res) {
+	res.json(await db.getMessage(req.params.id));
+}
+
+async function sendMessage(req, res) {
+	res.json(await db.sendMessage(req.body));
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -88,5 +100,9 @@ app.post(
 );
 
 app.get('/api/database/get/imagesFromId/:id', asyncWrap(getImagesFromId));
+
+app.post('/api/database/post/getMessages', express.json(), asyncWrap(getMessages));
+app.get('/api/database/get/getMessage/:id', asyncWrap(getMessage));
+app.post('/api/database/post/sendMessage', express.json(), asyncWrap(sendMessage));
 
 app.listen(8080);

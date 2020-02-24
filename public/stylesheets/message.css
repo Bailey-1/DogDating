@@ -1,7 +1,9 @@
 table.messageTable {
 	width: 95vw;
 	font-size: 2em;
-	border-radius: 1em;
+}
+
+td {
 }
 
 td.nameColumn {
@@ -10,19 +12,38 @@ td.nameColumn {
 
 td.messageColumn {
 	width: 80%;
+	text-align: right;
 }
 
 tr.sent {
 	background-color: lightblue;
-	font-family: 'RobotoThin';
+	font-family: 'RobotoRegular';
+	color: black;
 }
 
 tr.recieved {
-	background-color: grey;
+	background-color: darkred;
+	font-family: 'RobotoRegular';
+	color: white;
+}
+
+tr.sendBox {
+	background-color: var(--main-dark-blue);
+}
+
+tr.sendBox td.nameColumn {
+	color: var(--main-blue);
+	font-family: 'RobotoRegular';
+}
+
+td.messageInfo {
+	font-size: 0.5em;
+	text-align: right;
 	font-family: 'RobotoRegular';
 }
 
 td.textColumn textarea {
+	margin: 1em 1em 0em 1em;
 	width: 90%;
 	height: 5em;
 	font-size: 0.75em;

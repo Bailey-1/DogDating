@@ -152,6 +152,34 @@ async function getImagesFromId(id) {
 	return result;
 }
 
+// Simple way to get all messages from a table between two parties.
+async function getMessages(payload) {
+	console.log(payload);
+	// Select all messages between the same sender and reciever.
+	const result = await sql.query(
+		`SELECT * FROM messages WHERE (msg_sender = $1 AND msg_reciever = $2) OR (msg_sender = $2 AND msg_reciever = $1);`,
+		[payload.from, payload.to]
+	);
+	return result;
+}
+
+async function getMessage(id) {
+	const result = await sql.query(`SELECT * FROM messages WHERE msg_id = $1;`, [id]);
+	return result;
+}
+
+async function sendMessage(payload) {
+	console.log(payload);
+	const msg_id = uuid();
+	const result = await sql.query(
+		`INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content) 
+	VALUES ($1, $2, $3, $4)`,
+		[msg_id, payload.sender, payload.reciever, payload.content]
+	);
+
+	return msg_id;
+}
+
 module.exports = {
 	getProfilesByAccountId,
 	getProfileById,
@@ -160,5 +188,8 @@ module.exports = {
 	getDiscoveryByFilters,
 	updateProfileByUUID,
 	uploadImageToDatabase,
-	getImagesFromId
+	getImagesFromId,
+	getMessages,
+	getMessage,
+	sendMessage
 };

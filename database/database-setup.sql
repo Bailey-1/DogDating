@@ -28,6 +28,15 @@ CREATE TABLE IF NOT EXISTS images (
   img_time timestamp DEFAULT now(),
   pro_id uuid REFERENCES profiles(pro_id)
 );
+
+CREATE TABLE IF NOT EXISTS messages (
+  msg_id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+  msg_sender uuid REFERENCES profiles(pro_id),
+  msg_reciever uuid REFERENCES profiles(pro_id),
+  msg_content TEXT,
+  msg_time timestamp DEFAULT now()
+);
+
 INSERT INTO accounts (acc_id, acc_name, acc_kennelClubMembership)
 VALUES
   (

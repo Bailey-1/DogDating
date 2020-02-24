@@ -5,14 +5,23 @@
 	--main-dark-blue: #191c20;
 }
 
-a {
+a.profile-name {
 	text-decoration: none;
 	color: white;
 }
 
-a:hover {
+a.profile-name:hover {
 	text-decoration: underline;
 	text-underline-offset: 0.4em;
+}
+
+a.messageBtn {
+	text-decoration: none;
+	color: white;
+}
+
+a.profile-name:hover {
+	text-decoration: none;
 }
 
 /* Custom fonts from local files */

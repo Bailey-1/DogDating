@@ -10,7 +10,7 @@ function createProfileElement(profile) {
 
 	clone.querySelector('#breed').textContent = profile.pro_breed;
 	clone.querySelector('#name').href = `profile#${profile.pro_id}`;
-
+	clone.querySelector('#messageBtn').href = `message#${profile.pro_id}`;
 	document.querySelector('#profiles-area').appendChild(clone);
 }
 
@@ -45,8 +45,8 @@ async function loadFilters() {
 	).textContent = `Kennel Club Membership: (${filters.kennelClubMembership.rowCount})`;
 }
 
+// Create a option element in side of a selection element automatically.
 function createOptions(element, value) {
-	//console.log(value);
 	const locOption = document.createElement('option');
 	locOption.appendChild(document.createTextNode(value));
 	document.querySelector(`#${element}`).appendChild(locOption);

@@ -29,10 +29,13 @@
 		<div class="main" style="margin: 1em;">
 			<h1>Message Ruth</h1>
 			<div class="chatArea" style="text-align: center;">
-				<table align="center" class="messageTable">
-					<tr class="sent">
+				<table id="chatTable" align="center" class="messageTable">
+					<!-- <tr class="sent">
 						<td class="nameColumn">Name:</td>
-						<td class="messageColumn">Message</td>
+						<td class="messageColumn">
+							this is a very long message to see if what im doing is working or not or if i should
+							just go home and try again tomorrow.
+						</td>
 					</tr>
 					<tr class="recieved">
 						<td class="nameColumn">Name:</td>
@@ -45,16 +48,41 @@
 					<tr class="recieved">
 						<td class="nameColumn">Name:</td>
 						<td class="messageColumn">Message</td>
-					</tr>
-					<tr class="recieved">
-						<td class="nameColumn">Name:</td>
+					</tr> -->
+				</table>
+
+				<table class="messageTable" align="center">
+					<tr class="sendBox">
+						<td class="nameColumn">Message:</td>
 						<td class="textColumn">
-							<textarea> </textarea>
-							<button class="sendButton" style="float: right;">Enter</button>
+							<textarea id="messageBox"> </textarea>
+							<button id="sendButton" class="sendButton" style="float: right;">Enter</button>
 						</td>
 					</tr>
 				</table>
 			</div>
 		</div>
 	</body>
+	<!-- Two templates to make it easier if i want to add other features
+	such as editing sent messages and deleting messages from the server -->
+	<template id="recievedMessage">
+		<tr class="recieved">
+			<td id="name" class="nameColumn">Name:</td>
+			<td id="message" class="messageColumn"></td>
+		</tr>
+		<tr class="recieved">
+			<td class="messageInfo"></td>
+			<td id="time" class="messageInfo">time and date</td>
+		</tr>
+	</template>
+	<template id="sentMessage">
+		<tr class="sent">
+			<td id="name" class="nameColumn"></td>
+			<td id="message" class="messageColumn"></td>
+		</tr>
+		<tr class="sent">
+			<td class="messageInfo"></td>
+			<td id="time" class="messageInfo">time and date</td>
+		</tr>
+	</template>
 </html>
