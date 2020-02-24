@@ -1,23 +1,30 @@
+let messageObj;
+let recieverProfile;
+let currentProfile;
+
 // Function to show messages
 async function showMessages() {
 	// Get profile objects for both profiles.
-	const recieverProfile = await getProfileById(window.location.hash.substring(1));
-	const currentProfile = await getProfileById(localStorage.getItem('currentProfile').substring(8));
+	recieverProfile = await getProfileById(window.location.hash.substring(1));
+	currentProfile = await getProfileById(localStorage.getItem('currentProfile').substring(8));
+
+	recieverProfile = recieverProfile[0];
+	currentProfile = currentProfile[0];
 
 	// Get message object for all messages between them
-	const messages = await getMessages(recieverProfile[0].pro_id, currentProfile[0].pro_id);
-	console.table(messages.rows);
+	messageObj = await getMessages(recieverProfile.pro_id, currentProfile.pro_id);
+	console.table(messageObj.rows);
 	//messages.rows.forEach(decideTableRows);
 
 	// Go through each message in the object.
-	for (const message of messages.rows) {
+	for (const message of messageObj.rows) {
 		// Pass the message to a object with each profile.
-		decideTableRows(message, currentProfile[0], recieverProfile[0]);
+		decideTableRows(message);
 	}
 }
 
 // Function to decide which template to use with each message
-function decideTableRows(message, currentProfile, recieverProfile) {
+function decideTableRows(message) {
 	// Checks to see if the sender id is equal to the currentProfile id
 	if (message.msg_sender == currentProfile.pro_id) {
 		console.log('Sender');
@@ -35,6 +42,8 @@ function decideTableRows(message, currentProfile, recieverProfile) {
 function createTableRows(message, tempId, name) {
 	const template = document.querySelector(tempId);
 	const clone = document.importNode(template.content, true);
+
+	clone.querySelector('tr').id = `msg-${message.msg_id}`;
 
 	clone.querySelector('#name').textContent = name;
 	clone.querySelector('#message').textContent = message.msg_content;
@@ -54,15 +63,31 @@ async function getMessageProperties() {
 	console.log(result);
 	const newMessage = await getMessage(result);
 	console.log('newmessage: ', newMessage);
-	const currentProfile = await getProfileById(localStorage.getItem('currentProfile').substring(8));
 
-	createTableRows(newMessage, '#sentMessage', currentProfile[0].pro_name);
+	createTableRows(newMessage, '#sentMessage', currentProfile.pro_name);
+}
+
+async function mainLoop() {
+	console.log('mainloop');
+
+	// Get message object for all messages between them
+	const newMessages = await getMessages(recieverProfile.pro_id, currentProfile.pro_id);
+
+	for (const message of newMessages.rows) {
+		if (document.querySelector(`#msg-${message.msg_id}`)) {
+			console.log(`Message ${message.msg_id} exists`);
+		} else {
+			console.log(`Message ${message.msg_id} does not exist`);
+			decideTableRows(message);
+		}
+	}
 }
 
 // Deal with setup of page
 async function pageLoaded() {
-	await showMessages();
+	showMessages();
 	addEventHandlers();
+	setInterval(mainLoop, 5000);
 }
 
 function addEventHandlers() {
