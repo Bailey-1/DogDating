@@ -1,7 +1,6 @@
 async function sendDetails() {
 	let profileObj = {};
 
-	profileObj.pro_id = localStorage.getItem('currentProfile').substring(8);
 	profileObj.pro_name = document.querySelector('#nameOption').value;
 	profileObj.pro_breed = document.querySelector('#breed').value;
 	profileObj.pro_gender = document.querySelector('#gender').value;
@@ -15,8 +14,8 @@ async function sendDetails() {
 	const response = await createProfile(profileObj);
 	console.log('Response: ', response);
 
-	localStorage.setItem('currentProfile', `profile-${response}`);
-	window.location.href = '/my-profile';
+	localStorage.setItem('currentProfile', `profile-${response.id}`);
+	//window.location.href = '/my-profile';
 }
 
 function addEventListeners() {

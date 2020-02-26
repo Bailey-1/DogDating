@@ -25,11 +25,20 @@ app.use(
 );
 
 async function getProfilesByAccountId(req, res) {
-	res.json(await db.getProfilesByAccountId(req.params.id));
+	const response = await db.getProfilesByAccountId(req.params.id);
+	console.log('Response', response);
+	res.json(response);
 }
 
 async function getProfileById(req, res) {
-	res.json(await db.getProfileById(req.params.id));
+	const response = await db.getProfileById(req.params.id);
+	console.log('Response', response);
+
+	if (response === '22P02') {
+		res.status(400).send('UUID is not valid');
+	} else {
+		res.json(response);
+	}
 }
 
 async function getAccountById(req, res) {
@@ -84,7 +93,8 @@ async function getProfilePicById(req, res) {
 }
 
 async function createProfile(req, res) {
-	res.json(await db.createProfile(req.body));
+	const response = await db.createProfile(req.body);
+	res.json(response);
 }
 
 // wrap async function for express.js error handling

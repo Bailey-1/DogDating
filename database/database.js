@@ -23,12 +23,21 @@ async function getProfilesByAccountId(id) {
 	const result = await sql.query(q);
 	return result.rows;
 }
+// async function getProfileById(id) {
+// 	console.log('pro_id: ', id);
+// 	const q = `SELECT * FROM profiles WHERE pro_id = '${id}';`;
+// 	console.log(q);
+// 	const result = await sql.query(q);
+// 	console.log('result', result);
+// 	return result.rows;
+// }
 
 async function getProfileById(id) {
 	console.log('pro_id: ', id);
 	const q = `SELECT * FROM profiles WHERE pro_id = '${id}';`;
 	console.log(q);
 	const result = await sql.query(q);
+	console.log('result', result);
 	return result.rows;
 }
 async function getAccountById(id) {
@@ -210,7 +219,7 @@ async function createProfile(body) {
 	console.log('body:', body);
 
 	const pro_id = uuid();
-
+	console.log('pro_id: ', pro_id);
 	const result = await sql.query(
 		`INSERT INTO profiles (
 			pro_name, 
@@ -239,11 +248,9 @@ async function createProfile(body) {
 		]
 	);
 
-	if (result.rows != 0) {
-		return 'error';
-	}
-
-	return pro_id;
+	const data = { id: pro_id, queryResult: result };
+	console.log(data);
+	return data;
 }
 
 module.exports = {

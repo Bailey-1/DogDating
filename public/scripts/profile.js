@@ -15,7 +15,11 @@ async function showProfile() {
 	document.querySelector('#location').textContent = profileObj[0].pro_location;
 	document.querySelector('#likes').textContent = profileObj[0].pro_likes;
 	document.querySelector('#dislikes').textContent = profileObj[0].pro_dislikes;
-	document.querySelector('#birthday').textContent = profileObj[0].pro_birthday;
+
+	// Format the date using the browser date settings.
+	const dateObj = new Date(profileObj[0].pro_birthday);
+	document.querySelector('#birthday').textContent = dateObj.toLocaleDateString();
+
 	document.querySelector('#aboutme').textContent = profileObj[0].pro_aboutme;
 
 	document.querySelector('#messageBtn').href = `message#${profileObj[0].pro_id}`;

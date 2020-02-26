@@ -14,12 +14,13 @@ CREATE TABLE IF NOT EXISTS profiles (
   pro_name TEXT DEFAULT 'NULL',
   pro_location TEXT DEFAULT 'NULL',
   pro_birthday TEXT DEFAULT 'NULL',
-  pro_gender gender DEFAULT 'NULL',
+  pro_gender gender DEFAULT 'Male',
   pro_breed TEXT DEFAULT 'NULL',
   pro_aboutme TEXT DEFAULT 'NULL',
   pro_likes TEXT DEFAULT 'NULL',
   pro_dislikes TEXT DEFAULT 'NULL',
-  acc_id uuid REFERENCES accounts(acc_id)
+  acc_id uuid REFERENCES accounts(acc_id),
+  pro_time timestamp DEFAULT now()
 );  
 CREATE TABLE IF NOT EXISTS images (
   img_id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,

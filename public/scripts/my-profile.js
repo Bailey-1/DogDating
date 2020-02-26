@@ -12,8 +12,15 @@ async function showProfile() {
 	document.querySelector('#location').value = userProfile[0].pro_location;
 	document.querySelector('#likes').value = userProfile[0].pro_likes;
 	document.querySelector('#dislikes').value = userProfile[0].pro_dislikes;
-	document.querySelector('#birthday').value = userProfile[0].pro_birthday;
 	document.querySelector('#aboutme').value = userProfile[0].pro_aboutme;
+
+	// Have to create a date object with the date from the database
+	// So I can use the "input" tag with "type="date""
+	const dateObj = new Date(userProfile[0].pro_birthday); // Create date object
+	console.log('dateObj', dateObj.toISOString().substring(0, 10));
+	// Have to use toISOString() so it looks like yyyy-mm-dd for the input to accept it as valid.
+	// and substring to cut off the time and just leave the date
+	document.querySelector('#birthday').value = dateObj.toISOString().substring(0, 10);
 
 	document.title = `Doggy Dating - ${userProfile[0].pro_name}'s Profile`;
 
@@ -52,6 +59,7 @@ async function updateDetails() {
 	profileObj.dislikes = document.querySelector('#dislikes').value;
 	profileObj.aboutme = document.querySelector('#aboutme').value;
 	profileObj.birthday = document.querySelector('#birthday').value;
+
 	console.log(profileObj);
 	const response = await updateProfileByUUID(profileObj);
 	console.log('Response: ', response);
@@ -114,6 +122,13 @@ function addEventListeners() {
 	for (const i of items) {
 		i.addEventListener('click', getProfilePic);
 	}
+	document.querySelector('#birthday').addEventListener('change', print);
+}
+
+function print() {
+	console.log('MM: ', document.querySelector('#birthday').value.substring(5, 7));
+	console.log('DD: ', document.querySelector('#birthday').value.substring(8, 10));
+	console.log('YYYY: ', document.querySelector('#birthday').value.substring(0, 4));
 }
 
 async function pageLoaded() {
