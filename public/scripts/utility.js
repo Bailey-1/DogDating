@@ -159,3 +159,14 @@ async function getProfilePicById(id) {
 		return result.rows[0];
 	}
 }
+
+async function createProfile(body) {
+	const request = await fetch('/api/database/post/createProfile', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(body)
+	});
+	if (!request.ok) return console.warn(`Could not POST /api/database/post/createProfile`);
+	const result = await request.json();
+	return result;
+}

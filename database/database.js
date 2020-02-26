@@ -240,7 +240,7 @@ async function createProfile(body) {
 	);
 
 	if (result.rows != 0) {
-		return 'error - No insert into profiles';
+		return 'error';
 	}
 
 	return pro_id;

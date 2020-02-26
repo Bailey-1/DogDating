@@ -11,14 +11,14 @@ CREATE TABLE IF NOT EXISTS accounts (
 );
 CREATE TABLE IF NOT EXISTS profiles (
   pro_id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-  pro_name TEXT,
-  pro_location TEXT,
-  pro_birthday TEXT,
-  pro_gender gender,
-  pro_breed TEXT,
-  pro_aboutme TEXT,
-  pro_likes TEXT,
-  pro_dislikes TEXT,
+  pro_name TEXT DEFAULT 'NULL',
+  pro_location TEXT DEFAULT 'NULL',
+  pro_birthday TEXT DEFAULT 'NULL',
+  pro_gender gender DEFAULT 'NULL',
+  pro_breed TEXT DEFAULT 'NULL',
+  pro_aboutme TEXT DEFAULT 'NULL',
+  pro_likes TEXT DEFAULT 'NULL',
+  pro_dislikes TEXT DEFAULT 'NULL',
   acc_id uuid REFERENCES accounts(acc_id)
 );  
 CREATE TABLE IF NOT EXISTS images (

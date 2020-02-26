@@ -31,10 +31,10 @@
 			</ul>
 		</div>
 		<div class="profile">
-			<h1 id="name">Create new profile - Basic Info</h1>
+			<h1 id="name">Create new profile for your dog</h1>
 			<div class="profilePicture">
 				<div>
-					<img id="profilePicElement"/>
+					<img id="profilePicElement" src="./images/user.png"/>
 				</div>
 				<div style="float: left">
 					<img class="option" src="./svg/icons8-checkmark 120.svg" />
@@ -51,8 +51,8 @@
 				</div>
 				<div class="detailItem">
 					<h2>Gender:</h2>
-					<select>
-						<option selected="selected" selected disabled hidden>Select Gender</option>
+					<select id="gender">
+						<option selected="Select Gender" selected disabled hidden>Select Gender</option>
 						<option value="Male">Male</option>
 						<option value="Female">Female</option>
 
@@ -80,11 +80,11 @@
 				</div>
 				<div class="detailItem">
 					<h2>Birth Day:</h2>
-					<input id="birthday"></input>
+					<input id="birthday" type="date"></input>
 				</div>
 				<div class="detailItem">
-					<h2>Update changes to Profile:</h2>
-					<div id="updateDetails" class="selectBtn">Update</div> 
+					<h2>Create Profile:</h2>
+					<div id="updateDetails" class="selectBtn">Create Now</div> 
 				</div>
 			</div>
 		</div>

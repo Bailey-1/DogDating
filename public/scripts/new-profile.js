@@ -1,44 +1,29 @@
-async function updateDetails() {
-	let profileObj = {
-		id: '',
-		name: '',
-		breed: '',
-		location: '',
-		likes: '',
-		dislikes: '',
-		birthday: '',
-		aboutme: ''
-	};
+async function sendDetails() {
+	let profileObj = {};
 
-	profileObj.id = localStorage.getItem('currentProfile').substring(8);
-	profileObj.name = document.querySelector('#nameOption').value;
-	profileObj.breed = document.querySelector('#breed').value;
-	profileObj.location = document.querySelector('#location').value;
-	profileObj.likes = document.querySelector('#likes').value;
-	profileObj.dislikes = document.querySelector('#dislikes').value;
-	profileObj.aboutme = document.querySelector('#aboutme').value;
-	profileObj.birthday = document.querySelector('#birthday').value;
+	profileObj.pro_id = localStorage.getItem('currentProfile').substring(8);
+	profileObj.pro_name = document.querySelector('#nameOption').value;
+	profileObj.pro_breed = document.querySelector('#breed').value;
+	profileObj.pro_gender = document.querySelector('#gender').value;
+	profileObj.pro_location = document.querySelector('#location').value;
+	profileObj.pro_likes = document.querySelector('#likes').value;
+	profileObj.pro_dislikes = document.querySelector('#dislikes').value;
+	profileObj.pro_aboutme = document.querySelector('#aboutme').value;
+	profileObj.pro_birthday = document.querySelector('#birthday').value;
+	profileObj.acc_id = localStorage.getItem('currentAccount');
 	console.log(profileObj);
-	const response = await updateProfileByUUID(profileObj);
+	const response = await createProfile(profileObj);
 	console.log('Response: ', response);
-	showProfile();
+
+	localStorage.setItem('currentProfile', `profile-${response}`);
+	window.location.href = '/my-profile';
 }
 
 function addEventListeners() {
-	document.querySelector('#updateDetails').addEventListener('click', updateDetails);
-	document.querySelector('#uploadImageButton').addEventListener('click', uploadImage);
-	const items = document.querySelectorAll('button.setProfilePic');
-	for (const i of items) {
-		i.addEventListener('click', getProfilePic);
-	}
-}
-
-function showProfile() {
-	document.querySelector('#profilePicElement').src = './images/user.png';
+	document.querySelector('#updateDetails').addEventListener('click', sendDetails);
 }
 
 function pageLoaded() {
-	showProfile();
 	addEventListeners();
 }
 
