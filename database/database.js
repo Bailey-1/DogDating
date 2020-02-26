@@ -23,15 +23,6 @@ async function getProfilesByAccountId(id) {
 	const result = await sql.query(q);
 	return result.rows;
 }
-// async function getProfileById(id) {
-// 	console.log('pro_id: ', id);
-// 	const q = `SELECT * FROM profiles WHERE pro_id = '${id}';`;
-// 	console.log(q);
-// 	const result = await sql.query(q);
-// 	console.log('result', result);
-// 	return result.rows;
-// }
-
 async function getProfileById(id) {
 	console.log('pro_id: ', id);
 	const q = `SELECT * FROM profiles WHERE pro_id = '${id}';`;
@@ -40,6 +31,25 @@ async function getProfileById(id) {
 	console.log('result', result);
 	return result.rows;
 }
+
+// async function getProfileById(id) {
+// 	console.log('pro_id: ', id);
+// 	const q = `SELECT * FROM profiles WHERE pro_id = '${id}';`;
+// 	const result = await sql.query(q, (err, res) => {
+// 		if (err) {
+// 			console.log('pg returned an error');
+// 			console.log(err);
+// 			throw error;
+// 		}
+// 		if (res) {
+// 			console.log('pg returned a result from the SQL query');
+// 			console.log(res);
+// 			return res;
+// 		}
+// 	});
+// 	console.log('result:', result);
+// }
+
 async function getAccountById(id) {
 	console.log('pro_id: ', id);
 	const q = `SELECT * FROM accounts WHERE acc_id = '${id}';`;

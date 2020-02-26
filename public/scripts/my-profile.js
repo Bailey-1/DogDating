@@ -2,7 +2,7 @@ let currentProfile = localStorage.getItem('currentProfile').substring(8);
 
 async function showProfile() {
 	const userProfile = await getProfileById(currentProfile);
-	console.log(userProfile[0]);
+	console.log(userProfile);
 
 	document.querySelector('#name').textContent = `${userProfile[0].pro_name}, ${getAgeFromDate(
 		userProfile[0].pro_birthday

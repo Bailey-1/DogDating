@@ -34,11 +34,7 @@ async function getProfileById(req, res) {
 	const response = await db.getProfileById(req.params.id);
 	console.log('Response', response);
 
-	if (response === '22P02') {
-		res.status(400).send('UUID is not valid');
-	} else {
-		res.json(response);
-	}
+	res.json(response);
 }
 
 async function getAccountById(req, res) {
