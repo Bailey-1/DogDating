@@ -22,7 +22,7 @@ async function createProfileElement(profile) {
 	}
 	clone.querySelector('#profilePicElement').src = profilePicSrc;
 
-	document.querySelector('#user-profiles').appendChild(clone);
+	document.querySelector('#userProfileArea').appendChild(clone);
 }
 
 // Adds the selectedBtn class to the pushed button and removes it from the rest
@@ -58,8 +58,14 @@ async function showProfiles() {
 	}
 }
 
+function newProfile() {
+	window.location.href = '/new-profile';
+}
+
 // Add event handlers to the page.
-function createHandlers() {
+function createEventHandlers() {
+	document.querySelector('#newProfileBtn').addEventListener('click', newProfile);
+
 	const items = document.querySelectorAll('.selectBtn');
 	for (const i of items) {
 		i.addEventListener('click', selectedProfile);
@@ -78,7 +84,7 @@ function addClasses() {
 async function pageLoaded() {
 	//Used await to allow all elements to display before handlers are created
 	await showProfiles();
-	createHandlers();
+	createEventHandlers();
 	addClasses();
 }
 

@@ -206,6 +206,46 @@ async function getProfilePic(pro_id) {
 	return result;
 }
 
+async function createProfile(body) {
+	console.log('body:', body);
+
+	const pro_id = uuid();
+
+	const result = await sql.query(
+		`INSERT INTO profiles (
+			pro_name, 
+			pro_location, 
+			pro_birthday, 
+			pro_gender, 
+			pro_breed, 
+			pro_aboutme, 
+			pro_likes, 
+			pro_dislikes, 
+			acc_id,
+			pro_id) VALUES (
+				$1, $2, $3, $4, $5, $6, $7, $8, $9, $10
+			)`,
+		[
+			body.pro_name,
+			body.pro_location,
+			body.pro_birthday,
+			body.pro_gender,
+			body.pro_breed,
+			body.pro_aboutme,
+			body.pro_likes,
+			body.pro_dislikes,
+			body.acc_id,
+			pro_id
+		]
+	);
+
+	if (result.rows != 0) {
+		return 'error - No insert into profiles';
+	}
+
+	return pro_id;
+}
+
 module.exports = {
 	getProfilesByAccountId,
 	getProfileById,
@@ -220,5 +260,6 @@ module.exports = {
 	getMessage,
 	sendMessage,
 	setProfilePic,
-	getProfilePic
+	getProfilePic,
+	createProfile
 };

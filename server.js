@@ -82,6 +82,11 @@ async function setProfilePic(req, res) {
 async function getProfilePicById(req, res) {
 	res.json(await db.getProfilePic(req.params.id));
 }
+
+async function createProfile(req, res) {
+	res.json(await db.createProfile(req.body));
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -120,5 +125,7 @@ app.post('/api/database/post/sendMessage', express.json(), asyncWrap(sendMessage
 app.post('/api/database/post/setProfilePic', express.json(), asyncWrap(setProfilePic));
 
 app.get('/api/database/get/getProfilePic/:id', asyncWrap(getProfilePicById));
+
+app.post('/api/database/post/createProfile', express.json(), asyncWrap(createProfile));
 
 app.listen(8080);
