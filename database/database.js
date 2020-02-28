@@ -59,11 +59,11 @@ async function getAccountById(id) {
 }
 
 async function getDiscoveryById(id) {
-	let q = `SELECT pro_gender FROM profiles WHERE pro_id = '${id}'`;
+	let q = `SELECT pro_sex FROM profiles WHERE pro_id = '${id}'`;
 	//console.log(q);
-	const userGender = await sql.query(q);
-	console.log(userGender.rows[0].pro_gender);
-	q = `SELECT * FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}'`;
+	const usersex = await sql.query(q);
+	console.log(usersex.rows[0].pro_sex);
+	q = `SELECT * FROM profiles WHERE pro_sex != '${usersex.rows[0].pro_sex}'`;
 	//console.log(q);
 	let result = await sql.query(q);
 	return result;
@@ -72,15 +72,15 @@ async function getDiscoveryById(id) {
 // Get distinct valyes for the filter options on the wesite.
 async function getDistinctFilterProperties(id) {
 	console.log('id: ', id);
-	let q = `SELECT pro_gender FROM profiles WHERE pro_id = '${id}'`;
+	let q = `SELECT pro_sex FROM profiles WHERE pro_id = '${id}'`;
 	//console.log(q);
-	const userGender = await sql.query(q);
-	console.log(userGender.rows[0].pro_gender);
+	const usersex = await sql.query(q);
+	console.log(usersex.rows[0].pro_sex);
 	let distinctItems = { location: '', breed: '', kennelClubMembership: '' };
-	q = `SELECT DISTINCT pro_location FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}' ORDER BY pro_location`;
+	q = `SELECT DISTINCT pro_location FROM profiles WHERE pro_sex != '${usersex.rows[0].pro_sex}' ORDER BY pro_location`;
 	distinctItems.location = await sql.query(q);
 
-	q = `SELECT DISTINCT pro_breed FROM profiles WHERE pro_gender != '${userGender.rows[0].pro_gender}' ORDER BY pro_breed`;
+	q = `SELECT DISTINCT pro_breed FROM profiles WHERE pro_sex != '${usersex.rows[0].pro_sex}' ORDER BY pro_breed`;
 	distinctItems.breed = await sql.query(q);
 
 	q = `SELECT unnest(enum_range(NULL::kennelclubmembership)) AS "membership_type" ORDER BY "membership_type"`;
@@ -93,11 +93,11 @@ async function getDiscoveryByFilters(body) {
 	//console.table(body);
 	console.table(body);
 
-	let q = `SELECT pro_gender FROM profiles WHERE pro_id = '${body.id}'`;
+	let q = `SELECT pro_sex FROM profiles WHERE pro_id = '${body.id}'`;
 	//console.log(q);
-	const userGender = await sql.query(q);
+	const usersex = await sql.query(q);
 
-	q = `SELECT * FROM profiles INNER JOIN accounts ON profiles.acc_id = accounts.acc_id WHERE pro_gender !='${userGender.rows[0].pro_gender}'`;
+	q = `SELECT * FROM profiles INNER JOIN accounts ON profiles.acc_id = accounts.acc_id WHERE pro_sex !='${usersex.rows[0].pro_sex}'`;
 	if (body.location != 'all' ? (q = q + ` AND profiles.pro_location = '${body.location}'`) : q);
 	if (body.breed != 'all' ? (q = q + ` AND profiles.pro_breed = '${body.breed}'`) : q);
 	if (
@@ -120,7 +120,8 @@ async function updateProfileByUUID(body) {
 		pro_likes = $5, 
 		pro_dislikes = $6, 
 		pro_birthday = $7, 
-		pro_aboutme = $8
+		pro_aboutme = $8,
+		pro_sex = $9
 		WHERE pro_id = $1`,
 		[
 			body.id,
@@ -130,15 +131,17 @@ async function updateProfileByUUID(body) {
 			body.likes,
 			body.dislikes,
 			body.birthday,
-			body.aboutme
+			body.aboutme,
+			body.sex
 		]
 	);
 	return result;
 }
 
-async function uploadImageToDatabase(id, file) {
+async function uploadImageToDatabase(id, desc, file) {
 	console.log('id', id);
 	console.log('file', file);
+	console.log('desc', desc);
 
 	let newFilename, result;
 
@@ -159,7 +162,7 @@ async function uploadImageToDatabase(id, file) {
 		result = await sql.query(
 			`INSERT INTO images (img_id ,img_desc, pro_id, img_ext)
 		VALUES ($1, $2, $3, $4)`,
-			[img_id, 'Hello world', id, fileExt]
+			[img_id, desc, id, fileExt]
 		);
 	} else {
 		return 'Upload failed';
@@ -235,7 +238,7 @@ async function createProfile(body) {
 			pro_name, 
 			pro_location, 
 			pro_birthday, 
-			pro_gender, 
+			pro_sex, 
 			pro_breed, 
 			pro_aboutme, 
 			pro_likes, 
@@ -248,7 +251,7 @@ async function createProfile(body) {
 			body.pro_name,
 			body.pro_location,
 			body.pro_birthday,
-			body.pro_gender,
+			body.pro_sex,
 			body.pro_breed,
 			body.pro_aboutme,
 			body.pro_likes,

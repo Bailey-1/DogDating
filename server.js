@@ -61,7 +61,7 @@ async function postUpdateProfileByUUID(req, res) {
 }
 
 async function uploadImage(req, res) {
-	res.json(await db.uploadImageToDatabase(req.body.id, req.file));
+	res.json(await db.uploadImageToDatabase(req.body.id, req.body.desc, req.file));
 }
 
 async function getImagesFromId(req, res) {

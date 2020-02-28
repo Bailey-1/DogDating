@@ -3,7 +3,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 DROP TABLE IF EXISTS profiles;
 DROP TABLE IF EXISTS accounts;
 
-CREATE TYPE gender AS ENUM ('Male', 'Female');
+CREATE TYPE sex AS ENUM ('Male', 'Female');
 CREATE TYPE kennelclubmembership AS ENUM ('Affiliate', 'Associate', 'Member', 'None');
 
 CREATE TABLE IF NOT EXISTS accounts (
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS profiles (
   pro_name TEXT DEFAULT 'NULL',
   pro_location TEXT DEFAULT 'NULL',
   pro_birthday TEXT DEFAULT 'NULL',
-  pro_gender gender DEFAULT 'Male',
+  pro_sex sex DEFAULT 'Male',
   pro_breed TEXT DEFAULT 'NULL',
   pro_aboutme TEXT DEFAULT 'NULL',
   pro_likes TEXT DEFAULT 'NULL',
@@ -81,7 +81,7 @@ VALUES
     'Charlie',
     'Affiliate'
   );
-  /* INSERT INTO profiles (pro_name, pro_location, pro_birthday, pro_breed, acc_id, pro_gender) VALUES
+  /* INSERT INTO profiles (pro_name, pro_location, pro_birthday, pro_breed, acc_id, pro_sex) VALUES
   ('timmy', 'Portsmouth', '10/20/2015', 'Pug', 'cee3a7e6-5339-11ea-8d77-2e728ce88125', 'Male'),
   ('name2', 'Portsmouth', '10/20/2015', 'Pug', 'e21df604-5339-11ea-8d77-2e728ce88125', 'Female'),
   ('name3', 'Portsmouth', '10/20/2015', 'Pug', 'cee3a7e6-5339-11ea-8d77-2e728ce88125', 'Male'); */
@@ -90,7 +90,7 @@ INSERT INTO profiles(
     acc_id,
     pro_name,
     pro_birthday,
-    pro_gender,
+    pro_sex,
     pro_breed,
     pro_location,
     pro_aboutme,
@@ -399,32 +399,28 @@ VALUES
     'Dislikes'
   );
   
-  -- INSERT INTO images (img_id, img_ext, img_desc, img_profilepic, pro_id) values 
-  -- (
-  --   '18f24932-3ce8-4bda-80a5-50537cab4ce4',
-  --   'jpeg', 
-  --   'hello world',
-  --   'True', 
-  --   '3abb409c-72c2-44fe-86c9-71f587ac854a'
-  -- ),
-  -- (
-  --   '449bbfdf-5e09-4b01-b019-f9401dbe5dc6',
-  --   'jpeg', 
-  --   'hello world',
-  --   'True', 
-  --   'f441795c-eb2c-4d0b-b466-f429f37ff171'
-  -- ),
-  -- (
-  --   '40a68623-29e6-49a8-b688-7c82e445cc32',
-  --   'jpeg', 
-  --   'hello world',
-  --   'True', 
-  --   '08295b26-51ed-47a9-b2f6-9c34d8751fcb'
-  -- ),
-  -- (
-  --   'a0d3e3c5-ca35-4b62-9f43-36ad3a980802',
-  --   'jpeg', 
-  --   'hello world',
-  --   'True',  
-  --   '2be06221-54df-43a5-9475-71cef78c9e68'
-  -- );
+INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('345690a4-7247-4c97-9d4b-576f95e12602', '3abb409c-72c2-44fe-86c9-71f587ac854a', '60776534-54c6-47b9-9c92-b796e0a4554b', 'Hello. How are you?
+', '2020-02-28 12:57:53.021294');
+INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('7762c91c-7cb2-4d7a-a66a-ef8fbccb465e', '3abb409c-72c2-44fe-86c9-71f587ac854a', '9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b', 'Hello. Your dog is so cute.', '2020-02-28 12:58:30.711100');
+INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('cad8f5c0-13c6-44fa-b436-5122588b7b4c', '9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b', '3abb409c-72c2-44fe-86c9-71f587ac854a', 'Hey benny. Thanks
+', '2020-02-28 12:59:14.017327');
+INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('285f4ee2-78e8-43b0-a573-59256c7844fd', '9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b', '3abb409c-72c2-44fe-86c9-71f587ac854a', 'Do you like my dog?
+', '2020-02-28 12:59:20.783173');
+INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('9ec8ea44-2b4f-4e3e-89fa-6ce74209c3c6', '9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b', '0ef3bc3f-e316-41d5-813f-e54afe509286', 'Hi morgan!', '2020-02-28 12:59:34.256697');
+INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('18bb0962-435b-41d3-b907-de67d5227c00', '9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b', '0ef3bc3f-e316-41d5-813f-e54afe509286', 'How are you?
+', '2020-02-28 12:59:43.150707');
+INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('7f9486cf-eb0f-4da9-a955-bb1bce763b8e', '60776534-54c6-47b9-9c92-b796e0a4554b', '0ef3bc3f-e316-41d5-813f-e54afe509286', 'Hey! I like your dog.
+', '2020-02-28 13:00:55.251981');
+INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('7c5dd438-a1f3-4384-b9a7-33bc116e6d7f', '60776534-54c6-47b9-9c92-b796e0a4554b', '3abb409c-72c2-44fe-86c9-71f587ac854a', 'Im good thanks. how are you 😀', '2020-02-28 13:01:18.742846');
+INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('e0ef5c9c-3c64-441b-b384-3cea91fde73f', '0ef3bc3f-e316-41d5-813f-e54afe509286', '60776534-54c6-47b9-9c92-b796e0a4554b', 'thanks. i think your dog is cool as well.
+', '2020-02-28 13:03:42.861966');
+INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('cd21de21-72ca-4f92-98a0-9f5800a0c700', '0ef3bc3f-e316-41d5-813f-e54afe509286', '9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b', 'Hey ruth
+', '2020-02-28 13:03:52.309370');
+
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('24be07f5-14e8-405a-8ef5-1c506031ac0b', 'jpeg', 'Hello world', '2020-02-27 13:06:58.338841', true, '3abb409c-72c2-44fe-86c9-71f587ac854a');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('715bb87d-65dc-41b0-a100-864f200510f0', 'jpeg', 'Hello world', '2020-02-27 13:07:11.607602', true, '60776534-54c6-47b9-9c92-b796e0a4554b');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('a613babf-2d19-4a0f-9f48-7e7523da4d18', 'jpeg', 'Hello world', '2020-02-27 13:08:27.051418', false, '60776534-54c6-47b9-9c92-b796e0a4554b');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('bd72bb0f-7095-42ce-8267-7fd5a14a44fe', 'jpeg', 'Hello world', '2020-02-27 13:08:43.985246', true, '9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('df3987ab-fab1-40da-b77e-0ccc2ba9dbfc', 'jpeg', 'Hello world', '2020-02-27 13:10:21.137346', false, '0ef3bc3f-e316-41d5-813f-e54afe509286');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('582649fe-2063-4feb-ac
+

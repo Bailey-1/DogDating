@@ -13,6 +13,7 @@ async function showProfile() {
 	document.querySelector('#likes').value = userProfile[0].pro_likes;
 	document.querySelector('#dislikes').value = userProfile[0].pro_dislikes;
 	document.querySelector('#aboutme').value = userProfile[0].pro_aboutme;
+	document.querySelector('#sex').value = userProfile[0].pro_sex;
 
 	// Have to create a date object with the date from the database
 	// So I can use the "input" tag with "type="date""
@@ -40,16 +41,7 @@ async function showProfilePic() {
 }
 
 async function updateDetails() {
-	let profileObj = {
-		id: '',
-		name: '',
-		breed: '',
-		location: '',
-		likes: '',
-		dislikes: '',
-		birthday: '',
-		aboutme: ''
-	};
+	let profileObj = {};
 
 	profileObj.id = localStorage.getItem('currentProfile').substring(8);
 	profileObj.name = document.querySelector('#nameOption').value;
@@ -59,6 +51,7 @@ async function updateDetails() {
 	profileObj.dislikes = document.querySelector('#dislikes').value;
 	profileObj.aboutme = document.querySelector('#aboutme').value;
 	profileObj.birthday = document.querySelector('#birthday').value;
+	profileObj.sex = document.querySelector('#sex').value;
 
 	console.log(profileObj);
 	const response = await updateProfileByUUID(profileObj);
@@ -72,6 +65,10 @@ async function uploadImage() {
 	const id = localStorage.getItem('currentProfile').substring(8);
 	console.log('id:', id);
 	payload.append('id', id);
+
+	const desc = document.querySelector('#imageDescInput').value;
+
+	payload.append('desc', desc);
 	const imageUpload = document.querySelector('#fileUpload');
 	console.log(imageUpload.files.length);
 

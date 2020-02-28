@@ -174,10 +174,6 @@ div.dogProfile div img.option {
 	margin: 0.5em;
 }
 
-div.dogProfile div img.option:hover {
-	filter: brightness(0) invert(100%);
-}
-
 /* profile.html CCS*/
 div.profile {
 	margin: 1em;
@@ -207,10 +203,6 @@ div.profile div.profilePicture img.option {
 	border: var(--main-blue) solid 0.2em;
 	border-radius: 1em;
 	margin: 1em;
-}
-
-div.profile div.profilePicture img.option:hover {
-	filter: brightness(0) invert(100%);
 }
 
 div.profile div.details {

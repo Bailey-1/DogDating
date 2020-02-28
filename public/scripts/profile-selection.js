@@ -70,7 +70,22 @@ function createEventHandlers() {
 	for (const i of items) {
 		i.addEventListener('click', selectedProfile);
 	}
+
+	const nameItems = document.querySelectorAll('.profile-name');
+	for (const i of nameItems) {
+		i.addEventListener('click', clickedName);
+	}
 }
+
+// Function for when the name of a profile is clicked.
+function clickedName() {
+	console.log(event.srcElement.parentElement.parentElement.id);
+	const profile = event.srcElement.parentElement.parentElement.id;
+	console.log(profile);
+	localStorage.setItem('currentProfile', profile);
+	window.location.href = '/my-profile';
+}
+
 // Add the selectedBtn class to the profile that matches the current profile ID.
 function addClasses() {
 	const selectedID = localStorage.getItem('currentProfile');

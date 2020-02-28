@@ -3,7 +3,7 @@ async function sendDetails() {
 
 	profileObj.pro_name = document.querySelector('#nameOption').value;
 	profileObj.pro_breed = document.querySelector('#breed').value;
-	profileObj.pro_gender = document.querySelector('#gender').value;
+	profileObj.pro_sex = document.querySelector('#sex').value;
 	profileObj.pro_location = document.querySelector('#location').value;
 	profileObj.pro_likes = document.querySelector('#likes').value;
 	profileObj.pro_dislikes = document.querySelector('#dislikes').value;
@@ -15,7 +15,7 @@ async function sendDetails() {
 	console.log('Response: ', response);
 
 	localStorage.setItem('currentProfile', `profile-${response.id}`);
-	//window.location.href = '/my-profile';
+	window.location.href = '/my-profile';
 }
 
 function addEventListeners() {

@@ -36,18 +36,19 @@
 				<div>
 					<img id="profilePicElement"/>
 				</div>
-				<div style="float: left">
-					<img class="option" src="./svg/icons8-checkmark 120.svg" />
-				</div>
-				<div style="float: right">
-					<img class="option" src="./svg/icons8-delete.svg" />
-				</div>
 			</div>
 			
 			<div class="details">
 				<div class="detailItem">
 					<h2>Name:</h2>
 					<input placeholder="Name" id="nameOption"></input>
+				</div>
+				<div class="detailItem">
+					<h2>Sex:</h2>
+					<select id="sex">
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+					</select>
 				</div>
 				<div class="detailItem">
 					<h2>About Me:</h2>
@@ -91,6 +92,7 @@
 				</div> -->
 				<div class="detailItem">
 					<h2>Upload Image: </h2>
+					<input id="imageDescInput" placeholder="Describe the image"></input>
 					<div><input id=fileUpload type=file accept="image/png, image/jpeg"></div>
 					<div id="uploadImageButton" class="selectBtn">Upload Image</div> 
 				</div>

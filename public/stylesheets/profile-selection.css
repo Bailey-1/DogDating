@@ -2,3 +2,8 @@
 	color: var(--main-blue);
 	border-color: var(--main-blue);
 }
+
+h2.profile-name:hover {
+	text-decoration: underline;
+	text-underline-offset: 0.4em;
+}

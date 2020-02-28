@@ -1,5 +1,5 @@
 async function createProfileElement(profile) {
-	console.log('profile: ', profile.pro_gender);
+	console.log('profile: ', profile.pro_sex);
 	const template = document.querySelector('#profile-item');
 	const clone = document.importNode(template.content, true);
 	clone.querySelector('.dogProfile').id = `profile-${profile.pro_id}`;
