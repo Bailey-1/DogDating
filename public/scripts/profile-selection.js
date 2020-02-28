@@ -12,6 +12,7 @@ async function createProfileElement(profile) {
 	)}`;
 	clone.querySelector('#breed').textContent = profile.pro_breed;
 	clone.querySelector('#birthday').textContent = profile.pro_birthday;
+	clone.querySelector('#sex').textContent = profile.pro_sex;
 
 	const imageObj = await getProfilePicById(profile.pro_id);
 	let profilePicSrc;
