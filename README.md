@@ -2,8 +2,6 @@
 
 A dog dating website.
 
-> NOTE: FOR BETTER PERFORMANCE ENABLE THE CACHE OR YOU WILL DOWNLOAD THE FONTS EACH TIME WHICH SLOWS IT DOWN A NOTICABLE AMOUNT.
-
 # Features
 
 - User can "Discover" other profiles and filter then accordingly.
@@ -13,15 +11,22 @@ A dog dating website.
 
 # Setup
 
-1. Ensure PostgreSQL is running.
-2. Run the following command to install required packages:
-   > npm i
-3. Run the following command to create the database:
-   > npm run setup
-4. Run the following command to start the web server:
-   > npm run start
-5. Open a browser and either go to localhost or the IP from another machine.
-   > localhost:8080
+1.  Ensure PostgreSQL is running.
+2.  Run the following command to install required packages:
+
+        npm i
+
+3.  Run the following command to create the database:
+
+        npm run setup
+
+4.  Run the following command to start the web server:
+
+        npm run start
+
+5.  Open a browser and either go to localhost or the IP from another machine.
+      <!-- prettier-ignore -->
+        localhost:8080
 
 # Troubleshoot
 
@@ -53,4 +58,55 @@ A dog dating website.
 # Overview
 
 A simple overview of the entire project and how it all interacts with each other and works.
-todo
+
+# API DESIGN PLAN
+
+    GET : GET DATA
+
+    POST: SEND DATA
+
+    DELETE: DELETE DATA
+
+    PUT: MODIFY DATA
+
+## ACCOUNTS:
+
+    GET     /api/account/:id/profiles - GET ACCOUNT PROFILES
+
+    GET     /api/account/:id - GET ACCOUNT DATA
+
+## PROFILE:
+
+    GET     /api/profile/:id - GET PROFILE DATA
+
+    PUT     /api/profile/:id - UPDATE PROFILE DATA
+
+    DELETE  /api/profile/:id - DELETE PROFILE
+
+    POST    /api/profile/:id - CREATE NEW PROFILE
+
+## DISCOVERY:
+
+    POST    /api/discovery/:pro_id
+
+    GET     /api/discovery/:pro_id/filters
+
+## IMAGE:
+
+    POST    /api/profile/:id/image - UPLOAD IMAGE
+
+    DELETE  /api/profile/:id/image/:img_id - DELETE IMAGE
+
+    PUT     /api/profile/:id/image/:img_id - SET AS PROFILE PIC
+
+    GET     /api/profile/:id/image - GET ALL IMAGES FROM PROFILE
+
+    GET     /api/profile/:id/profilepic - GET PROFILE PIC ID
+
+## MESSAGE:
+
+    GET     /api/profile/:id/messages/:otherProfileID - GET ALL MESSAGES BETWEEN PROFILES
+
+    POST    /api/profile/:id/messages/:otherProfileID - SEND MESSAGE TO PROFILE
+
+    GET     /api/messages/:id - GET MESSAGE

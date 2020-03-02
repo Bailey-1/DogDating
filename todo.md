@@ -1,5 +1,10 @@
 # TODO
 
+## Next week
+1. Reduce code
+2. Improve Maintainability
+3. Comments throughout
+
 ## Plan:
 
 1. ~~Implement get profile selection for the current account Tim.~~

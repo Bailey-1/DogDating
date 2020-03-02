@@ -41,10 +41,6 @@ async function getAccountById(req, res) {
 	res.json(await db.getAccountById(req.params.id));
 }
 
-async function getDiscoveryById(req, res) {
-	res.json(await db.getDiscoveryById(req.params.id));
-}
-
 /* Pass the query parameters to the server through a POST request
 because it is easier / neater than using a very long URL and Route. */
 async function getDistinctProfileProperties(req, res) {
@@ -61,7 +57,7 @@ async function postUpdateProfileByUUID(req, res) {
 }
 
 async function uploadImage(req, res) {
-	res.json(await db.uploadImageToDatabase(req.body.id, req.body.desc, req.file));
+	res.json(await db.uploadImageToDatabase(req.params.id, req.body.desc, req.file));
 }
 
 async function getImagesFromId(req, res) {
@@ -69,19 +65,20 @@ async function getImagesFromId(req, res) {
 }
 
 async function getMessages(req, res) {
-	res.json(await db.getMessages(req.body));
+	res.json(await db.getMessages(req.params.id, req.params.rec_id));
 }
 
 async function getMessage(req, res) {
-	res.json(await db.getMessage(req.params.id));
+	res.json(await db.getMessage(req.params.id, req.params.rec_id, req.params.msg_id));
 }
 
+// Send a message from profile ID to recipient profile rec_id
 async function sendMessage(req, res) {
-	res.json(await db.sendMessage(req.body));
+	res.json(await db.sendMessage(req.params.id, req.params.rec_id, req.body.content));
 }
 
 async function setProfilePic(req, res) {
-	res.json(await db.setProfilePic(req.body));
+	res.json(await db.setProfilePic(req.params.id, req.params.img_id));
 }
 
 async function getProfilePicById(req, res) {
@@ -100,38 +97,39 @@ function asyncWrap(f) {
 	};
 }
 
-app.get('/api/database/get/profilesByAccountId/:id', asyncWrap(getProfilesByAccountId));
-app.get('/api/database/get/accountById/:id', asyncWrap(getAccountById));
+// Get accounts profiles
+app.get('/api/account/:id/profiles', asyncWrap(getProfilesByAccountId));
 
-app.get('/api/database/get/profileById/:id', asyncWrap(getProfileById));
-app.get('/api/database/get/discoveryById/:id', asyncWrap(getDiscoveryById));
-app.get('/api/database/get/distinctFilterProperties/:id', asyncWrap(getDistinctProfileProperties));
+// Get infomation on account
+app.get('/api/account/:id', asyncWrap(getAccountById));
 
-app.post('/api/database/post/discoveryByFilter', express.json(), asyncWrap(getDiscoveryByFilter));
+app.get('/api/discovery/:id/filters', asyncWrap(getDistinctProfileProperties));
 
-app.post(
-	'/api/database/post/updateProfileByUUID',
-	express.json(),
-	asyncWrap(postUpdateProfileByUUID)
-);
+app.post('/api/profile/:id/discovery', express.json(), asyncWrap(getDiscoveryByFilter));
 
-app.post(
-	'/api/database/post/image',
-	uploader.single('photo'),
-	express.json(),
-	asyncWrap(uploadImage)
-);
+// Get specific message
+app.get('/api/profile/:id/recipient/:rec_id/message/:msg_id', asyncWrap(getMessage));
 
-app.get('/api/database/get/imagesFromId/:id', asyncWrap(getImagesFromId));
+// Set profile picture to img_id
+app.put('/api/profile/:id/image/:img_id', express.json(), asyncWrap(setProfilePic));
 
-app.post('/api/database/post/getMessages', express.json(), asyncWrap(getMessages));
-app.get('/api/database/get/getMessage/:id', asyncWrap(getMessage));
-app.post('/api/database/post/sendMessage', express.json(), asyncWrap(sendMessage));
+app.get('/api/profile/:id/profilepic', asyncWrap(getProfilePicById));
 
-app.post('/api/database/post/setProfilePic', express.json(), asyncWrap(setProfilePic));
+// Handle different types of requests to the same route.
+app
+	.route('/api/profile/:id')
+	.get(asyncWrap(getProfileById)) // Get profile infomation
+	.put(express.json(), asyncWrap(postUpdateProfileByUUID)) // Update profile infomation
+	.post(express.json(), asyncWrap(createProfile)); // Create profile
 
-app.get('/api/database/get/getProfilePic/:id', asyncWrap(getProfilePicById));
+app
+	.route('/api/profile/:id/images')
+	.get(asyncWrap(getImagesFromId)) // Get images from profile
+	.post(uploader.single('photo'), express.json(), asyncWrap(uploadImage)); // upload images to profile
 
-app.post('/api/database/post/createProfile', express.json(), asyncWrap(createProfile));
+app
+	.route('/api/profile/:id/recipient/:rec_id')
+	.get(express.json(), asyncWrap(getMessages)) // Get messages between two profiles
+	.post(express.json(), asyncWrap(sendMessage)); // Send message between two profiles
 
 app.listen(8080);

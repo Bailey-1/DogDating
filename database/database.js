@@ -32,41 +32,12 @@ async function getProfileById(id) {
 	return result.rows;
 }
 
-// async function getProfileById(id) {
-// 	console.log('pro_id: ', id);
-// 	const q = `SELECT * FROM profiles WHERE pro_id = '${id}';`;
-// 	const result = await sql.query(q, (err, res) => {
-// 		if (err) {
-// 			console.log('pg returned an error');
-// 			console.log(err);
-// 			throw error;
-// 		}
-// 		if (res) {
-// 			console.log('pg returned a result from the SQL query');
-// 			console.log(res);
-// 			return res;
-// 		}
-// 	});
-// 	console.log('result:', result);
-// }
-
 async function getAccountById(id) {
 	console.log('pro_id: ', id);
 	const q = `SELECT * FROM accounts WHERE acc_id = '${id}';`;
 	console.log(q);
 	const result = await sql.query(q);
 	return result.rows;
-}
-
-async function getDiscoveryById(id) {
-	let q = `SELECT pro_sex FROM profiles WHERE pro_id = '${id}'`;
-	//console.log(q);
-	const usersex = await sql.query(q);
-	console.log(usersex.rows[0].pro_sex);
-	q = `SELECT * FROM profiles WHERE pro_sex != '${usersex.rows[0].pro_sex}'`;
-	//console.log(q);
-	let result = await sql.query(q);
-	return result;
 }
 
 // Get distinct valyes for the filter options on the wesite.
@@ -182,42 +153,39 @@ async function getImagesFromId(id) {
 }
 
 // Simple way to get all messages from a table between two parties.
-async function getMessages(payload) {
-	console.log(payload);
+async function getMessages(id, rec_id) {
 	// Select all messages between the same sender and reciever.
 	const result = await sql.query(
 		`SELECT * FROM messages WHERE (msg_sender = $1 AND msg_reciever = $2) OR (msg_sender = $2 AND msg_reciever = $1);`,
-		[payload.from, payload.to]
+		[id, rec_id]
 	);
 	return result;
 }
 
-async function getMessage(id) {
+async function getMessage(id, rec_id, msg_id) {
 	const result = await sql.query(`SELECT * FROM messages WHERE msg_id = $1;`, [id]);
 	return result;
 }
 
-async function sendMessage(payload) {
-	console.log(payload);
+async function sendMessage(id, rec_id, msg) {
 	const msg_id = uuid();
+	console.log('msg_id: ', msg_id);
 	const result = await sql.query(
 		`INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content) 
 	VALUES ($1, $2, $3, $4)`,
-		[msg_id, payload.sender, payload.reciever, payload.content]
+		[msg_id, id, rec_id, msg]
 	);
+
+	console.log('result: ', result);
 
 	return msg_id;
 }
 
 // Set profile's profile picture and set everything else to be false
-async function setProfilePic(body) {
-	let result = await sql.query(`UPDATE images SET img_profilepic = False WHERE pro_id = $1;`, [
-		body.pro_id
-	]);
+async function setProfilePic(id, img_id) {
+	let result = await sql.query(`UPDATE images SET img_profilepic = False WHERE pro_id = $1;`, [id]);
 
-	result = await sql.query(`UPDATE images SET img_profilepic = True WHERE img_id = $1;`, [
-		body.img_id
-	]);
+	result = await sql.query(`UPDATE images SET img_profilepic = True WHERE img_id = $1;`, [img_id]);
 	return result;
 }
 
@@ -270,7 +238,6 @@ module.exports = {
 	getProfilesByAccountId,
 	getProfileById,
 	getAccountById,
-	getDiscoveryById,
 	getDistinctFilterProperties,
 	getDiscoveryByFilters,
 	updateProfileByUUID,

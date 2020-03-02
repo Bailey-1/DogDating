@@ -15,58 +15,45 @@ function getAgeFromDate(date) {
 	let birthDate = new Date(date);
 	let age = today.getFullYear() - birthDate.getFullYear();
 	let m = today.getMonth() - birthDate.getMonth();
-	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-		age = age - 1;
-	}
-	return age;
-}
+	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age = age - 1;
 
-// Returns array of all profiles
-async function getDiscovery() {
-	const request = await fetch('./api/get/discover');
-	if (!request.ok) return console.warn('Could not get /api/get/discover');
-	const profileObj = await request.json();
-	return profileObj;
+	// Not going to deal with future dates yet and min age required for profile ont this website
+	if (age < 0) age = 0;
+
+	return age;
 }
 
 // Returns single object of profile - first to have same ID.
 async function getProfileById(id) {
-	const request = await fetch(`./api/database/get/profileById/${id}`);
-	if (!request.ok) return console.warn(`Could not get /api/database/get/profileById/${id}`);
+	const request = await fetch(`./api/profile/${id}`);
+	if (!request.ok) return console.warn(`Could not get /api/profile/${id}`);
 	const profileObj = await request.json();
 	return profileObj;
 }
 
 async function getAccountById(id) {
-	const request = await fetch(`./api/database/get/accountById/${id}`);
-	if (!request.ok) return console.warn(`Could not get /api/database/get/accountById/${id}`);
+	const request = await fetch(`./api/account/${id}`);
+	if (!request.ok) return console.warn(`Could not get /api/account/${id}`);
 	const accountObj = await request.json();
 	return accountObj;
 }
 
 async function getProfilesByUserAccount(id) {
-	const request = await fetch(`./api/database/get/profilesByAccountId/${id}`);
-	if (!request.ok) return console.warn(`Could not get /api/database/get/profilesByAccountId/${id}`);
-	const profileObj = await request.json();
-	return profileObj;
-}
-
-async function getDiscoveryById(id) {
-	const request = await fetch(`./api/database/get/discoveryById/${id}`);
-	if (!request.ok) return console.warn(`Could not get /api/database/get/discoveryById/${id}`);
+	const request = await fetch(`./api/account/${id}/profiles`);
+	if (!request.ok) return console.warn(`Could not get ./api/account/${id}/profiles`);
 	const profileObj = await request.json();
 	return profileObj;
 }
 
 async function getFilters(id) {
-	const request = await fetch(`./api/database/get/distinctFilterProperties/${id}`);
-	if (!request.ok) return console.warn(`Could not get /api/database/get/distinctFilterProperties`);
+	const request = await fetch(`./api/profile/${id}/discovery/filters`);
+	if (!request.ok) return console.warn(`Could not get ./api/profile/${id}/discovery/filters`);
 	const filterObj = await request.json();
 	return filterObj;
 }
 
 async function getDiscoveryByFilters(filters) {
-	const request = await fetch('/api/database/post/discoveryByFilter', {
+	const request = await fetch('/api/profile/:id/discovery', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(filters)
@@ -77,80 +64,73 @@ async function getDiscoveryByFilters(filters) {
 }
 
 async function updateProfileByUUID(profile) {
-	const request = await fetch('/api/database/post/updateProfileByUUID', {
-		method: 'POST',
+	const request = await fetch('/api/profile/:id', {
+		method: 'PUT',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(profile)
 	});
-	if (!request.ok) return console.warn(`Could not POST /api/database/post/discoveryByFilter`);
+	if (!request.ok) return console.warn(`Could not POST /api/profile/:id`);
 	const response = await request.json();
 	return response;
 }
 
-async function uploadImageToServer(payload) {
-	const request = await fetch('/api/database/post/image', {
+async function uploadImageToServer(id, payload) {
+	const request = await fetch(`/api/profile/${id}/image`, {
 		method: 'POST',
 		body: payload
 	});
-	if (!request.ok) return console.warn(`Could not POST /api/database/post/image`);
+	if (!request.ok) return console.warn(`Could not POST /api/profile/${id}/image`);
 	const response = await request.json();
 	return response;
 }
 
 async function getImagesById(id) {
-	const request = await fetch(`./api/database/get/imagesFromId/${id}`);
-	if (!request.ok) return console.warn(`Could not GET /api/database/post/imagesFromId/${id}`);
+	const request = await fetch(`./api/profile/${id}/images`);
+	if (!request.ok) return console.warn(`Could not GET ./api/profile/${id}/images`);
 	const response = await request.json();
 	return response;
 }
 
 async function getMessages(to, from) {
-	const payload = { to: '', from: '' };
-	payload.to = to;
-	payload.from = from;
+	const request = await fetch(`./api/profile/${from}/recipient/${to}`);
 
-	const request = await fetch('/api/database/post/getMessages', {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(payload)
-	});
-	if (!request.ok) return console.warn(`Could not POST /api/database/post/getMessages`);
+	if (!request.ok) return console.warn(`Could not get /api/profile/${from}/recipient/${to}`);
 	const profileObj = await request.json();
 	return profileObj;
 }
 
-async function sendMessage(message) {
-	const request = await fetch('/api/database/post/sendMessage', {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(message)
-	});
-	if (!request.ok) return console.warn(`Could not POST /api/database/post/getMessages`);
-	const profileObj = await request.json();
-	return profileObj;
-}
-
-async function getMessage(id) {
-	const request = await fetch(`./api/database/get/getMessage/${id}`);
-	if (!request.ok) return console.warn(`Could not get /api/database/get/distinctFilterProperties`);
-	const result = await request.json();
-	return result.rows[0];
-}
-
-async function setProfilePic(body) {
-	const request = await fetch('/api/database/post/setProfilePic', {
+async function sendMessage(id, rec_id, msg) {
+	const body = { content: msg };
+	const request = await fetch(`./api/profile/${id}/recipient/${rec_id}`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(body)
 	});
-	if (!request.ok) return console.warn(`Could not POST /api/database/post/getMessages`);
+	if (!request.ok) return console.warn(`Could not POST /api/profile/${id}/recipient/${rec_id}`);
+	const msg_id = await request.json();
+	return msg_id;
+}
+
+async function getMessage(id, rec_id, msg_id) {
+	const request = await fetch(`./api/profile/${id}/recipient/${rec_id}/message/${msg_id}`);
+	if (!request.ok)
+		return console.warn(`Could not get ./api/profile/${id}/recipient/${rec_id}/message/${msg_id}`);
+	const result = await request.json();
+	return result.rows[0];
+}
+
+async function setProfilePic(id, img_id) {
+	const request = await fetch(`/api/profile/${id}/image/${img_id}`, {
+		method: 'PUT'
+	});
+	if (!request.ok) return console.warn(`Could not POST /api/profile/${id}/image/${img_id}`);
 	const result = await request.json();
 	return result;
 }
 
 async function getProfilePicById(id) {
-	const request = await fetch(`./api/database/get/getProfilePic/${id}`);
-	if (!request.ok) return console.warn(`Could not get /api/database/get/getProfilePic`);
+	const request = await fetch(`./api/profile/${id}/profilepic`);
+	if (!request.ok) return console.warn(`Could not get ./api/profile/${id}/profilepic`);
 	const result = await request.json();
 
 	if (result.rowCount == 0) {
@@ -161,12 +141,12 @@ async function getProfilePicById(id) {
 }
 
 async function createProfile(body) {
-	const request = await fetch('/api/database/post/createProfile', {
+	const request = await fetch('/api/profile', {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(body)
 	});
-	if (!request.ok) return console.warn(`Could not POST /api/database/post/createProfile`);
+	if (!request.ok) return console.warn(`Could not POST /api/profile`);
 	const result = await request.json();
 	return result;
 }

@@ -56,11 +56,14 @@ function createTableRows(message, tempId, name) {
 
 // Get message properties to be sent to the server as a new message
 async function sendMessageProperties() {
-	const message = { sender: '', reciever: '', content: '' };
-	message.reciever = window.location.hash.substring(1);
-	message.sender = localStorage.getItem('currentProfile').substring(8);
-	message.content = document.querySelector('#messageBox').value;
-	const result = await sendMessage(message);
+	const id = localStorage.getItem('currentProfile').substring(8);
+	const rec_id = window.location.hash.substring(1);
+	const msg = document.querySelector('#messageBox').value;
+	console.log('id: ', id);
+	console.log('rec_id: ', rec_id);
+	console.log('msg: ', msg);
+
+	const result = await sendMessage(id, rec_id, msg);
 	console.log(result);
 	const newMessage = await getMessage(result);
 	console.log('newmessage: ', newMessage);

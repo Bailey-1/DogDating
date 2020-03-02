@@ -25,14 +25,6 @@ async function createProfileElement(profile) {
 	document.querySelector('#profiles-area').appendChild(clone);
 }
 
-async function loadProfiles() {
-	const currentProfile = localStorage.getItem('currentProfile').substring(8);
-	//console.log(currentProfile);
-	const profiles = await getDiscoveryById(currentProfile);
-	profiles.rows.forEach(createProfileElement);
-	document.querySelector('#resultsNum').textContent = `${profiles.rowCount} Results`;
-}
-
 async function loadFilters() {
 	const profileId = localStorage.getItem('currentProfile').substring(8);
 	const filters = await getFilters(profileId);
@@ -84,9 +76,9 @@ function createHandlers() {
 }
 
 async function pageLoaded() {
-	await loadProfiles();
 	await loadFilters();
 	createHandlers();
+	updateProfilesSelection();
 }
 
 window.addEventListener('load', pageLoaded);

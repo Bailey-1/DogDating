@@ -30,13 +30,12 @@ async function showProfile() {
 
 async function showProfilePic() {
 	const imageObj = await getProfilePicById(currentProfile);
-	console.log(imageObj);
+
 	let profilePicSrc;
-	if (imageObj == false) {
-		profilePicSrc = `./images/user.png`;
-	} else {
-		profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
-	}
+	!imageObj
+		? (profilePicSrc = `./images/user.png`)
+		: (profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`);
+
 	document.querySelector('#profilePicElement').src = profilePicSrc;
 }
 
@@ -63,8 +62,6 @@ async function uploadImage() {
 	console.log('uploadImage function has been called');
 	const payload = new FormData();
 	const id = localStorage.getItem('currentProfile').substring(8);
-	console.log('id:', id);
-	payload.append('id', id);
 
 	const desc = document.querySelector('#imageDescInput').value;
 
@@ -77,7 +74,7 @@ async function uploadImage() {
 	}
 
 	console.log(payload);
-	const response = await uploadImageToServer(payload);
+	const response = await uploadImageToServer(id, payload);
 	showProfileImages();
 }
 
@@ -103,12 +100,10 @@ function createImageElement(imageObj) {
 	document.querySelector('#images').prepend(clone);
 }
 
-async function getProfilePic() {
+async function setNewProfilePic() {
 	// Cheeky way to get the id of the image for every user uploaded image.
-	const image_id = event.srcElement.parentElement.id.substring(4);
-	console.log(image_id);
-	const obj = { img_id: image_id, pro_id: localStorage.getItem('currentProfile').substring(8) };
-	const result = await setProfilePic(obj);
+	const img_id = event.srcElement.parentElement.id.substring(4);
+	const result = await setProfilePic(currentProfile, img_id);
 	showProfilePic();
 }
 
@@ -117,7 +112,7 @@ function addEventListeners() {
 	document.querySelector('#uploadImageButton').addEventListener('click', uploadImage);
 	const items = document.querySelectorAll('button.setProfilePic');
 	for (const i of items) {
-		i.addEventListener('click', getProfilePic);
+		i.addEventListener('click', setNewProfilePic);
 	}
 	document.querySelector('#birthday').addEventListener('change', print);
 }
