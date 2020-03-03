@@ -1,5 +1,3 @@
-let currentProfile = localStorage.getItem('currentProfile').substring(8);
-
 async function showProfile() {
 	const userProfile = await getProfileById(currentProfile);
 	console.log(userProfile);
@@ -42,7 +40,7 @@ async function showProfilePic() {
 async function updateDetails() {
 	let profileObj = {};
 
-	profileObj.id = localStorage.getItem('currentProfile').substring(8);
+	profileObj.id = currentProfile;
 	profileObj.name = document.querySelector('#nameOption').value;
 	profileObj.breed = document.querySelector('#breed').value;
 	profileObj.location = document.querySelector('#location').value;
@@ -61,8 +59,6 @@ async function updateDetails() {
 async function uploadImage() {
 	console.log('uploadImage function has been called');
 	const payload = new FormData();
-	const id = localStorage.getItem('currentProfile').substring(8);
-
 	const desc = document.querySelector('#imageDescInput').value;
 
 	payload.append('desc', desc);
@@ -74,14 +70,13 @@ async function uploadImage() {
 	}
 
 	console.log(payload);
-	const response = await uploadImageToServer(id, payload);
+	const response = await uploadImageToServer(currentProfile, payload);
 	showProfileImages();
 }
 
 async function showProfileImages() {
 	removeContentFrom(document.querySelector('#images'));
-	const id = localStorage.getItem('currentProfile').substring(8);
-	const imageObj = await getImagesById(id);
+	const imageObj = await getImagesById(currentProfile);
 	console.log(imageObj.rows);
 	imageObj.rows.forEach(createImageElement);
 

@@ -1,6 +1,22 @@
 // Utility functions
 // Single page to help manage API requests and to reuse them across the site
 
+let currentProfile = localStorage.getItem('currentProfile').substring(8);
+
+testCurrentProfile();
+
+async function testCurrentProfile() {
+	let profileResult = await getProfileById(currentProfile);
+	console.log('profileResult: ', profileResult);
+	if (profileResult.length != 1) {
+		console.log(window.location.pathname);
+		if (window.location.pathname != '/profile-selection') {
+			alert('Please select a profile');
+			window.location.replace('./profile-selection');
+		}
+	}
+}
+
 function removeContentFrom(what) {
 	while (what.firstElementChild) {
 		what.firstElementChild.remove();
@@ -71,7 +87,7 @@ async function updateProfileByUUID(profile) {
 }
 
 async function uploadImageToServer(id, payload) {
-	const request = await fetch(`/api/profile/${id}/image`, {
+	const request = await fetch(`/api/profile/${id}/images`, {
 		method: 'POST',
 		body: payload
 	});

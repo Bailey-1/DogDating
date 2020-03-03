@@ -27,72 +27,73 @@ app.use(
 async function getProfilesByAccountId(req, res) {
 	const response = await db.getProfilesByAccountId(req.params.id);
 	console.log('Response', response);
-	res.json(response);
+	//res.json(response);
+	res.status(200).json(response);
 }
 
 async function getProfileById(req, res) {
 	const response = await db.getProfileById(req.params.id);
 	console.log('Response', response);
 
-	res.json(response);
+	res.status(200).json(response);
 }
 
 async function getAccountById(req, res) {
-	res.json(await db.getAccountById(req.params.id));
+	res.status(200).json(await db.getAccountById(req.params.id));
 }
 
 /* Pass the query parameters to the server through a POST request
 because it is easier / neater than using a very long URL and Route. */
 async function getDistinctProfileProperties(req, res) {
-	res.json(await db.getDistinctFilterProperties(req.params.id));
+	res.status(200).json(await db.getDistinctFilterProperties(req.params.id));
 }
 
 async function getDiscoveryByFilter(req, res) {
 	console.table(req.query);
 
-	res.json(await db.getDiscoveryByFilters(req.params.id, req.query));
+	res.status(200).json(await db.getDiscoveryByFilters(req.params.id, req.query));
 }
 
 async function postUpdateProfileByUUID(req, res) {
-	res.json(await db.updateProfileByUUID(req.body));
+	res.status(200).json(await db.updateProfileByUUID(req.body));
 }
 
 async function uploadImage(req, res) {
-	res.json(await db.uploadImageToDatabase(req.params.id, req.body.desc, req.file));
+	res.status(200).json(await db.uploadImageToDatabase(req.params.id, req.body.desc, req.file));
 }
 
 async function getImagesFromId(req, res) {
-	res.json(await db.getImagesFromId(req.params.id));
+	res.status(200).json(await db.getImagesFromId(req.params.id));
 }
 
 async function getMessages(req, res) {
-	res.json(await db.getMessages(req.params.id, req.params.rec_id));
+	res.status(200).json(await db.getMessages(req.params.id, req.params.rec_id));
 }
 
 async function getMessage(req, res) {
-	res.json(await db.getMessage(req.params.id, req.params.rec_id, req.params.msg_id));
+	res.status(200).json(await db.getMessage(req.params.id, req.params.rec_id, req.params.msg_id));
 }
 
 // Send a message from profile ID to recipient profile rec_id
 async function sendMessage(req, res) {
-	res.json(await db.sendMessage(req.params.id, req.params.rec_id, req.body.content));
+	res.status(200).json(await db.sendMessage(req.params.id, req.params.rec_id, req.body.content));
 }
 
 async function setProfilePic(req, res) {
-	res.json(await db.setProfilePic(req.params.id, req.params.img_id));
+	res.status(200).json(await db.setProfilePic(req.params.id, req.params.img_id));
 }
 
 async function getProfilePicById(req, res) {
-	res.json(await db.getProfilePic(req.params.id));
+	res.status(200).json(await db.getProfilePic(req.params.id));
 }
 
 async function createProfile(req, res) {
 	const response = await db.createProfile(req.body);
-	res.json(response);
+	res.status(200).json(response);
 }
 
 async function deleteProfile(req, res) {
-	res.json(await db.deleteProfile(req.params.id));
+	res.status(200).json(await db.deleteProfile(req.params.id));
 }
 
 // wrap async function for express.js error handling
@@ -137,5 +138,9 @@ app
 	.route('/api/profile/:id/recipient/:rec_id')
 	.get(express.json(), asyncWrap(getMessages)) // Get messages between two profiles
 	.post(express.json(), asyncWrap(sendMessage)); // Send message between two profiles
+
+app.get('*', function(req, res) {
+	res.status(404).send('404: Not found. TODO: make this return a HTML error');
+});
 
 app.listen(8080);

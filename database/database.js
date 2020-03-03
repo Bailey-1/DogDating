@@ -87,6 +87,7 @@ async function getDiscoveryByFilters(id, query) {
 	console.log(q);
 
 	let result = await sql.query(q);
+	console.log(result);
 	return result;
 }
 

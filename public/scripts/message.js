@@ -1,18 +1,18 @@
 let messageObj;
 let recieverProfile;
-let currentProfile;
+let currentProfileData;
 
 // Function to show messages
 async function showMessages() {
 	// Get profile objects for both profiles.
 	recieverProfile = await getProfileById(window.location.hash.substring(1));
-	currentProfile = await getProfileById(localStorage.getItem('currentProfile').substring(8));
+	currentProfileData = await getProfileById(currentProfile);
 
 	recieverProfile = recieverProfile[0];
-	currentProfile = currentProfile[0];
+	currentProfileData = currentProfileData[0];
 
 	// Get message object for all messages between them
-	messageObj = await getMessages(recieverProfile.pro_id, currentProfile.pro_id);
+	messageObj = await getMessages(recieverProfile.pro_id, currentProfileData.pro_id);
 	console.table(messageObj.rows);
 	//messages.rows.forEach(decideTableRows);
 
@@ -26,10 +26,10 @@ async function showMessages() {
 // Function to decide which template to use with each message
 function decideTableRows(message) {
 	// Checks to see if the sender id is equal to the currentProfile id
-	if (message.msg_sender == currentProfile.pro_id) {
+	if (message.msg_sender == currentProfileData.pro_id) {
 		console.log('Sender');
 		// Pass the message, template ID and the name of the sender to createTableRows
-		createTableRows(message, '#sentMessage', currentProfile.pro_name);
+		createTableRows(message, '#sentMessage', currentProfileData.pro_name);
 	} else {
 		console.log('Reciever');
 		// Pass the message, template ID and the name of the sender to createTableRows
@@ -56,19 +56,18 @@ function createTableRows(message, tempId, name) {
 
 // Get message properties to be sent to the server as a new message
 async function sendMessageProperties() {
-	const id = localStorage.getItem('currentProfile').substring(8);
 	const rec_id = window.location.hash.substring(1);
 	const msg = document.querySelector('#messageBox').value;
-	console.log('id: ', id);
+	console.log('id: ', currentProfile);
 	console.log('rec_id: ', rec_id);
 	console.log('msg: ', msg);
 
-	const result = await sendMessage(id, rec_id, msg);
+	const result = await sendMessage(currentProfile, rec_id, msg);
 	console.log(result);
 	const newMessage = await getMessage(result);
 	console.log('newmessage: ', newMessage);
 
-	createTableRows(newMessage, '#sentMessage', currentProfile.pro_name);
+	createTableRows(newMessage, '#sentMessage', currentProfileData.pro_name);
 	document.querySelector('#messageBox').value = '';
 }
 
@@ -76,7 +75,7 @@ async function mainLoop() {
 	console.log('mainloop');
 
 	// Get message object for all messages between them
-	const newMessages = await getMessages(recieverProfile.pro_id, currentProfile.pro_id);
+	const newMessages = await getMessages(recieverProfile.pro_id, currentProfileData.pro_id);
 
 	for (const message of newMessages.rows) {
 		if (document.querySelector(`#msg-${message.msg_id}`)) {

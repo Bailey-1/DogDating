@@ -87,7 +87,14 @@ A simple overview of the entire project and how it all interacts with each other
 
 ## DISCOVERY:
 
-    POST    /api/discovery/:pro_id
+    GET    /api/profile/:pro_id/discovery - GET possible matches and takes queries:
+            ?
+            pro_location - filter location
+            pro_breed - filter breed
+            kc - kennelclub membership
+            s={column name}-{asc or desc} - sort the returned profiles.
+
+            For example: http://localhost:8080/discovery?location=Portsmouth&kc=Member&s=pro_name-desc
 
     GET     /api/discovery/:pro_id/filters
 

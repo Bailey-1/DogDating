@@ -1,5 +1,3 @@
-const currentProfile = localStorage.getItem('currentProfile').substring(8);
-
 async function createProfileElement(profile) {
 	const template = document.querySelector('#profile-item');
 	const clone = document.importNode(template.content, true);
@@ -26,8 +24,7 @@ async function createProfileElement(profile) {
 }
 
 async function loadFilters() {
-	const profileId = localStorage.getItem('currentProfile').substring(8);
-	const filters = await getFilters(profileId);
+	const filters = await getFilters(currentProfile);
 
 	for (const option of filters.location.rows) {
 		createOptions('select-location', option.pro_location);
@@ -61,6 +58,42 @@ function getLocationSearch() {
 	console.log('search: ', searchArr);
 }
 
+async function changeFiltersOnSearch() {
+	console.group('changeFiltersOnSearch');
+	let searchArr = window.location.search.substring(1).split('&');
+
+	for (let i = 0; i < searchArr.length; i++) {
+		searchArr[i] = searchArr[i].replace('+', ' ');
+		console.log(searchArr[i]);
+	}
+
+	console.log(searchArr);
+	for (const searchArg of searchArr) {
+		if (searchArg.startsWith('location=')) {
+			console.log('Location: ', searchArg.substring(9));
+			document.querySelector('#select-location').value = searchArg.substring(9);
+		}
+		if (searchArg.startsWith('breed=')) {
+			console.log('breed: ', searchArg.substring(6));
+			document.querySelector('#select-breed').value = searchArg.substring(6);
+		}
+		if (searchArg.startsWith('kc=')) {
+			console.log('kc: ', searchArg.substring(3));
+			document.querySelector('#select-kennelclub').value = searchArg.substring(3);
+		}
+		if (searchArg.startsWith('s=')) {
+			console.log('sort: ', searchArg.substring(2));
+			console.log('s: ', searchArg.substring(2));
+			const sortArr = searchArg.substring(2).split('-');
+			console.log('sort: ', sortArr);
+			document.querySelector('#sort-type').value = sortArr[0];
+			document.querySelector('#sort-dir').value = sortArr[1];
+			document.querySelector('#sort-dir').style.visibility = 'visible';
+		}
+	}
+	console.groupEnd();
+}
+
 async function updateProfilesSelection() {
 	let queryArr = [];
 	// Filters
@@ -70,7 +103,6 @@ async function updateProfilesSelection() {
 		queryArr.push('breed=' + document.querySelector('#select-breed').value);
 	if (document.querySelector('#select-kennelclub').value != 'all')
 		queryArr.push('kc=' + document.querySelector('#select-kennelclub').value);
-
 	// Sort
 	if (document.querySelector('#sort-type').value != 'default')
 		queryArr.push(
@@ -79,19 +111,22 @@ async function updateProfilesSelection() {
 				'-' +
 				document.querySelector('#sort-dir').value
 		);
-
 	console.log('queryArr: ', queryArr);
-	const queryStr = '?' + queryArr.join('&');
+	let queryStr = '?' + queryArr.join('&');
 	console.log('queryStr: ', queryStr);
+	queryStr = queryStr.replace(' ', '+');
+	window.location.search = queryStr;
+}
 
-	const url = `/api/profile/${currentProfile}/discovery${queryStr}`;
-	console.log(url);
-	const profiles = await getDiscoveryByFilters(currentProfile, queryStr);
-
-	console.log('Profiles ', profiles);
+async function getProfileSelection() {
+	const profiles = await getDiscoveryByFilters(currentProfile, window.location.search);
+	console.group('Returned Profiles');
+	console.log(profiles);
+	if (profiles.rowCount === 0) console.warn('200: Request completed but 0 results');
 	removeContentFrom(document.querySelector('#profiles-area'));
 	profiles.rows.forEach(createProfileElement);
 	document.querySelector('#resultsNum').textContent = `${profiles.rowCount} Results`;
+	console.groupEnd();
 }
 
 function createHandlers() {
@@ -105,7 +140,8 @@ function createHandlers() {
 async function pageLoaded() {
 	await loadFilters();
 	createHandlers();
-	updateProfilesSelection();
+	await changeFiltersOnSearch();
+	await getProfileSelection();
 }
 
 window.addEventListener('load', pageLoaded);
