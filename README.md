@@ -1,13 +1,20 @@
 # DogDating
 
-A dog dating website.
+A dog dating website. Some of the dog breeds are wrong but thats not important.
 
 # Features
 
 - User can "Discover" other profiles and filter then accordingly.
+  - Which is sent as a URL query to the web server.
 - Uses a PostgreSQL database to store accounts, profiles, images and messages.
 - User can upload as many images as they want for each profile.
-- User can refresh the webpage and it will remain on the same page.
+  - Each image can have a message attached to it.
+  - Each image can be set as a a profile pic.
+  - Images can be completely deleted from the web server; database record and file.
+- User can create a unlimited number of profiles.
+  - And can update infomation on them.
+- User can refresh the webpage and it will remain on the same page and the discovery page will keep the same filter and sort options.
+- Users can message other profiles and they can response in real time.
 
 # Setup
 

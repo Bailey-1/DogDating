@@ -417,10 +417,12 @@ INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) V
 INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content, msg_time) VALUES ('cd21de21-72ca-4f92-98a0-9f5800a0c700', '0ef3bc3f-e316-41d5-813f-e54afe509286', '9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b', 'Hey ruth
 ', '2020-02-28 13:03:52.309370');
 
-INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('24be07f5-14e8-405a-8ef5-1c506031ac0b', 'jpeg', 'Hello world', '2020-02-27 13:06:58.338841', true, '3abb409c-72c2-44fe-86c9-71f587ac854a');
-INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('715bb87d-65dc-41b0-a100-864f200510f0', 'jpeg', 'Hello world', '2020-02-27 13:07:11.607602', true, '60776534-54c6-47b9-9c92-b796e0a4554b');
-INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('a613babf-2d19-4a0f-9f48-7e7523da4d18', 'jpeg', 'Hello world', '2020-02-27 13:08:27.051418', false, '60776534-54c6-47b9-9c92-b796e0a4554b');
-INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('bd72bb0f-7095-42ce-8267-7fd5a14a44fe', 'jpeg', 'Hello world', '2020-02-27 13:08:43.985246', true, '9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b');
-INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('df3987ab-fab1-40da-b77e-0ccc2ba9dbfc', 'jpeg', 'Hello world', '2020-02-27 13:10:21.137346', false, '0ef3bc3f-e316-41d5-813f-e54afe509286');
-INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('582649fe-2063-4feb-ac
-
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('94904b91-1eab-4b15-84e2-1ebf70271721', 'jpeg', 'Me outside', '2020-03-03 20:24:51.735910', true, '9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('5e930020-d08a-41fc-94b7-2a43f84db13c', 'jpeg', 'Me also outside', '2020-03-03 20:25:13.421886', true, '3abb409c-72c2-44fe-86c9-71f587ac854a');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('9980ff9d-a672-4ec6-9784-6472c012f3a3', 'jpeg', '', '2020-03-03 20:25:27.662980', false, '0ef3bc3f-e316-41d5-813f-e54afe509286');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('14995212-9920-4e5a-8ae4-1fe25b327bc2', 'jpeg', '', '2020-03-03 20:25:35.375190', true, '0ef3bc3f-e316-41d5-813f-e54afe509286');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('92bf5920-39b5-4c1d-bd80-9ace5bc9bedc', 'jpeg', '', '2020-03-03 20:25:48.354335', false, '60776534-54c6-47b9-9c92-b796e0a4554b');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('3af778e8-28cb-4f62-ae98-81a6cb48cd45', 'jpeg', '', '2020-03-03 20:25:52.820143', true, '60776534-54c6-47b9-9c92-b796e0a4554b');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('18f24932-3ce8-4bda-80a5-50537cab4ce4', 'jpeg', 'Me looking cute', '2020-03-03 20:31:50.968894', true, '82b75703-3336-4846-bdd3-72ee005d12b5');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('7594aaa9-3229-4b11-a26f-1b5fffe04b1f', 'jpeg', 'husky', '2020-03-03 20:33:16.395339', true, 'cf2f16ff-4d29-468d-98cd-31a82120124b');
+INSERT INTO images (img_id, img_ext, img_desc, img_time, img_profilepic, pro_id) VALUES ('d16861e4-4dd8-423b-b1c1-3e56febad68c', 'jpeg', 'husky 2', '2020-03-03 20:34:10.731383', true, 'ae80b48e-6220-4f37-a02d-fc510a65a137');
