@@ -2,6 +2,7 @@
 // Single page to help manage API requests and to reuse them across the site
 
 let currentProfile = localStorage.getItem('currentProfile').substring(8);
+let currentAccount = localStorage.getItem('currentAccount');
 
 testCurrentProfile();
 
@@ -81,7 +82,7 @@ async function updateProfileByUUID(profile) {
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(profile)
 	});
-	if (!request.ok) return console.warn(`Could not POST /api/profile/:id`);
+	if (!request.ok) return console.warn(`Could not PUT /api/profile/:id`);
 	const response = await request.json();
 	return response;
 }
@@ -126,7 +127,7 @@ async function sendMessage(id, rec_id, msg) {
 async function getMessage(id, rec_id, msg_id) {
 	const request = await fetch(`./api/profile/${id}/recipient/${rec_id}/message/${msg_id}`);
 	if (!request.ok)
-		return console.warn(`Could not get ./api/profile/${id}/recipient/${rec_id}/message/${msg_id}`);
+		return console.warn(`Could not GET ./api/profile/${id}/recipient/${rec_id}/message/${msg_id}`);
 	const result = await request.json();
 	return result.rows[0];
 }
@@ -135,14 +136,14 @@ async function setProfilePic(id, img_id) {
 	const request = await fetch(`/api/profile/${id}/image/${img_id}`, {
 		method: 'PUT'
 	});
-	if (!request.ok) return console.warn(`Could not POST /api/profile/${id}/image/${img_id}`);
+	if (!request.ok) return console.warn(`Could not PUT /api/profile/${id}/image/${img_id}`);
 	const result = await request.json();
 	return result;
 }
 
 async function getProfilePicById(id) {
 	const request = await fetch(`./api/profile/${id}/profilepic`);
-	if (!request.ok) return console.warn(`Could not get ./api/profile/${id}/profilepic`);
+	if (!request.ok) return console.warn(`Could not GET ./api/profile/${id}/profilepic`);
 	const result = await request.json();
 
 	if (result.rowCount == 0) {
@@ -159,6 +160,15 @@ async function createProfile(body) {
 		body: JSON.stringify(body)
 	});
 	if (!request.ok) return console.warn(`Could not POST /api/profile`);
+	const result = await request.json();
+	return result;
+}
+
+async function deletePictureUtil(pro_id, img_id) {
+	const request = await fetch(`/api/profile/${pro_id}/image/${img_id}`, {
+		method: 'DELETE'
+	});
+	if (!request.ok) return console.warn(`Could not DELETE /api/profile/${pro_id}/image/${img_id}`);
 	const result = await request.json();
 	return result;
 }

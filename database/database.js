@@ -18,7 +18,7 @@ sql.on('error', err => {
 
 async function getProfilesByAccountId(id) {
 	console.log('id: ', id);
-	const q = `SELECT * FROM profiles WHERE acc_id = '${id}';`;
+	const q = `SELECT * FROM profiles WHERE acc_id = '${id}' ORDER BY pro_name;`;
 	console.log(q);
 	const result = await sql.query(q);
 	return result.rows;
@@ -254,6 +254,22 @@ async function deleteProfile(id) {
 	return result;
 }
 
+async function deletePic(id, img_id) {
+	const result = await sql.query(`DELETE FROM images WHERE pro_id = $1 AND img_id = $2`, [
+		id,
+		img_id
+	]);
+	return result;
+}
+
+async function getPic(id, img_id) {
+	const result = await sql.query(`SELECT * FROM images WHERE pro_id = $1 AND img_id = $2`, [
+		id,
+		img_id
+	]);
+	return result;
+}
+
 module.exports = {
 	getProfilesByAccountId,
 	getProfileById,
@@ -269,5 +285,7 @@ module.exports = {
 	setProfilePic,
 	getProfilePic,
 	createProfile,
-	deleteProfile
+	deleteProfile,
+	deletePic,
+	getPic
 };

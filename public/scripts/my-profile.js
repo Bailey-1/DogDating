@@ -102,12 +102,22 @@ async function setNewProfilePic() {
 	showProfilePic();
 }
 
+async function deletePic() {
+	const img_id = event.srcElement.parentElement.id.substring(4);
+	console.log(img_id);
+	deletePictureUtil(currentProfile, img_id);
+}
+
 function addEventListeners() {
 	document.querySelector('#updateDetails').addEventListener('click', updateDetails);
 	document.querySelector('#uploadImageButton').addEventListener('click', uploadImage);
-	const items = document.querySelectorAll('button.setProfilePic');
+	let items = document.querySelectorAll('button.setProfilePic');
 	for (const i of items) {
 		i.addEventListener('click', setNewProfilePic);
+	}
+	items = document.querySelectorAll('button.deletePic');
+	for (const i of items) {
+		i.addEventListener('click', deletePic);
 	}
 	document.querySelector('#birthday').addEventListener('change', print);
 }

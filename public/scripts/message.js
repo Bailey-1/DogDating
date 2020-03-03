@@ -4,6 +4,7 @@ let currentProfileData;
 
 // Function to show messages
 async function showMessages() {
+	console.group('showMessages');
 	// Get profile objects for both profiles.
 	recieverProfile = await getProfileById(window.location.hash.substring(1));
 	currentProfileData = await getProfileById(currentProfile);
@@ -21,6 +22,7 @@ async function showMessages() {
 		// Pass the message to a object with each profile.
 		decideTableRows(message);
 	}
+	console.groupEnd();
 }
 
 // Function to decide which template to use with each message
@@ -56,6 +58,7 @@ function createTableRows(message, tempId, name) {
 
 // Get message properties to be sent to the server as a new message
 async function sendMessageProperties() {
+	console.group('Send Message');
 	const rec_id = window.location.hash.substring(1);
 	const msg = document.querySelector('#messageBox').value;
 	console.log('id: ', currentProfile);
@@ -69,11 +72,11 @@ async function sendMessageProperties() {
 
 	createTableRows(newMessage, '#sentMessage', currentProfileData.pro_name);
 	document.querySelector('#messageBox').value = '';
+	console.groupEnd();
 }
 
 async function mainLoop() {
-	console.log('mainloop');
-
+	console.groupCollapsed('GET messages results');
 	// Get message object for all messages between them
 	const newMessages = await getMessages(recieverProfile.pro_id, currentProfileData.pro_id);
 
@@ -85,6 +88,7 @@ async function mainLoop() {
 			decideTableRows(message);
 		}
 	}
+	console.groupEnd();
 }
 
 function checkKeys(e) {

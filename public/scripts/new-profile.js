@@ -9,7 +9,7 @@ async function sendDetails() {
 	profileObj.pro_dislikes = document.querySelector('#dislikes').value;
 	profileObj.pro_aboutme = document.querySelector('#aboutme').value;
 	profileObj.pro_birthday = document.querySelector('#birthday').value;
-	profileObj.acc_id = currentProfile;
+	profileObj.acc_id = currentAccount;
 	console.log(profileObj);
 	const response = await createProfile(profileObj);
 	console.log('Response: ', response);

@@ -3,6 +3,7 @@ const db = require('./database/database');
 const express = require('express');
 const app = express();
 const multer = require('multer');
+const fs = require('fs');
 
 const uploader = multer({
 	dest: 'upload',
@@ -93,7 +94,33 @@ async function createProfile(req, res) {
 }
 
 async function deleteProfile(req, res) {
-	res.status(200).json(await db.deleteProfile(req.params.id));
+	res.status(200).json(await db.getPic(req.params.id));
+}
+
+async function getPic(req, res) {
+	res.status(200).json(await db.deletePic(req.params.id, req.params.img_id));
+}
+
+async function deletePic(req, res) {
+	// Get ext infomation on the image so we can delete it.
+	const picData = await db.getPic(req.params.id, req.params.img_id);
+
+	// Delete the image from the database.
+	const result = await db.deletePic(req.params.id, req.params.img_id);
+	console.log(picData);
+
+	if (result.rowCount === 1) {
+		// Find image location, id and extension.
+		const img_location = `./public/uploadedImages/${picData.rows[0].img_id}.${picData.rows[0].img_ext}`;
+		// Delete image on the server.
+		fs.unlink(img_location, error => {
+			// Display error if a error occurs.
+			if (err) throw error;
+			console.log(`${img_location} was deleted`);
+		});
+	}
+
+	return result;
 }
 
 // wrap async function for express.js error handling
@@ -118,7 +145,8 @@ app.get('/api/profile/:id/recipient/:rec_id/message/:msg_id', asyncWrap(getMessa
 
 // Set profile picture to img_id
 app.put('/api/profile/:id/image/:img_id', express.json(), asyncWrap(setProfilePic));
-
+app.delete('/api/profile/:id/image/:img_id', express.json(), asyncWrap(deletePic));
+app.get('/api/profile/:id/image/:img_id', express.json(), asyncWrap(getPic));
 app.get('/api/profile/:id/profilepic', asyncWrap(getProfilePicById));
 
 app.post('/api/profile', express.json(), asyncWrap(createProfile)); // Create profile
