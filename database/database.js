@@ -60,22 +60,30 @@ async function getDistinctFilterProperties(id) {
 	return distinctItems;
 }
 
-async function getDiscoveryByFilters(body) {
-	//console.table(body);
-	console.table(body);
+async function getDiscoveryByFilters(id, query) {
+	console.log('id: ', id);
+	const profile = await sql.query(`SELECT pro_sex FROM profiles WHERE pro_id = '${id}'`);
+	const profileSex = profile.rows[0].pro_sex;
+	let q = `SELECT * FROM profiles INNER JOIN accounts ON profiles.acc_id = accounts.acc_id WHERE pro_sex !='${profileSex}'`;
+	// if (query.location != 'all' ? (q = q + ` AND profiles.pro_location = '${body.location}'`) : q);
+	// if (query.breed != 'all' ? (q = q + ` AND profiles.pro_breed = '${body.breed}'`) : q);
+	// if (
+	// 	query.kc != 'all'
+	// 		? (q = q + ` AND accounts.acc_kennelclubmembership = '${body.kennelclub}'`)
+	// 		: q
+	// );
 
-	let q = `SELECT pro_sex FROM profiles WHERE pro_id = '${body.id}'`;
-	//console.log(q);
-	const usersex = await sql.query(q);
+	if (query.location) q += ` AND profiles.pro_location = '${query.location}'`;
+	if (query.breed) q += ` AND profiles.pro_breed = '${query.breed}'`;
+	if (query.kc) q += ` AND accounts.acc_kennelclubmembership = '${query.kc}'`;
 
-	q = `SELECT * FROM profiles INNER JOIN accounts ON profiles.acc_id = accounts.acc_id WHERE pro_sex !='${usersex.rows[0].pro_sex}'`;
-	if (body.location != 'all' ? (q = q + ` AND profiles.pro_location = '${body.location}'`) : q);
-	if (body.breed != 'all' ? (q = q + ` AND profiles.pro_breed = '${body.breed}'`) : q);
-	if (
-		body.kennelclub != 'all'
-			? (q = q + ` AND accounts.acc_kennelclubmembership = '${body.kennelclub}'`)
-			: q
-	);
+	if (query.s) {
+		const sortOption = query.s.split('-');
+		console.table(sortOption);
+
+		q += ` ORDER BY ${sortOption[0]} ${sortOption[1]}`;
+	}
+
 	console.log(q);
 
 	let result = await sql.query(q);
@@ -234,6 +242,17 @@ async function createProfile(body) {
 	return data;
 }
 
+async function deleteProfile(id) {
+	let result = [];
+	result[0] = await sql.query(`DELETE FROM images WHERE pro_id = $1`, [id]);
+	result[1] = await sql.query(`DELETE FROM messages WHERE msg_sender = $1 OR msg_reciever = $1`, [
+		id
+	]);
+	result[2] = await sql.query(`DELETE FROM profiles WHERE pro_id = $1`, [id]);
+
+	return result;
+}
+
 module.exports = {
 	getProfilesByAccountId,
 	getProfileById,
@@ -248,5 +267,6 @@ module.exports = {
 	sendMessage,
 	setProfilePic,
 	getProfilePic,
-	createProfile
+	createProfile,
+	deleteProfile
 };

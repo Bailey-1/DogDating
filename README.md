@@ -41,16 +41,16 @@ A dog dating website.
   - See "recommended" profiles from the discovery page.
 - Profile:
   - ~~Change profile picture~~
-  - Upload message with user uploaded images.
+  - ~~Upload message with user uploaded images.~~
   - Allow user to delete specific images.
   - Allow users to leave a review and a star rating to rate previous interactions.
 - Messaging:
   - ~~Get simple messaging working.~~
   - Share images?
 - Profile Selection:
-  - Allow the user to create a new profile directly from the profile-selection page.
+  - ~~Allow the user to create a new profile directly from the profile-selection page.~~
   - Allow the user to delete specific profiles and all of their content such as images.
-  - Shortcut to the my-profile page.
+  - ~~Shortcut to the my-profile page.~~
 - login page
   - Mock login page that allows you to switch between different user accounts.
   - **Note: this is only to show that the webpages content is dynamic and changes based on the current user and to show that messaging would actually work.**
@@ -63,7 +63,7 @@ A simple overview of the entire project and how it all interacts with each other
 
     GET : GET DATA
 
-    POST: SEND DATA
+    POST: CREATE DATA
 
     DELETE: DELETE DATA
 

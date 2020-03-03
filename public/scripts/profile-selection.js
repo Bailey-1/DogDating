@@ -92,8 +92,8 @@ function addClasses() {
 	const selectedID = localStorage.getItem('currentProfile');
 
 	let target = document.querySelector(`#${selectedID}`);
-	console.log('target ', target.children[1].children[3]);
-	target.children[1].children[3].classList.add('selectedBtn');
+	console.log('target ', target);
+	target.children[1].children[4].classList.add('selectedBtn');
 }
 
 // Setup things

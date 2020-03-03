@@ -1,5 +1,6 @@
+const currentProfile = localStorage.getItem('currentProfile').substring(8);
+
 async function createProfileElement(profile) {
-	console.log('profile: ', profile.pro_sex);
 	const template = document.querySelector('#profile-item');
 	const clone = document.importNode(template.content, true);
 	clone.querySelector('.dogProfile').id = `profile-${profile.pro_id}`;
@@ -13,7 +14,6 @@ async function createProfileElement(profile) {
 	clone.querySelector('#messageBtn').href = `message#${profile.pro_id}`;
 
 	const imageObj = await getProfilePicById(profile.pro_id);
-	console.log(imageObj);
 	let profilePicSrc;
 	if (imageObj == false) {
 		profilePicSrc = `./images/user.png`;
@@ -28,7 +28,6 @@ async function createProfileElement(profile) {
 async function loadFilters() {
 	const profileId = localStorage.getItem('currentProfile').substring(8);
 	const filters = await getFilters(profileId);
-	//filters.location.rows.forEach(createOptions);
 
 	for (const option of filters.location.rows) {
 		createOptions('select-location', option.pro_location);
@@ -55,14 +54,40 @@ function createOptions(element, value) {
 	document.querySelector(`#${element}`).appendChild(locOption);
 }
 
+function getLocationSearch() {
+	const search = window.location.search.substring(1);
+	console.log('search: ', search);
+	let searchArr = search.split('&');
+	console.log('search: ', searchArr);
+}
+
 async function updateProfilesSelection() {
-	let selectedFilters = { id: '', location: '', breed: '', kennelclub: '' };
-	selectedFilters.id = localStorage.getItem('currentProfile').substring(8);
-	selectedFilters.location = document.querySelector('#select-location').value;
-	selectedFilters.breed = document.querySelector('#select-breed').value;
-	selectedFilters.kennelclub = document.querySelector('#select-kennelclub').value;
-	console.log(selectedFilters);
-	const profiles = await getDiscoveryByFilters(selectedFilters);
+	let queryArr = [];
+	// Filters
+	if (document.querySelector('#select-location').value != 'all')
+		queryArr.push('location=' + document.querySelector('#select-location').value);
+	if (document.querySelector('#select-breed').value != 'all')
+		queryArr.push('breed=' + document.querySelector('#select-breed').value);
+	if (document.querySelector('#select-kennelclub').value != 'all')
+		queryArr.push('kc=' + document.querySelector('#select-kennelclub').value);
+
+	// Sort
+	if (document.querySelector('#sort-type').value != 'default')
+		queryArr.push(
+			's=' +
+				document.querySelector('#sort-type').value +
+				'-' +
+				document.querySelector('#sort-dir').value
+		);
+
+	console.log('queryArr: ', queryArr);
+	const queryStr = '?' + queryArr.join('&');
+	console.log('queryStr: ', queryStr);
+
+	const url = `/api/profile/${currentProfile}/discovery${queryStr}`;
+	console.log(url);
+	const profiles = await getDiscoveryByFilters(currentProfile, queryStr);
+
 	console.log('Profiles ', profiles);
 	removeContentFrom(document.querySelector('#profiles-area'));
 	profiles.rows.forEach(createProfileElement);
@@ -73,6 +98,8 @@ function createHandlers() {
 	document.querySelector('#select-breed').addEventListener('change', updateProfilesSelection);
 	document.querySelector('#select-location').addEventListener('change', updateProfilesSelection);
 	document.querySelector('#select-kennelclub').addEventListener('change', updateProfilesSelection);
+	document.querySelector('#sort-type').addEventListener('change', updateProfilesSelection);
+	document.querySelector('#sort-dir').addEventListener('change', updateProfilesSelection);
 }
 
 async function pageLoaded() {

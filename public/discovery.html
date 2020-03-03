@@ -51,6 +51,22 @@
                     <option value="all">All</option>
                 </select>
             </div>
+            <div>
+                <p style="color: white; display: inline-block;" id="kennelclub-tag">Sort: </p>
+                <select style="display: inline-block;" id="sort-type">
+                    <!-- I know i shouldnt include database column names here because its not secure -->
+                    <option value="default">Default</option>
+                    <option value="pro_name">Name</option>
+                    <option value="pro_location">Location</option>
+                    <option value="pro_birthday">Birthday</option>
+                    <option value="pro_breed">Breed</option>
+
+                </select>
+                <select style="display: inline-block;" id="sort-dir">
+                    <option value="ASC">Ascending</option>
+                    <option value="DESC">Descending</option>
+                </select>
+            </div>
             <hr>
             <div id="profiles-area">
 

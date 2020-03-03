@@ -48,8 +48,9 @@ async function getDistinctProfileProperties(req, res) {
 }
 
 async function getDiscoveryByFilter(req, res) {
-	//console.log('Body: ', req.body);
-	res.json(await db.getDiscoveryByFilters(req.body));
+	console.table(req.query);
+
+	res.json(await db.getDiscoveryByFilters(req.params.id, req.query));
 }
 
 async function postUpdateProfileByUUID(req, res) {
@@ -90,6 +91,10 @@ async function createProfile(req, res) {
 	res.json(response);
 }
 
+async function deleteProfile(req, res) {
+	res.json(await db.deleteProfile(req.params.id));
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -103,9 +108,9 @@ app.get('/api/account/:id/profiles', asyncWrap(getProfilesByAccountId));
 // Get infomation on account
 app.get('/api/account/:id', asyncWrap(getAccountById));
 
-app.get('/api/discovery/:id/filters', asyncWrap(getDistinctProfileProperties));
+app.get('/api/profile/:id/discovery/filters', asyncWrap(getDistinctProfileProperties));
 
-app.post('/api/profile/:id/discovery', express.json(), asyncWrap(getDiscoveryByFilter));
+app.get('/api/profile/:id/discovery', express.json(), asyncWrap(getDiscoveryByFilter));
 
 // Get specific message
 app.get('/api/profile/:id/recipient/:rec_id/message/:msg_id', asyncWrap(getMessage));
@@ -115,12 +120,13 @@ app.put('/api/profile/:id/image/:img_id', express.json(), asyncWrap(setProfilePi
 
 app.get('/api/profile/:id/profilepic', asyncWrap(getProfilePicById));
 
+app.post('/api/profile', express.json(), asyncWrap(createProfile)); // Create profile
 // Handle different types of requests to the same route.
 app
 	.route('/api/profile/:id')
 	.get(asyncWrap(getProfileById)) // Get profile infomation
 	.put(express.json(), asyncWrap(postUpdateProfileByUUID)) // Update profile infomation
-	.post(express.json(), asyncWrap(createProfile)); // Create profile
+	.delete(asyncWrap(deleteProfile));
 
 app
 	.route('/api/profile/:id/images')

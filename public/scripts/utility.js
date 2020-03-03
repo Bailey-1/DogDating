@@ -52,12 +52,8 @@ async function getFilters(id) {
 	return filterObj;
 }
 
-async function getDiscoveryByFilters(filters) {
-	const request = await fetch('/api/profile/:id/discovery', {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(filters)
-	});
+async function getDiscoveryByFilters(id, query) {
+	const request = await fetch(`/api/profile/${id}/discovery${query}`);
 	if (!request.ok) return console.warn(`Could not POST /api/database/post/discoveryByFilter`);
 	const profileObj = await request.json();
 	return profileObj;
