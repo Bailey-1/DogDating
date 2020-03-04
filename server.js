@@ -33,10 +33,7 @@ async function getProfilesByAccountId(req, res) {
 }
 
 async function getProfileById(req, res) {
-	const response = await db.getProfileById(req.params.id);
-	console.log('Response', response);
-
-	res.status(200).json(response);
+	res.status(200).json(await db.getProfileById(req.params.id));
 }
 
 async function getAccountById(req, res) {
@@ -107,7 +104,7 @@ async function deletePic(req, res) {
 
 	// Delete the image from the database.
 	const result = await db.deletePic(req.params.id, req.params.img_id);
-	console.log(picData);
+	//console.log(picData);
 
 	if (result.rowCount === 1) {
 		// Find image location, id and extension.
@@ -115,7 +112,7 @@ async function deletePic(req, res) {
 		// Delete image on the server.
 		fs.unlink(img_location, error => {
 			// Display error if a error occurs.
-			if (err) throw error;
+			if (error) throw error;
 			console.log(`${img_location} was deleted`);
 		});
 	}

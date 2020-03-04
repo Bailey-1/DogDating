@@ -51,13 +51,6 @@ function createOptions(element, value) {
 	document.querySelector(`#${element}`).appendChild(locOption);
 }
 
-function getLocationSearch() {
-	const search = window.location.search.substring(1);
-	console.log('search: ', search);
-	let searchArr = search.split('&');
-	console.log('search: ', searchArr);
-}
-
 async function changeFiltersOnSearch() {
 	console.group('changeFiltersOnSearch');
 	let searchArr = window.location.search.substring(1).split('&');
@@ -112,10 +105,9 @@ async function updateProfilesSelection() {
 				document.querySelector('#sort-dir').value
 		);
 	console.log('queryArr: ', queryArr);
-	let queryStr = '?' + queryArr.join('&');
+	let queryStr = '?' + queryArr.join('&').replace(' ', '+');
 	console.log('queryStr: ', queryStr);
-	queryStr = queryStr.replace(' ', '+');
-	window.location.search = queryStr;
+	queryStr === '?' ? (window.location.search = '') : (window.location.search = queryStr);
 }
 
 async function getProfileSelection() {

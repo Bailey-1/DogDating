@@ -71,7 +71,16 @@ async function uploadImage() {
 
 	console.log(payload);
 	const response = await uploadImageToServer(currentProfile, payload);
-	showProfileImages();
+	console.log('reponse: ', response);
+
+	const imgObj = await getImagesById(currentProfile);
+
+	for (const img of imgObj.rows) {
+		if (document.querySelector(`#img-${img.img_id}`) === null) {
+			createImageElement(img);
+		}
+	}
+	addEventListeners();
 }
 
 async function showProfileImages() {
@@ -104,8 +113,11 @@ async function setNewProfilePic() {
 
 async function deletePic() {
 	const img_id = event.srcElement.parentElement.id.substring(4);
-	console.log(img_id);
+	//console.log(img_id);
 	deletePictureUtil(currentProfile, img_id);
+	// Just removes the element from the website instead of removing all images and adding them again which
+	// Jumps the screen up and looks weird. This looks alot smoother.
+	document.querySelector(`#img-${img_id}`).remove();
 }
 
 function addEventListeners() {

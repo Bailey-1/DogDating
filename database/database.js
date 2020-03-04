@@ -17,25 +17,18 @@ sql.on('error', err => {
 });
 
 async function getProfilesByAccountId(id) {
-	console.log('id: ', id);
 	const q = `SELECT * FROM profiles WHERE acc_id = '${id}' ORDER BY pro_name;`;
-	console.log(q);
 	const result = await sql.query(q);
 	return result.rows;
 }
 async function getProfileById(id) {
-	console.log('pro_id: ', id);
 	const q = `SELECT * FROM profiles WHERE pro_id = '${id}';`;
-	console.log(q);
 	const result = await sql.query(q);
-	console.log('result', result);
 	return result.rows;
 }
 
 async function getAccountById(id) {
-	console.log('pro_id: ', id);
 	const q = `SELECT * FROM accounts WHERE acc_id = '${id}';`;
-	console.log(q);
 	const result = await sql.query(q);
 	return result.rows;
 }
@@ -65,13 +58,6 @@ async function getDiscoveryByFilters(id, query) {
 	const profile = await sql.query(`SELECT pro_sex FROM profiles WHERE pro_id = '${id}'`);
 	const profileSex = profile.rows[0].pro_sex;
 	let q = `SELECT * FROM profiles INNER JOIN accounts ON profiles.acc_id = accounts.acc_id WHERE pro_sex !='${profileSex}'`;
-	// if (query.location != 'all' ? (q = q + ` AND profiles.pro_location = '${body.location}'`) : q);
-	// if (query.breed != 'all' ? (q = q + ` AND profiles.pro_breed = '${body.breed}'`) : q);
-	// if (
-	// 	query.kc != 'all'
-	// 		? (q = q + ` AND accounts.acc_kennelclubmembership = '${body.kennelclub}'`)
-	// 		: q
-	// );
 
 	if (query.location) q += ` AND profiles.pro_location = '${query.location}'`;
 	if (query.breed) q += ` AND profiles.pro_breed = '${query.breed}'`;
@@ -87,7 +73,10 @@ async function getDiscoveryByFilters(id, query) {
 	console.log(q);
 
 	let result = await sql.query(q);
-	console.log(result);
+
+	// Not a great way to sort it but must be used because of YYYY-MM-DD formatting
+	if (query.s.split('-')[0] === 'pro_birthday') result.rows = result.rows.reverse();
+	//console.log(result);
 	return result;
 }
 
@@ -144,13 +133,12 @@ async function uploadImageToDatabase(id, desc, file) {
 		VALUES ($1, $2, $3, $4)`,
 			[img_id, desc, id, fileExt]
 		);
-	} else {
-		return 'Upload failed';
+		console.log(result);
+
+		return img_id;
 	}
 
-	console.log(result);
-
-	return result;
+	return 'Upload failed';
 }
 
 // Get all of a profiles images using the profile ID

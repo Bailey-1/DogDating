@@ -18,25 +18,25 @@ async function testCurrentProfile() {
 	}
 }
 
+// Richs function for removing all content from a parent element.
 function removeContentFrom(what) {
 	while (what.firstElementChild) {
 		what.firstElementChild.remove();
 	}
 }
 
+// Function used to calculate the age of the profile from the birth date.
 function getAgeFromDate(date) {
-	//date is mm/dd/yyyy
-
-	//get todays date to compare the date with.
+	// date is YYYY/MM/DD cause thats what rich wanted.
 	let today = new Date();
 	let birthDate = new Date(date);
 	let age = today.getFullYear() - birthDate.getFullYear();
 	let m = today.getMonth() - birthDate.getMonth();
-	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age = age - 1;
+	// Looks complicated but just works out if the age is actually a year younger then current year - birth year.
+	if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age -= 1;
 
-	// Not going to deal with future dates yet and min age required for profile ont this website
+	// Not going to deal with future dates yet and min age required for profile on this website - TODO
 	if (age < 0) age = 0;
-
 	return age;
 }
 
