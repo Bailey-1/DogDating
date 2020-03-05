@@ -124,6 +124,10 @@ async function getReviewFromProfile(req, res) {
 	res.status(200).json(await db.getReviewFromProfile(req.params.rec_id));
 }
 
+async function postReviewForProfile(req, res) {
+	res.status(200).json(await db.createReviewForProfile(req.params.id, req.params.rec_id, req.body));
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -171,7 +175,10 @@ app
 	.delete(express.json(), asyncWrap(deletePic))
 	.get(express.json(), asyncWrap(getPic));
 
-app.route('/api/profile/:id/reviews/:rec_id').get(asyncWrap(getReviewFromProfile));
+app
+	.route('/api/profile/:id/reviews/:rec_id')
+	.get(asyncWrap(getReviewFromProfile))
+	.post(express.json(), asyncWrap(postReviewForProfile));
 
 app.get('*', function(req, res) {
 	res.status(404).send('404: Not found. TODO: make this return a HTML error');

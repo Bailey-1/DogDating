@@ -166,14 +166,6 @@ div.dogProfile h3 {
 	font-size: 1.2em;
 }
 
-div.dogProfile div img.option {
-	width: 5em;
-	height: 5em;
-	border: var(--main-blue) solid 0.2em;
-	border-radius: 1em;
-	margin: 0.5em;
-}
-
 /* profile.html CCS*/
 div.profile {
 	margin: 1em;
@@ -189,7 +181,6 @@ div.profile div.profilePicture {
 div.profile div.profilePicture div img {
 	width: 18em;
 	height: 18em;
-	padding: 1em;
 	object-fit: cover;
 	display: block;
 	margin-left: auto;
@@ -365,9 +356,8 @@ div.reviewName {
 	border-radius: 1em;
 }
 
-h2.reviewNameText {
+.reviewNameText {
 	font-family: 'RobotoThin';
-	color: var(--main-blue);
 	margin: 0;
 }
 
@@ -384,7 +374,7 @@ h3.reviewTimeText {
 	text-align: center;
 	font-size: 0.8em;
 	font-family: 'RobotoThin';
-	color: var(--main-blue);
+	color: white;
 }
 
 div.reviewContent {

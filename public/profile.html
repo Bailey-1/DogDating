@@ -26,8 +26,50 @@
 		<div class="profile">
 			<h1 id="name"></h1>
 			<div class="profilePicture">
-				<div><img id="profilePicElement" /></div>
+				<div><img id="profilePicElement" style="padding: 1em;" /></div>
 				<a href="" id="messageBtn" class="messageBtn"><div class="selectBtn">Message Me</div></a>
+				<a href="" id="messageBtn" class="messageBtn">
+					<div class="selectBtn">Write A Review</div>
+				</a>
+				<div>
+					<h1 class="reviewHeading">Rating:</h1>
+					<div style="text-align: center;">
+						<img
+							id=""
+							style="width: 3em; height: 3em;"
+							class="ratingSymbol 1star"
+							src="./svg/line-star.svg"
+						/>
+						<img
+							id=""
+							style="width: 3em; height: 3em;"
+							class="ratingSymbol"
+							src="./svg/line-star.svg"
+						/>
+						<img
+							id=""
+							style="width: 3em; height: 3em;"
+							class="ratingSymbol"
+							src="./svg/line-star.svg"
+						/>
+						<img
+							id=""
+							style="width: 3em; height: 3em;"
+							class="ratingSymbol"
+							src="./svg/line-star.svg"
+						/>
+						<img
+							id=""
+							style="width: 3em; height: 3em;"
+							class="ratingSymbol"
+							src="./svg/line-star.svg"
+						/>
+					</div>
+					<br />
+					<h1 class="reviewHeading">Write Something:</h1>
+					<textarea type="text" class="reviewTextArea"></textarea>
+					<a href="" id="messageBtn" class="messageBtn"><div class="selectBtn">Send</div></a>
+				</div>
 			</div>
 			<div class="details">
 				<div class="detailItem">
@@ -62,6 +104,11 @@
 				<h1>User Images:</h1>
 				<hr />
 				<div id="images" class="images"></div>
+			</div>
+			<div id="userReviewArea" class="userReviewArea">
+				<h1>User Reviews:</h1>
+				<hr />
+				<div id="reviews" class="reviews"></div>
 			</div>
 		</div>
 	</body>

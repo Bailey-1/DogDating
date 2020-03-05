@@ -263,6 +263,18 @@ async function getReviewFromProfile(id) {
 	return result;
 }
 
+async function createReviewForProfile(id, rec_id, body) {
+	console.log('id: ', id);
+	console.log('rec_id: ', rec_id);
+	console.log('content: ', body.content);
+
+	const result = await sql.query(
+		`INSERT INTO reviews (rev_sender, rev_reciever, rev_content, rev_rating) VALUES ($1, $2, $3, $4)`,
+		[id, rec_id, body.content, body.rating]
+	);
+	return result;
+}
+
 module.exports = {
 	getProfilesByAccountId,
 	getProfileById,
@@ -281,5 +293,6 @@ module.exports = {
 	deleteProfile,
 	deletePic,
 	getPic,
-	getReviewFromProfile
+	getReviewFromProfile,
+	createReviewForProfile
 };

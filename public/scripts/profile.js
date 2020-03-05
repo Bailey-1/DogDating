@@ -54,10 +54,12 @@ function createImageElement(imageObj) {
 	document.querySelector('#images').prepend(clone);
 }
 
+function addEventListeners() {}
 // Deal with setup of page
 async function pageLoaded() {
 	await showProfile();
 	await showProfileImages();
+	addEventListeners();
 }
 
 // Entry

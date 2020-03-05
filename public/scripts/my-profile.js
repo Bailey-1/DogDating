@@ -156,6 +156,8 @@ async function generateReviewElement(reviewObj) {
 		profileObj[0].pro_birthday
 	)}`;
 
+	clone.querySelector('#reviewProfileLink').href = `./profile#${profileObj[0].pro_id}`;
+
 	if (profilePicObj != false) {
 		clone.querySelector(
 			'#reviewImg'
