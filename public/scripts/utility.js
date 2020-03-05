@@ -172,3 +172,10 @@ async function deletePictureUtil(pro_id, img_id) {
 	const result = await request.json();
 	return result;
 }
+
+async function getReviewsByProfileID(id, rec_id) {
+	const request = await fetch(`./api/profile/${id}/reviews/${rec_id}`);
+	if (!request.ok) return console.warn(`Could not GET ./api/profile/${id}/reviews/${rec_id}`);
+	const result = await request.json();
+	return result;
+}

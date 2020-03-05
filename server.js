@@ -120,6 +120,10 @@ async function deletePic(req, res) {
 	return result;
 }
 
+async function getReviewFromProfile(req, res) {
+	res.status(200).json(await db.getReviewFromProfile(req.params.rec_id));
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
 	return (req, res, next) => {
@@ -140,14 +144,11 @@ app.get('/api/profile/:id/discovery', express.json(), asyncWrap(getDiscoveryByFi
 // Get specific message
 app.get('/api/profile/:id/recipient/:rec_id/message/:msg_id', asyncWrap(getMessage));
 
-// Set profile picture to img_id
-app.put('/api/profile/:id/image/:img_id', express.json(), asyncWrap(setProfilePic));
-app.delete('/api/profile/:id/image/:img_id', express.json(), asyncWrap(deletePic));
-app.get('/api/profile/:id/image/:img_id', express.json(), asyncWrap(getPic));
 app.get('/api/profile/:id/profilepic', asyncWrap(getProfilePicById));
 
 app.post('/api/profile', express.json(), asyncWrap(createProfile)); // Create profile
 // Handle different types of requests to the same route.
+
 app
 	.route('/api/profile/:id')
 	.get(asyncWrap(getProfileById)) // Get profile infomation
@@ -163,6 +164,14 @@ app
 	.route('/api/profile/:id/recipient/:rec_id')
 	.get(express.json(), asyncWrap(getMessages)) // Get messages between two profiles
 	.post(express.json(), asyncWrap(sendMessage)); // Send message between two profiles
+
+app
+	.route('/api/profile/:id/image/:img_id')
+	.put(express.json(), asyncWrap(setProfilePic))
+	.delete(express.json(), asyncWrap(deletePic))
+	.get(express.json(), asyncWrap(getPic));
+
+app.route('/api/profile/:id/reviews/:rec_id').get(asyncWrap(getReviewFromProfile));
 
 app.get('*', function(req, res) {
 	res.status(404).send('404: Not found. TODO: make this return a HTML error');

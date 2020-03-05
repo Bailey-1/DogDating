@@ -44,47 +44,25 @@ CREATE TABLE IF NOT EXISTS messages (
   msg_time timestamp DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS reviews (
+  rev_id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+  rev_sender uuid REFERENCES profiles(pro_id),
+  rev_reciever uuid REFERENCES profiles(pro_id),
+  rev_content TEXT,
+  rev_rating INT,
+  rev_time timestamp DEFAULT now()
+);
+
 INSERT INTO accounts (acc_id, acc_name, acc_kennelClubMembership)
 VALUES
-  (
-    'cee3a7e6-5339-11ea-8d77-2e728ce88125',
-    'Tim',
-    'Associate'
-  ),
-  (
-    'cee3aaa2-5339-11ea-8d77-2e728ce88125',
-    'Bob',
-    'Associate'
-  ),
-  (
-    '37238d27-9534-4153-ad22-8c36e0353f04',
-    'Dee',
-    'None'
-  ),
-  (
-    'fcec6b32-478f-4c54-9c43-bd1226dec801',
-    'Frank',
-    'Member'
-  ),
-  (
-    '1de1c66d-d996-4c4d-81d9-5627a8cee461',
-    'Dennis',
-    'None'
-  ),
-  (
-    'e21df604-5339-11ea-8d77-2e728ce88125',
-    'Mac',
-    'Affiliate'
-  ),
-  (
-    '61482c76-5652-4a7c-8be0-d923bcb55901',
-    'Charlie',
-    'Affiliate'
-  );
-  /* INSERT INTO profiles (pro_name, pro_location, pro_birthday, pro_breed, acc_id, pro_sex) VALUES
-  ('timmy', 'Portsmouth', '10/20/2015', 'Pug', 'cee3a7e6-5339-11ea-8d77-2e728ce88125', 'Male'),
-  ('name2', 'Portsmouth', '10/20/2015', 'Pug', 'e21df604-5339-11ea-8d77-2e728ce88125', 'Female'),
-  ('name3', 'Portsmouth', '10/20/2015', 'Pug', 'cee3a7e6-5339-11ea-8d77-2e728ce88125', 'Male'); */
+  ('cee3a7e6-5339-11ea-8d77-2e728ce88125', 'Tim', 'Associate'),
+  ('cee3aaa2-5339-11ea-8d77-2e728ce88125', 'Bob', 'Associate'),
+  ('37238d27-9534-4153-ad22-8c36e0353f04', 'Dee', 'None'),
+  ('fcec6b32-478f-4c54-9c43-bd1226dec801', 'Frank', 'Member'),
+  ('1de1c66d-d996-4c4d-81d9-5627a8cee461', 'Dennis', 'None'),
+  ('e21df604-5339-11ea-8d77-2e728ce88125', 'Mac', 'Affiliate'),
+  ('61482c76-5652-4a7c-8be0-d923bcb55901', 'Charlie', 'Affiliate');
+
 INSERT INTO profiles (pro_id, pro_name, pro_location, pro_birthday, pro_sex, pro_breed, pro_aboutme, pro_likes, pro_dislikes, acc_id, pro_time) VALUES ('60776534-54c6-47b9-9c92-b796e0a4554b', 'Turd', 'Southampton', '2000-11-14', 'Female', 'Poodle', 'About Me', 'Likes', 'Dislikes', 'cee3a7e6-5339-11ea-8d77-2e728ce88125', '2020-03-03 20:24:23.661786');
 INSERT INTO profiles (pro_id, pro_name, pro_location, pro_birthday, pro_sex, pro_breed, pro_aboutme, pro_likes, pro_dislikes, acc_id, pro_time) VALUES ('8fe2f73d-2b41-4528-ac4a-1108c2c90255', 'Tony', 'Portsmouth', '2002-11-13', 'Male', 'Boxer', 'About Me', 'Likes', 'Dislikes', '61482c76-5652-4a7c-8be0-d923bcb55901', '2020-03-03 20:24:23.661786');
 INSERT INTO profiles (pro_id, pro_name, pro_location, pro_birthday, pro_sex, pro_breed, pro_aboutme, pro_likes, pro_dislikes, acc_id, pro_time) VALUES ('f441795c-eb2c-4d0b-b466-f429f37ff171', 'Anna', 'Southampton', '2002-12-25', 'Female', 'German Shepard', 'About Me', 'Likes', 'Dislikes', 'cee3aaa2-5339-11ea-8d77-2e728ce88125', '2020-03-03 20:24:23.661786');

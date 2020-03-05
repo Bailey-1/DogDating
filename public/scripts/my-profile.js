@@ -131,19 +131,60 @@ function addEventListeners() {
 	for (const i of items) {
 		i.addEventListener('click', deletePic);
 	}
-	document.querySelector('#birthday').addEventListener('change', print);
 }
 
-function print() {
-	console.log('MM: ', document.querySelector('#birthday').value.substring(5, 7));
-	console.log('DD: ', document.querySelector('#birthday').value.substring(8, 10));
-	console.log('YYYY: ', document.querySelector('#birthday').value.substring(0, 4));
+async function showReviews() {
+	console.log(currentProfile);
+	const reviewObj = await getReviewsByProfileID(currentProfile, currentProfile);
+	console.log('reviewObj: ', reviewObj);
+	reviewObj.rows.forEach(generateReviewElement);
+}
+
+async function generateReviewElement(reviewObj) {
+	// Get the profile information for the sender of the review.
+	const profileObj = await getProfileById(reviewObj.rev_sender);
+	console.log('profileObj', profileObj);
+	const profilePicObj = await getProfilePicById(reviewObj.rev_sender);
+	console.log('profilePicObj', profilePicObj);
+
+	const template = document.querySelector('#reviewTemplate');
+	const clone = document.importNode(template.content, true);
+	clone.querySelector('div.review').id = `rev-${reviewObj.rev_id}`;
+	clone.querySelector('#reviewTimeText').textContent = reviewObj.rev_time.substring(0, 10);
+	clone.querySelector('#reviewContentText').textContent = reviewObj.rev_content;
+	clone.querySelector('#reviewNameText').textContent = `${profileObj[0].pro_name}, ${getAgeFromDate(
+		profileObj[0].pro_birthday
+	)}`;
+
+	if (profilePicObj != false) {
+		clone.querySelector(
+			'#reviewImg'
+		).src = `./uploadedImages/${profilePicObj.img_id}.${profilePicObj.img_ext}`;
+	}
+	let i = 0;
+	for (i = 0; i < reviewObj.rev_rating; i++) {
+		const imgEl = document.createElement('img');
+		imgEl.src = './svg/fill-star.svg';
+		imgEl.classList.add('stars');
+		clone.querySelector('#reviewRating').append(imgEl);
+	}
+
+	console.log('answer: ', 5 - i);
+	const emptyStars = 5 - i;
+	for (let x = 0; x < emptyStars; x++) {
+		const imgEl = document.createElement('img');
+		imgEl.src = './svg/line-star.svg';
+		imgEl.classList.add('stars');
+		clone.querySelector('#reviewRating').append(imgEl);
+	}
+	document.querySelector('#reviews').prepend(clone);
 }
 
 async function pageLoaded() {
 	await showProfile();
 	await showProfileImages();
-	await addEventListeners();
+	await showReviews();
+	addEventListeners();
 }
 
 window.addEventListener('load', pageLoaded);

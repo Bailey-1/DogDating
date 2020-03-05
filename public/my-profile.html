@@ -82,6 +82,11 @@
 			<hr>
 			<div id="images" class="images"></div>
 		</div>
+		<div id="userReviewArea" class="userReviewArea">
+			<h1>User Reviews: </h1>
+			<hr>
+			<div id="reviews" class="reviews"></div>
+		</div>
 	</body>
 	<template id="profileImageTemplate">
 		<div class="imageDiv">
@@ -90,5 +95,24 @@
 			<button class="setProfilePic">Set as Profile Pic</button>
 			<button class="deletePic">Delete</button>
 		</div>
+	</template>
+	<template id="reviewTemplate">
+		<div class="review">
+			<div class="reviewImgDiv">
+				<img id="reviewImg" class="reviewImg" src="./images/user.png"/>
+			</div>
+			<div class="reviewName">
+				<h2 id="reviewNameText" class="reviewNameText"></h2>
+			</div>
+			<div id="reviewRating" class="reviewRating">
+			</div>
+			<div class="reviewTime">
+				<h3 id="reviewTimeText" class="reviewTimeText"></h3>
+			</div>
+			<div class="reviewContent">
+				<p id="reviewContentText" class="reviewContentText"></p>	
+			<div>
+		</div>
+		<br>
 	</template>
 </html>

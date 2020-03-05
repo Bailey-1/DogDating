@@ -75,7 +75,7 @@ async function getDiscoveryByFilters(id, query) {
 	let result = await sql.query(q);
 
 	// Not a great way to sort it but must be used because of YYYY-MM-DD formatting
-	if (query.s.split('-')[0] === 'pro_birthday') result.rows = result.rows.reverse();
+	if (query.s && query.s.split('-')[0] === 'pro_birthday') result.rows = result.rows.reverse();
 	//console.log(result);
 	return result;
 }
@@ -258,6 +258,11 @@ async function getPic(id, img_id) {
 	return result;
 }
 
+async function getReviewFromProfile(id) {
+	const result = await sql.query(`SELECT * FROM reviews WHERE rev_reciever = $1`, [id]);
+	return result;
+}
+
 module.exports = {
 	getProfilesByAccountId,
 	getProfileById,
@@ -275,5 +280,6 @@ module.exports = {
 	createProfile,
 	deleteProfile,
 	deletePic,
-	getPic
+	getPic,
+	getReviewFromProfile
 };
