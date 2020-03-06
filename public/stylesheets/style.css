@@ -391,3 +391,8 @@ p.reviewContentText {
 	color: white;
 	font-family: 'RobotoLight';
 }
+
+/*Used for the classtoggle*/
+.invisibleElement {
+	display: none;
+}

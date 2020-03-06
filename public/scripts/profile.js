@@ -1,3 +1,4 @@
+let currentRating = 0;
 //Get profile ID from the URL hash
 function getProfile() {
 	return window.location.hash.substring(1);
@@ -54,11 +55,126 @@ function createImageElement(imageObj) {
 	document.querySelector('#images').prepend(clone);
 }
 
-function addEventListeners() {}
+async function showReviews() {
+	removeContentFrom(document.querySelector('#reviews'));
+	console.log(currentProfile);
+	const reviewObj = await getReviewsByProfileID(currentProfile, window.location.hash.substring(1));
+	console.log('reviewObj: ', reviewObj);
+	reviewObj.rows.forEach(generateReviewElement);
+}
+
+async function generateReviewElement(reviewObj) {
+	// Get the profile information for the sender of the review.
+	const profileObj = await getProfileById(reviewObj.rev_sender);
+	console.log('profileObj', profileObj);
+	const profilePicObj = await getProfilePicById(reviewObj.rev_sender);
+	console.log('profilePicObj', profilePicObj);
+
+	const template = document.querySelector('#reviewTemplate');
+	const clone = document.importNode(template.content, true);
+	clone.querySelector('div.review').id = `rev-${profileObj[0].pro_id}`;
+	clone.querySelector('#reviewTimeText').textContent = reviewObj.rev_time.substring(0, 10);
+	clone.querySelector('#reviewContentText').textContent = reviewObj.rev_content;
+	clone.querySelector('#reviewNameText').textContent = `${profileObj[0].pro_name}, ${getAgeFromDate(
+		profileObj[0].pro_birthday
+	)}`;
+
+	clone.querySelector('#reviewProfileLink').href = `./profile#${profileObj[0].pro_id}`;
+
+	if (profileObj[0].pro_id === currentProfile) {
+		document.querySelector('#reviewBtn').classList.toggle('invisibleElement');
+		const editBtn = document.createElement('button');
+		editBtn.textContent = 'Edit';
+		clone.querySelector('#reviewContent').append(editBtn);
+
+		const deleteBtn = document.createElement('button');
+		deleteBtn.textContent = 'Delete';
+		clone.querySelector('#reviewContent').append(deleteBtn);
+	}
+
+	if (profilePicObj != false) {
+		clone.querySelector(
+			'#reviewImg'
+		).src = `./uploadedImages/${profilePicObj.img_id}.${profilePicObj.img_ext}`;
+	}
+	let i = 0;
+	for (i = 0; i < reviewObj.rev_rating; i++) {
+		const imgEl = document.createElement('img');
+		imgEl.src = './svg/fill-star.svg';
+		imgEl.classList.add('stars');
+		clone.querySelector('#reviewRating').append(imgEl);
+	}
+
+	console.log('answer: ', 5 - i);
+	const emptyStars = 5 - i;
+	for (let x = 0; x < emptyStars; x++) {
+		const imgEl = document.createElement('img');
+		imgEl.src = './svg/line-star.svg';
+		imgEl.classList.add('stars');
+		clone.querySelector('#reviewRating').append(imgEl);
+	}
+
+	document.querySelector('#reviews').prepend(clone);
+}
+
+async function sendReview() {
+	let body = { content: '', rating: 0 };
+	body.content = document.querySelector('#reviewTextArea').value;
+	body.rating = currentRating;
+	const result = await postReview(currentProfile, window.location.hash.substring(1), body);
+	console.log(result);
+	showReviews();
+}
+
+// Resets all of the star items to be 'empty'
+function clearStars() {
+	const starElements = document.querySelectorAll('.ratingSymbol');
+	console.log(starElements);
+	for (element of starElements) {
+		element.src = './svg/line-star.svg';
+	}
+}
+
+// Selects star imgs and sets them to be 'filled'
+function rateStars(numOfStars) {
+	currentRating = numOfStars;
+	clearStars();
+	const starElements = document.querySelectorAll(`.star${numOfStars}`);
+	for (element of starElements) {
+		element.src = './svg/fill-star.svg';
+	}
+}
+
+function addEventListeners() {
+	document.querySelector('#reviewBtn').addEventListener('click', function() {
+		document.querySelector('#reviewOptions').classList.toggle('invisibleElement');
+	});
+
+	document.querySelector('#sendReview').addEventListener('click', sendReview);
+
+	// Not the cleanest but it works i guess.
+	document.querySelector('#star5').addEventListener('click', function() {
+		rateStars(5);
+	});
+	document.querySelector('#star4').addEventListener('click', function() {
+		rateStars(4);
+	});
+	document.querySelector('#star3').addEventListener('click', function() {
+		rateStars(3);
+	});
+	document.querySelector('#star2').addEventListener('click', function() {
+		rateStars(2);
+	});
+	document.querySelector('#star1').addEventListener('click', function() {
+		rateStars(1);
+	});
+}
+
 // Deal with setup of page
 async function pageLoaded() {
 	await showProfile();
 	await showProfileImages();
+	await showReviews();
 	addEventListeners();
 }
 

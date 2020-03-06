@@ -259,7 +259,10 @@ async function getPic(id, img_id) {
 }
 
 async function getReviewFromProfile(id) {
-	const result = await sql.query(`SELECT * FROM reviews WHERE rev_reciever = $1`, [id]);
+	const result = await sql.query(
+		`SELECT * FROM reviews WHERE rev_reciever = $1 ORDER BY rev_time`,
+		[id]
+	);
 	return result;
 }
 

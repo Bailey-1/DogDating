@@ -149,7 +149,7 @@ async function generateReviewElement(reviewObj) {
 
 	const template = document.querySelector('#reviewTemplate');
 	const clone = document.importNode(template.content, true);
-	clone.querySelector('div.review').id = `rev-${reviewObj.rev_id}`;
+	clone.querySelector('div.review').id = `rev-${profileObj[0].pro_id}`;
 	clone.querySelector('#reviewTimeText').textContent = reviewObj.rev_time.substring(0, 10);
 	clone.querySelector('#reviewContentText').textContent = reviewObj.rev_content;
 	clone.querySelector('#reviewNameText').textContent = `${profileObj[0].pro_name}, ${getAgeFromDate(

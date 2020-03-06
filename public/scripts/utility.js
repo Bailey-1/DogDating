@@ -179,3 +179,14 @@ async function getReviewsByProfileID(id, rec_id) {
 	const result = await request.json();
 	return result;
 }
+
+async function postReview(id, rec_id, body) {
+	const request = await fetch(`/api/profile/${id}/reviews/${rec_id}`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(body)
+	});
+	if (!request.ok) return console.warn(`Could not POST /api/profile/${id}/reviews/${rec_id}`);
+	const result = await request.json();
+	return result;
+}

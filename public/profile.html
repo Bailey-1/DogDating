@@ -28,47 +28,47 @@
 			<div class="profilePicture">
 				<div><img id="profilePicElement" style="padding: 1em;" /></div>
 				<a href="" id="messageBtn" class="messageBtn"><div class="selectBtn">Message Me</div></a>
-				<a href="" id="messageBtn" class="messageBtn">
+				<a id="reviewBtn" class="messageBtn">
 					<div class="selectBtn">Write A Review</div>
 				</a>
-				<div>
+				<div id="reviewOptions" class="invisibleElement">
 					<h1 class="reviewHeading">Rating:</h1>
 					<div style="text-align: center;">
 						<img
-							id=""
+							id="star1"
 							style="width: 3em; height: 3em;"
-							class="ratingSymbol 1star"
+							class="ratingSymbol star1 star2 star3 star4 star5"
 							src="./svg/line-star.svg"
 						/>
 						<img
-							id=""
+							id="star2"
 							style="width: 3em; height: 3em;"
-							class="ratingSymbol"
+							class="ratingSymbol star2 star3 star4 star5"
 							src="./svg/line-star.svg"
 						/>
 						<img
-							id=""
+							id="star3"
 							style="width: 3em; height: 3em;"
-							class="ratingSymbol"
+							class="ratingSymbol star3 star4 star5"
 							src="./svg/line-star.svg"
 						/>
 						<img
-							id=""
+							id="star4"
 							style="width: 3em; height: 3em;"
-							class="ratingSymbol"
+							class="ratingSymbol star4 star5"
 							src="./svg/line-star.svg"
 						/>
 						<img
-							id=""
+							id="star5"
 							style="width: 3em; height: 3em;"
-							class="ratingSymbol"
+							class="ratingSymbol star5"
 							src="./svg/line-star.svg"
 						/>
 					</div>
 					<br />
 					<h1 class="reviewHeading">Write Something:</h1>
-					<textarea type="text" class="reviewTextArea"></textarea>
-					<a href="" id="messageBtn" class="messageBtn"><div class="selectBtn">Send</div></a>
+					<textarea type="text" class="reviewTextArea" id="reviewTextArea"></textarea>
+					<a id="sendReview" class="messageBtn"><div class="selectBtn">Send</div></a>
 				</div>
 			</div>
 			<div class="details">
@@ -117,5 +117,26 @@
 			<img id="userImage" class="userImage" />
 			<h2 id="imageDesc">Hello World</h2>
 		</div>
+	</template>
+	<template id="reviewTemplate">
+		<div class="review">
+			<div class="reviewImgDiv">
+				<img id="reviewImg"  class="reviewImg" src="./images/user.png"/>
+			</div>
+			<div class="reviewName">
+				<a class="profile-name " id="reviewProfileLink">
+					<h2 id="reviewNameText" class="reviewNameText"></h2>
+				</a>
+			</div>
+			<div id="reviewRating" class="reviewRating">
+			</div>
+			<div class="reviewTime">
+				<h3 id="reviewTimeText" class="reviewTimeText"></h3>
+			</div>
+			<div class="reviewContent" id="reviewContent">
+				<p id="reviewContentText" class="reviewContentText"></p>	
+			<div>
+		</div>
+		<br>
 	</template>
 </html>
