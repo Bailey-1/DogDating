@@ -5,19 +5,17 @@ async function createProfileElement(profile) {
 	clone.querySelector('#name').textContent = `${profile.pro_name}, ${getAgeFromDate(
 		profile.pro_birthday
 	)}`;
-	clone.querySelector('#location').textContent = profile.pro_location;
 
+	clone.querySelector('#location').textContent = profile.pro_location;
 	clone.querySelector('#breed').textContent = profile.pro_breed;
 	clone.querySelector('#name').href = `profile#${profile.pro_id}`;
 	clone.querySelector('#messageBtn').href = `message#${profile.pro_id}`;
 
 	const imageObj = await getProfilePicById(profile.pro_id);
 	let profilePicSrc;
-	if (imageObj == false) {
-		profilePicSrc = `./images/user.png`;
-	} else {
-		profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
-	}
+	!imageObj
+		? (profilePicSrc = `./images/user.png`)
+		: (profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`);
 	clone.querySelector('#profilePicElement').src = profilePicSrc;
 
 	document.querySelector('#profiles-area').appendChild(clone);
@@ -26,16 +24,11 @@ async function createProfileElement(profile) {
 async function loadFilters() {
 	const filters = await getFilters(currentProfile);
 
-	for (const option of filters.location.rows) {
-		createOptions('select-location', option.pro_location);
-	}
-	for (const option of filters.breed.rows) {
-		createOptions('select-breed', option.pro_breed);
-	}
-	for (const option of filters.kennelClubMembership.rows) {
-		//console.log(option);
+	// Load each option in to the select tag.
+	for (const option of filters.location.rows) createOptions('select-location', option.pro_location);
+	for (const option of filters.breed.rows) createOptions('select-breed', option.pro_breed);
+	for (const option of filters.kennelClubMembership.rows)
 		createOptions('select-kennelclub', option.membership_type);
-	}
 
 	document.querySelector('#location-tag').textContent = `Location: (${filters.location.rowCount})`;
 	document.querySelector('#breed-tag').textContent = `Breed: (${filters.breed.rowCount})`;
@@ -51,13 +44,11 @@ function createOptions(element, value) {
 	document.querySelector(`#${element}`).appendChild(locOption);
 }
 
-async function changeFiltersOnSearch() {
-	console.group('changeFiltersOnSearch');
+// Get the data from the url.
+async function getSearchData() {
 	let searchArr = window.location.search.substring(1).split('&');
-
 	for (let i = 0; i < searchArr.length; i++) {
 		searchArr[i] = searchArr[i].replace('+', ' ');
-		console.log(searchArr[i]);
 	}
 
 	console.log(searchArr);
@@ -76,7 +67,6 @@ async function changeFiltersOnSearch() {
 		}
 		if (searchArg.startsWith('s=')) {
 			console.log('sort: ', searchArg.substring(2));
-			console.log('s: ', searchArg.substring(2));
 			const sortArr = searchArg.substring(2).split('-');
 			console.log('sort: ', sortArr);
 			document.querySelector('#sort-type').value = sortArr[0];
@@ -87,6 +77,7 @@ async function changeFiltersOnSearch() {
 	console.groupEnd();
 }
 
+// When the selects change this will be called to refresh the queries.
 async function updateProfilesSelection() {
 	let queryArr = [];
 	// Filters
@@ -132,7 +123,7 @@ function createHandlers() {
 async function pageLoaded() {
 	await loadFilters();
 	createHandlers();
-	await changeFiltersOnSearch();
+	await getSearchData();
 	await getProfileSelection();
 }
 

@@ -3,9 +3,6 @@ table.messageTable {
 	font-size: 2em;
 }
 
-tr {
-}
-
 td.nameColumn {
 	width: 20%;
 	font-family: 'RobotoLight';

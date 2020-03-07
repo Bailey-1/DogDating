@@ -88,10 +88,7 @@ async function updateProfileByUUID(profile) {
 }
 
 async function uploadImageToServer(id, payload) {
-	const request = await fetch(`/api/profile/${id}/images`, {
-		method: 'POST',
-		body: payload
-	});
+	const request = await fetch(`/api/profile/${id}/images`, { method: 'POST', body: payload });
 	if (!request.ok) return console.warn(`Could not POST /api/profile/${id}/image`);
 	const response = await request.json();
 	return response;
@@ -133,9 +130,7 @@ async function getMessage(id, rec_id, msg_id) {
 }
 
 async function setProfilePic(id, img_id) {
-	const request = await fetch(`/api/profile/${id}/image/${img_id}`, {
-		method: 'PUT'
-	});
+	const request = await fetch(`/api/profile/${id}/image/${img_id}`, { method: 'PUT' });
 	if (!request.ok) return console.warn(`Could not PUT /api/profile/${id}/image/${img_id}`);
 	const result = await request.json();
 	return result;
@@ -165,9 +160,7 @@ async function createProfile(body) {
 }
 
 async function deletePictureUtil(pro_id, img_id) {
-	const request = await fetch(`/api/profile/${pro_id}/image/${img_id}`, {
-		method: 'DELETE'
-	});
+	const request = await fetch(`/api/profile/${pro_id}/image/${img_id}`, { method: 'DELETE' });
 	if (!request.ok) return console.warn(`Could not DELETE /api/profile/${pro_id}/image/${img_id}`);
 	const result = await request.json();
 	return result;

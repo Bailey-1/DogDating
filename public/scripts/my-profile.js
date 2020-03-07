@@ -26,6 +26,7 @@ async function showProfile() {
 	await showProfilePic();
 }
 
+// Find and use the profile pic of the current user. If there isn't one it will use the default.
 async function showProfilePic() {
 	const imageObj = await getProfilePicById(currentProfile);
 
@@ -37,9 +38,9 @@ async function showProfilePic() {
 	document.querySelector('#profilePicElement').src = profilePicSrc;
 }
 
+// Update the profile to the database
 async function updateDetails() {
 	let profileObj = {};
-
 	profileObj.id = currentProfile;
 	profileObj.name = document.querySelector('#nameOption').value;
 	profileObj.breed = document.querySelector('#breed').value;
@@ -56,8 +57,8 @@ async function updateDetails() {
 	showProfile();
 }
 
+// Upload images to the database.
 async function uploadImage() {
-	console.log('uploadImage function has been called');
 	const payload = new FormData();
 	const desc = document.querySelector('#imageDescInput').value;
 
@@ -65,20 +66,15 @@ async function uploadImage() {
 	const imageUpload = document.querySelector('#fileUpload');
 	console.log(imageUpload.files.length);
 
-	if (imageUpload.files.length) {
-		payload.append('photo', imageUpload.files[0]);
-	}
+	if (imageUpload.files.length) payload.append('photo', imageUpload.files[0]);
 
-	console.log(payload);
 	const response = await uploadImageToServer(currentProfile, payload);
 	console.log('reponse: ', response);
 
 	const imgObj = await getImagesById(currentProfile);
 
 	for (const img of imgObj.rows) {
-		if (document.querySelector(`#img-${img.img_id}`) === null) {
-			createImageElement(img);
-		}
+		if (document.querySelector(`#img-${img.img_id}`) === null) createImageElement(img);
 	}
 	addEventListeners();
 }
@@ -93,6 +89,7 @@ async function showProfileImages() {
 	addEventListeners();
 }
 
+// Create a simple box for the images to be displayed in along with the text.
 function createImageElement(imageObj) {
 	const template = document.querySelector('#profileImageTemplate');
 	const clone = document.importNode(template.content, true);
@@ -113,7 +110,6 @@ async function setNewProfilePic() {
 
 async function deletePic() {
 	const img_id = event.srcElement.parentElement.id.substring(4);
-	//console.log(img_id);
 	deletePictureUtil(currentProfile, img_id);
 	// Just removes the element from the website instead of removing all images and adding them again which
 	// Jumps the screen up and looks weird. This looks alot smoother.
@@ -124,13 +120,9 @@ function addEventListeners() {
 	document.querySelector('#updateDetails').addEventListener('click', updateDetails);
 	document.querySelector('#uploadImageButton').addEventListener('click', uploadImage);
 	let items = document.querySelectorAll('button.setProfilePic');
-	for (const i of items) {
-		i.addEventListener('click', setNewProfilePic);
-	}
+	for (const i of items) i.addEventListener('click', setNewProfilePic);
 	items = document.querySelectorAll('button.deletePic');
-	for (const i of items) {
-		i.addEventListener('click', deletePic);
-	}
+	for (const i of items) i.addEventListener('click', deletePic);
 }
 
 async function showReviews() {

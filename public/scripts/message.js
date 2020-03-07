@@ -61,17 +61,20 @@ async function sendMessageProperties() {
 	console.group('Send Message');
 	const rec_id = window.location.hash.substring(1);
 	const msg = document.querySelector('#messageBox').value;
+	console.log('msg', msg);
+
 	console.log('id: ', currentProfile);
 	console.log('rec_id: ', rec_id);
 	console.log('msg: ', msg);
+	if (msg) {
+		const result = await sendMessage(currentProfile, rec_id, msg);
+		console.log(result);
+		const newMessage = await getMessage(result);
+		console.log('newmessage: ', newMessage);
 
-	const result = await sendMessage(currentProfile, rec_id, msg);
-	console.log(result);
-	const newMessage = await getMessage(result);
-	console.log('newmessage: ', newMessage);
-
-	createTableRows(newMessage, '#sentMessage', currentProfileData.pro_name);
-	document.querySelector('#messageBox').value = '';
+		createTableRows(newMessage, '#sentMessage', currentProfileData.pro_name);
+		document.querySelector('#messageBox').value = '';
+	}
 	console.groupEnd();
 }
 

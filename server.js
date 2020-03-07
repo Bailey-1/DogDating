@@ -5,6 +5,7 @@ const app = express();
 const multer = require('multer');
 const fs = require('fs');
 
+// Deal with image uploads.
 const uploader = multer({
 	dest: 'upload',
 	limits: {
@@ -28,7 +29,6 @@ app.use(
 async function getProfilesByAccountId(req, res) {
 	const response = await db.getProfilesByAccountId(req.params.id);
 	console.log('Response', response);
-	//res.json(response);
 	res.status(200).json(response);
 }
 
@@ -40,15 +40,11 @@ async function getAccountById(req, res) {
 	res.status(200).json(await db.getAccountById(req.params.id));
 }
 
-/* Pass the query parameters to the server through a POST request
-because it is easier / neater than using a very long URL and Route. */
 async function getDistinctProfileProperties(req, res) {
 	res.status(200).json(await db.getDistinctFilterProperties(req.params.id));
 }
 
 async function getDiscoveryByFilter(req, res) {
-	console.table(req.query);
-
 	res.status(200).json(await db.getDiscoveryByFilters(req.params.id, req.query));
 }
 
@@ -72,7 +68,6 @@ async function getMessage(req, res) {
 	res.status(200).json(await db.getMessage(req.params.id, req.params.rec_id, req.params.msg_id));
 }
 
-// Send a message from profile ID to recipient profile rec_id
 async function sendMessage(req, res) {
 	res.status(200).json(await db.sendMessage(req.params.id, req.params.rec_id, req.body.content));
 }
@@ -86,8 +81,7 @@ async function getProfilePicById(req, res) {
 }
 
 async function createProfile(req, res) {
-	const response = await db.createProfile(req.body);
-	res.status(200).json(response);
+	res.status(200).json(await db.createProfile(req.body));
 }
 
 async function deleteProfile(req, res) {
@@ -104,7 +98,6 @@ async function deletePic(req, res) {
 
 	// Delete the image from the database.
 	const result = await db.deletePic(req.params.id, req.params.img_id);
-	//console.log(picData);
 
 	if (result.rowCount === 1) {
 		// Find image location, id and extension.

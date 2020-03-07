@@ -26,14 +26,13 @@ async function showProfile() {
 	document.querySelector('#messageBtn').href = `message#${profileObj[0].pro_id}`;
 
 	const imageObj = await getProfilePicById(profileObj[0].pro_id);
-	let profilePicSrc;
-	if (imageObj == false) {
-		profilePicSrc = `./images/user.png`;
-	} else {
-		profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
-	}
-	document.querySelector('#profilePicElement').src = profilePicSrc;
 
+	let profilePicSrc =
+		imageObj === false
+			? `./images/user.png`
+			: `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
+
+	document.querySelector('#profilePicElement').src = profilePicSrc;
 	document.title = `Doggy Dating - ${profileObj[0].pro_name}'s Profile`;
 }
 
@@ -41,7 +40,6 @@ async function showProfileImages() {
 	removeContentFrom(document.querySelector('#images'));
 	const id = getProfile();
 	const imageObj = await getImagesById(id);
-	console.log(imageObj.rows);
 	imageObj.rows.forEach(createImageElement);
 }
 
@@ -55,11 +53,10 @@ function createImageElement(imageObj) {
 	document.querySelector('#images').prepend(clone);
 }
 
-async function showReviews() {
+// Show reviews for the profile.
+async function getReviews() {
 	removeContentFrom(document.querySelector('#reviews'));
-	console.log(currentProfile);
 	const reviewObj = await getReviewsByProfileID(currentProfile, window.location.hash.substring(1));
-	console.log('reviewObj: ', reviewObj);
 	reviewObj.rows.forEach(generateReviewElement);
 }
 
@@ -108,7 +105,6 @@ async function generateReviewElement(reviewObj) {
 		starLocation.append(imgEl);
 	}
 
-	console.log('answer: ', 5 - i);
 	const emptyStars = 5 - i;
 	for (let x = 0; x < emptyStars; x++) {
 		const imgEl = document.createElement('img');
@@ -125,17 +121,14 @@ async function sendReview() {
 	body.content = document.querySelector('#reviewTextArea').value;
 	body.rating = currentRating;
 	const result = await postReview(currentProfile, window.location.hash.substring(1), body);
-	console.log(result);
-	showReviews();
+	getReviews();
 }
 
 // Resets all of the star items to be 'empty'
 function clearStars() {
 	const starElements = document.querySelectorAll('.ratingSymbol');
 	console.log(starElements);
-	for (element of starElements) {
-		element.src = './svg/line-star.svg';
-	}
+	for (element of starElements) element.src = './svg/line-star.svg';
 }
 
 // Selects star imgs and sets them to be 'filled'
@@ -143,9 +136,7 @@ function rateStars(numOfStars) {
 	currentRating = numOfStars;
 	clearStars();
 	const starElements = document.querySelectorAll(`.star${numOfStars}`);
-	for (element of starElements) {
-		element.src = './svg/fill-star.svg';
-	}
+	for (element of starElements) element.src = './svg/fill-star.svg';
 }
 
 function addEventListeners() {
@@ -177,7 +168,7 @@ function addEventListeners() {
 async function pageLoaded() {
 	await showProfile();
 	await showProfileImages();
-	await showReviews();
+	await getReviews();
 	addEventListeners();
 }
 

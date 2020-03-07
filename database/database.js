@@ -35,11 +35,8 @@ async function getAccountById(id) {
 
 // Get distinct valyes for the filter options on the wesite.
 async function getDistinctFilterProperties(id) {
-	console.log('id: ', id);
 	let q = `SELECT pro_sex FROM profiles WHERE pro_id = '${id}'`;
-	//console.log(q);
 	const usersex = await sql.query(q);
-	console.log(usersex.rows[0].pro_sex);
 	let distinctItems = { location: '', breed: '', kennelClubMembership: '' };
 	q = `SELECT DISTINCT pro_location FROM profiles WHERE pro_sex != '${usersex.rows[0].pro_sex}' ORDER BY pro_location`;
 	distinctItems.location = await sql.query(q);
@@ -54,7 +51,6 @@ async function getDistinctFilterProperties(id) {
 }
 
 async function getDiscoveryByFilters(id, query) {
-	console.log('id: ', id);
 	const profile = await sql.query(`SELECT pro_sex FROM profiles WHERE pro_id = '${id}'`);
 	const profileSex = profile.rows[0].pro_sex;
 	let q = `SELECT * FROM profiles INNER JOIN accounts ON profiles.acc_id = accounts.acc_id WHERE pro_sex !='${profileSex}'`;
@@ -65,23 +61,18 @@ async function getDiscoveryByFilters(id, query) {
 
 	if (query.s) {
 		const sortOption = query.s.split('-');
-		console.table(sortOption);
 
 		q += ` ORDER BY ${sortOption[0]} ${sortOption[1]}`;
 	}
-
-	console.log(q);
 
 	let result = await sql.query(q);
 
 	// Not a great way to sort it but must be used because of YYYY-MM-DD formatting
 	if (query.s && query.s.split('-')[0] === 'pro_birthday') result.rows = result.rows.reverse();
-	//console.log(result);
 	return result;
 }
 
 async function updateProfileByUUID(body) {
-	console.log('Body: ', body);
 	let result = await sql.query(
 		`UPDATE profiles SET pro_name = $2, 
 		pro_breed = $3, 
@@ -108,13 +99,7 @@ async function updateProfileByUUID(body) {
 }
 
 async function uploadImageToDatabase(id, desc, file) {
-	console.log('id', id);
-	console.log('file', file);
-	console.log('desc', desc);
-
 	let newFilename, result;
-
-	console.log('Minetype ', file.mimetype);
 
 	if (file) {
 		const img_id = uuid();
@@ -127,23 +112,19 @@ async function uploadImageToDatabase(id, desc, file) {
 		newFilename = img_id + '.' + fileExt;
 		await fs.renameAsync(file.path, path.join('public', 'uploadedImages', newFilename));
 
-		console.log(img_id);
 		result = await sql.query(
 			`INSERT INTO images (img_id ,img_desc, pro_id, img_ext)
 		VALUES ($1, $2, $3, $4)`,
 			[img_id, desc, id, fileExt]
 		);
-		console.log(result);
 
 		return img_id;
 	}
-
 	return 'Upload failed';
 }
 
 // Get all of a profiles images using the profile ID
 async function getImagesFromId(id) {
-	console.log('Get Images from ID');
 	const result = await sql.query('SELECT * FROM images WHERE pro_id = $1', [id]);
 
 	return result;
@@ -172,9 +153,6 @@ async function sendMessage(id, rec_id, msg) {
 	VALUES ($1, $2, $3, $4)`,
 		[msg_id, id, rec_id, msg]
 	);
-
-	console.log('result: ', result);
-
 	return msg_id;
 }
 
@@ -194,8 +172,6 @@ async function getProfilePic(pro_id) {
 }
 
 async function createProfile(body) {
-	console.log('body:', body);
-
 	const pro_id = uuid();
 	console.log('pro_id: ', pro_id);
 	const result = await sql.query(
@@ -227,7 +203,6 @@ async function createProfile(body) {
 	);
 
 	const data = { id: pro_id, queryResult: result };
-	console.log(data);
 	return data;
 }
 
@@ -267,10 +242,6 @@ async function getReviewFromProfile(id) {
 }
 
 async function createReviewForProfile(id, rec_id, body) {
-	console.log('id: ', id);
-	console.log('rec_id: ', rec_id);
-	console.log('content: ', body.content);
-
 	const result = await sql.query(
 		`INSERT INTO reviews (rev_sender, rev_reciever, rev_content, rev_rating) VALUES ($1, $2, $3, $4)`,
 		[id, rec_id, body.content, body.rating]

@@ -16,24 +16,20 @@ async function createProfileElement(profile) {
 
 	const imageObj = await getProfilePicById(profile.pro_id);
 	let profilePicSrc;
-	if (imageObj == false) {
-		profilePicSrc = `./images/user.png`;
-	} else {
-		profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
-	}
-	clone.querySelector('#profilePicElement').src = profilePicSrc;
+	!imageObj
+		? (profilePicSrc = `./images/user.png`)
+		: (profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`);
 
+	clone.querySelector('#profilePicElement').src = profilePicSrc;
 	document.querySelector('#userProfileArea').appendChild(clone);
 }
 
 // Adds the selectedBtn class to the pushed button and removes it from the rest
 function selectedProfile() {
 	//Not the nicest way but if it works it works.
-	console.log(event);
 	const selectedId = event.srcElement.parentElement.parentElement.id;
 
 	console.log('Selected ID: ', selectedId);
-
 	const items = document.querySelectorAll('.selectBtn');
 	console.log(items);
 	for (let item of items) {
@@ -45,7 +41,6 @@ function selectedProfile() {
 	}
 
 	event.target.classList.toggle('selectedBtn');
-
 	localStorage.setItem('currentProfile', selectedId);
 }
 
@@ -53,10 +48,8 @@ function selectedProfile() {
 async function showProfiles() {
 	const userId = localStorage.getItem('currentAccount');
 	const profiles = await getProfilesByUserAccount(userId);
-	//profiles.forEach(createProfileElement);
-	for (const profile of profiles) {
-		await createProfileElement(profile);
-	}
+
+	profiles.forEach(createProfileElement);
 }
 
 function newProfile() {
@@ -68,14 +61,10 @@ function createEventHandlers() {
 	document.querySelector('#newProfileBtn').addEventListener('click', newProfile);
 
 	const items = document.querySelectorAll('.selectBtn');
-	for (const i of items) {
-		i.addEventListener('click', selectedProfile);
-	}
+	for (const i of items) i.addEventListener('click', selectedProfile);
 
 	const nameItems = document.querySelectorAll('.profile-name');
-	for (const i of nameItems) {
-		i.addEventListener('click', clickedName);
-	}
+	for (const i of nameItems) i.addEventListener('click', clickedName);
 }
 
 // Function for when the name of a profile is clicked.
@@ -92,7 +81,6 @@ function addClasses() {
 	const selectedID = localStorage.getItem('currentProfile');
 
 	let target = document.querySelector(`#${selectedID}`);
-	console.log('target ', target);
 	target.children[1].children[4].classList.add('selectedBtn');
 }
 
