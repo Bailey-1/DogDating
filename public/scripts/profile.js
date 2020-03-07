@@ -81,16 +81,19 @@ async function generateReviewElement(reviewObj) {
 
 	clone.querySelector('#reviewProfileLink').href = `./profile#${profileObj[0].pro_id}`;
 
-	if (profileObj[0].pro_id === currentProfile) {
-		document.querySelector('#reviewBtn').classList.toggle('invisibleElement');
-		const editBtn = document.createElement('button');
-		editBtn.textContent = 'Edit';
-		clone.querySelector('#reviewContent').append(editBtn);
+	let starLocation = clone.querySelector('#reviewRating');
 
-		const deleteBtn = document.createElement('button');
-		deleteBtn.textContent = 'Delete';
-		clone.querySelector('#reviewContent').append(deleteBtn);
-	}
+	// if (profileObj[0].pro_id === currentProfile) {
+	// 	document.querySelector('#reviewBtnText').textContent = 'Edit Review';
+	// 	document.querySelector('#reviewTextArea').value = reviewObj.rev_content;
+
+	// 	const deleteBtn = document.createElement('button');
+	// 	deleteBtn.textContent = 'Delete Review';
+	// 	deleteBtn.id = 'deleteBtn';
+	// 	document.querySelector('#reviewOptions').append(deleteBtn);
+
+	// 	starLocation = document.querySelector('#reviewStars');
+	// }
 
 	if (profilePicObj != false) {
 		clone.querySelector(
@@ -102,7 +105,7 @@ async function generateReviewElement(reviewObj) {
 		const imgEl = document.createElement('img');
 		imgEl.src = './svg/fill-star.svg';
 		imgEl.classList.add('stars');
-		clone.querySelector('#reviewRating').append(imgEl);
+		starLocation.append(imgEl);
 	}
 
 	console.log('answer: ', 5 - i);
@@ -111,7 +114,7 @@ async function generateReviewElement(reviewObj) {
 		const imgEl = document.createElement('img');
 		imgEl.src = './svg/line-star.svg';
 		imgEl.classList.add('stars');
-		clone.querySelector('#reviewRating').append(imgEl);
+		starLocation.append(imgEl);
 	}
 
 	document.querySelector('#reviews').prepend(clone);

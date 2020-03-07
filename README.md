@@ -4,17 +4,20 @@ A dog dating website. Some of the dog breeds are wrong but thats not important.
 
 # Features
 
-- User can "Discover" other profiles and filter then accordingly.
-  - Which is sent as a URL query to the web server.
-- Uses a PostgreSQL database to store accounts, profiles, images and messages.
+- User can select a profile and switch between multiple easily.
+- User can 'discover' potential partners.
+  - User can filter the results down by breed, location and kennelclub membership.
+    - Which is sent as a URL query to the web server.
+- Uses a PostgreSQL database to store accounts, profiles, images, reviews and messages.
 - User can upload as many images as they want for each profile.
   - Each image can have a message attached to it.
   - Each image can be set as a a profile pic.
   - Images can be completely deleted from the web server; database record and file.
 - User can create a unlimited number of profiles.
-  - And can update infomation on them.
+  - And can update all infomation on them.
 - User can refresh the webpage and it will remain on the same page and the discovery page will keep the same filter and sort options.
 - Users can message other profiles and they can response in real time.
+- User can leave reviews on other profiles reviewing the experience they had.
 
 # Setup
 
@@ -35,25 +38,32 @@ A dog dating website. Some of the dog breeds are wrong but thats not important.
       <!-- prettier-ignore -->
         localhost:8080
 
-# Troubleshoot
-
-1. Restart the browser and webserver. I had a issue where the website was very slow and was actually starting to slowdown my computer until I realised firefox was taking up 14GB of memory because I didnt closed the tab in hours.
-
 # TODO
 
 - Across the whole site
+  - Tidy up the code and improve maintanability.
   - Deal with server errors appropiately and show relevant message to user such as 404 and 500.
-- Home page:
+  - Improve mobile compatability.
+  - Improve the CSS layout for reviews.
+- Home page (index.html):
   - See profiles who you have had a conversation with.
   - See "recommended" profiles from the discovery page.
+  - Show shortcuts to common areas such as:
+    - Create new profile.
+- Message Page:
+  - List all previous conversations with other users.
+  - List name, last message time and last message in a table like a real messaging app.
 - Profile:
   - ~~Change profile picture~~
   - ~~Upload message with user uploaded images.~~
-  - Allow user to delete specific images.
-  - Allow users to leave a review and a star rating to rate previous interactions.
+  - ~~Allow user to delete specific images.~~
+  - ~~Allow users to leave a review and a star rating to rate previous interactions.~~
+    - Allow reviews to be deleted.
+    - Allow reviews to be edited - in the same way that profiles are handled.
 - Messaging:
   - ~~Get simple messaging working.~~
-  - Share images?
+  - Show profile picture next to each message.
+  - Allow the user to delete their message from the server.
 - Profile Selection:
   - ~~Allow the user to create a new profile directly from the profile-selection page.~~
   - Allow the user to delete specific profiles and all of their content such as images.
@@ -61,6 +71,10 @@ A dog dating website. Some of the dog breeds are wrong but thats not important.
 - login page
   - Mock login page that allows you to switch between different user accounts.
   - **Note: this is only to show that the webpages content is dynamic and changes based on the current user and to show that messaging would actually work.**
+
+# Troubleshoot
+
+1. Restart the browser and webserver. I had a issue where the website was very slow and was actually starting to slowdown my computer until I realised firefox was taking up 14GB of memory because I didnt closed the tab in hours.
 
 # Overview
 
@@ -90,7 +104,7 @@ A simple overview of the entire project and how it all interacts with each other
 
     DELETE  /api/profile/:id - DELETE PROFILE
 
-    POST    /api/profile/:id - CREATE NEW PROFILE
+    POST    /api/profile - CREATE NEW PROFILE
 
 ## DISCOVERY:
 
@@ -103,7 +117,7 @@ A simple overview of the entire project and how it all interacts with each other
 
             For example: http://localhost:8080/discovery?location=Portsmouth&kc=Member&s=pro_name-desc
 
-    GET     /api/discovery/:pro_id/filters
+    GET     /api/discovery/:pro_id/filters - GET DISTINCT VALUES FOR THE COLUMNS THAT ARE USED AS A FILTER.
 
 ## IMAGE:
 
@@ -119,8 +133,13 @@ A simple overview of the entire project and how it all interacts with each other
 
 ## MESSAGE:
 
-    GET     /api/profile/:id/messages/:otherProfileID - GET ALL MESSAGES BETWEEN PROFILES
+    GET     /api/profile/:id/recipient/:otherProfileID - GET ALL MESSAGES BETWEEN PROFILES
 
-    POST    /api/profile/:id/messages/:otherProfileID - SEND MESSAGE TO PROFILE
+    POST    /api/profile/:id/recipient/:otherProfileID - SEND MESSAGE TO PROFILE
 
-    GET     /api/messages/:id - GET MESSAGE
+    GET     /api/profile/:id/recipient/:rec_id/message/:msg_id - GET SPECIFIC MESSAGE BY msg_id
+
+## REVIEWS:
+
+    GET     /api/profile/:id/reviews/:rec_id - GET ALL REVIEWS FOR rec_id
+    POST    /api/profile/:id/reviews/:rec_id - CREATE A REVIEW FOR rec_id
