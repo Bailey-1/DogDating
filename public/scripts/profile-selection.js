@@ -21,6 +21,7 @@ async function createProfileElement(profile) {
 		: (profilePicSrc = `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`);
 
 	clone.querySelector('#profilePicElement').src = profilePicSrc;
+
 	document.querySelector('#userProfileArea').appendChild(clone);
 }
 
@@ -28,7 +29,7 @@ async function createProfileElement(profile) {
 function selectedProfile() {
 	//Not the nicest way but if it works it works.
 	const selectedId = event.srcElement.parentElement.parentElement.id;
-
+	console.log(selectedId);
 	console.log('Selected ID: ', selectedId);
 	const items = document.querySelectorAll('.selectBtn');
 	console.log(items);
@@ -49,7 +50,7 @@ async function showProfiles() {
 	const userId = localStorage.getItem('currentAccount');
 	const profiles = await getProfilesByUserAccount(userId);
 
-	profiles.forEach(createProfileElement);
+	await profiles.forEach(createProfileElement);
 }
 
 function newProfile() {
@@ -79,8 +80,9 @@ function clickedName() {
 // Add the selectedBtn class to the profile that matches the current profile ID.
 function addClasses() {
 	const selectedID = localStorage.getItem('currentProfile');
-
+	console.log('selected id: ', selectedID);
 	let target = document.querySelector(`#${selectedID}`);
+	console.log(target);
 	target.children[1].children[4].classList.add('selectedBtn');
 }
 
@@ -88,8 +90,12 @@ function addClasses() {
 async function pageLoaded() {
 	//Used await to allow all elements to display before handlers are created
 	await showProfiles();
-	createEventHandlers();
-	addClasses();
+
+	// have to use this because i don't know what is causing the delay
+	setTimeout(function() {
+		createEventHandlers();
+		addClasses();
+	}, 100);
 }
 
 // Entry

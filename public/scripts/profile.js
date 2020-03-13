@@ -57,7 +57,8 @@ function createImageElement(imageObj) {
 async function getReviews() {
 	removeContentFrom(document.querySelector('#reviews'));
 	const reviewObj = await getReviewsByProfileID(currentProfile, window.location.hash.substring(1));
-	reviewObj.rows.forEach(generateReviewElement);
+	await reviewObj.rows.forEach(generateReviewElement);
+	console.log(reviewObj);
 }
 
 async function generateReviewElement(reviewObj) {
@@ -80,29 +81,18 @@ async function generateReviewElement(reviewObj) {
 
 	let starLocation = clone.querySelector('#reviewRating');
 
-	// if (profileObj[0].pro_id === currentProfile) {
-	// 	document.querySelector('#reviewBtnText').textContent = 'Edit Review';
-	// 	document.querySelector('#reviewTextArea').value = reviewObj.rev_content;
-
-	// 	const deleteBtn = document.createElement('button');
-	// 	deleteBtn.textContent = 'Delete Review';
-	// 	deleteBtn.id = 'deleteBtn';
-	// 	document.querySelector('#reviewOptions').append(deleteBtn);
-
-	// 	starLocation = document.querySelector('#reviewStars');
-	// }
-
 	if (profilePicObj != false) {
 		clone.querySelector(
 			'#reviewImg'
 		).src = `./uploadedImages/${profilePicObj.img_id}.${profilePicObj.img_ext}`;
 	}
-	let i = 0;
+
+	let i = 0; // Has to be define outside of the scope of the for loop.
 	for (i = 0; i < reviewObj.rev_rating; i++) {
 		const imgEl = document.createElement('img');
 		imgEl.src = './svg/fill-star.svg';
 		imgEl.classList.add('stars');
-		starLocation.append(imgEl);
+		await starLocation.append(imgEl);
 	}
 
 	const emptyStars = 5 - i;
@@ -110,9 +100,9 @@ async function generateReviewElement(reviewObj) {
 		const imgEl = document.createElement('img');
 		imgEl.src = './svg/line-star.svg';
 		imgEl.classList.add('stars');
-		starLocation.append(imgEl);
+		await starLocation.append(imgEl);
 	}
-
+	console.log(profileObj[0].pro_name);
 	document.querySelector('#reviews').prepend(clone);
 }
 
