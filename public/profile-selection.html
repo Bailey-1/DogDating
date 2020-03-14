@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Dog Dating</title>
 
-        <!-- Style -->
-        <link rel="stylesheet" href="./stylesheets/style.css"/>
-        <link rel="stylesheet" href="./stylesheets/profile-selection.css"/>
-		<!-- Scripts -->
-		<script src="./scripts/profile-selection.js"></script>
-		<script src="./scripts/utility.js"></script>	
-	</head>
-	<body>
-		<div class="navbar">
-			<ul>
-				<li style="border-right: 0px;"><a href="#">Settings</a></li>
-				<li><a href="">Log Out</a></li>
-				<li><a class="selected" href="profile-selection">Change Profile</a></li>
-				<li><a href="my-profile"> My Profile</a></li>
-				<li><a href="discovery">Find Matches</a></li>
-				<li class="websiteName"><a href="index">Doggy Dating</a></li>
-			</ul>
-		</div>
-		<div id="main-body-content">
-			<div id="user-profiles" class="profiles">
-				<h1 style="margin: 0.2em">Select a Profile!</h1>
-				<hr>
-				<button id="newProfileBtn">Create A New Profile</button>
-				<div id="userProfileArea" style="text-align: center;">
-				</div>
-			</div>
-        </div>
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dog Dating</title>
 
-    <template id="profile-item">
-        <div class="dogProfile">
-            <img id="profilePicElement"></img>
-            <div class="details">
-                <h2 id="name" class="profile-name">Buster, 8</h2>
-                <h3 id="breed"></h3>
-				<h3 id="birthday"></h3>
-				<h3 id="sex"></h3>
-				<div class="selectBtn">Select</div>
+    <!-- Style -->
+    <link rel="stylesheet" href="./stylesheets/style.css" />
+    <link rel="stylesheet" href="./stylesheets/profile-selection.css" />
+    <!-- Scripts -->
+    <script type="module" src="./scripts/profile-selection.js"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <ul>
+            <li style="border-right: 0px;"><a href="#">Settings</a></li>
+            <li><a href="">Log Out</a></li>
+            <li><a class="selected" href="profile-selection">Change Profile</a></li>
+            <li><a href="my-profile"> My Profile</a></li>
+            <li><a href="discovery">Find Matches</a></li>
+            <li class="websiteName"><a href="index">Doggy Dating</a></li>
+        </ul>
+    </div>
+    <div id="main-body-content">
+        <div id="user-profiles" class="profiles">
+            <h1 style="margin: 0.2em">Select a Profile!</h1>
+            <hr>
+            <button id="newProfileBtn">Create A New Profile</button>
+            <div id="userProfileArea" style="text-align: center;">
             </div>
         </div>
-    </template>
+    </div>
+</body>
+
+<template id="profile-item">
+    <div class="dogProfile">
+        <img id="profilePicElement"></img>
+        <div class="details">
+            <h2 id="name" class="profile-name">Buster, 8</h2>
+            <h3 id="breed"></h3>
+            <h3 id="birthday"></h3>
+            <h3 id="sex"></h3>
+            <div class="selectBtn">Select</div>
+        </div>
+    </div>
+</template>
+
 </html>

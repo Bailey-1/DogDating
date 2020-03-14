@@ -1,72 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Doggy Dating</title>
 
-		<!-- Style -->
-		<link rel="stylesheet" href="./stylesheets/style.css" />
-		<link rel="stylesheet" href="./stylesheets/my-profile.css" />
-		<!-- Scripts -->
-		<script src="./scripts/new-profile.js"></script>
-		<script src="./scripts/utility.js"></script>
-	</head>
-	<body>
-		<div class="navbar">
-			<ul>
-				<li style="border-right: 0px;"><a href="#">Settings</a></li>
-				<li><a href="">Log Out</a></li>
-				<li><a href="profile-selection">Change Profile</a></li>
-				<li><a class="selected" href="my-profile"> My Profile</a></li>
-				<li><a href="discovery">Find Matches</a></li>
-				<li class="websiteName"><a href="index">Doggy Dating</a></li>
-			</ul>
-		</div>
-		<div class="profile">
-			<h1 id="name">Create new profile for your dog</h1>
-			<div class="profilePicture" style="padding: 1em;"><div><img id="profilePicElement" src="./images/user.png"/></div></div>
-			<div class="details"> 
-				<div class="detailItem">
-					<h2>Name:</h2>
-					<input id="nameOption"></input>
-				</div>
-				<div class="detailItem">
-					<h2>Sex:</h2>
-					<select id="sex">
-						<option selected="Select Sex" selected disabled hidden>Select Sex</option>
-						<option value="Male">Male</option>
-						<option value="Female">Female</option>
-					</select>
-				</div>
-				<div class="detailItem">
-					<h2>About Me:</h2>
-					<textarea id="aboutme" rows="10" cols="50"></textarea>
-				</div>
-				<div class="detailItem">
-					<h2>Breed:</h2>
-					<input id="breed"></input>
-				</div>
-				<div class="detailItem">
-					<h2>Location:</h2>
-					<input id="location"></input>
-				</div>
-				<div class="detailItem">
-					<h2>Likes:</h2>
-					<textarea id="likes" rows="10" cols="50"></textarea>
-				</div>
-				<div class="detailItem">
-					<h2>Dislikes:</h2>
-					<textarea id="dislikes" rows="10" cols="50"></textarea>
-				</div>
-				<div class="detailItem">
-					<h2>Birth Day:</h2>
-					<input id="birthday" type="date"></input>
-				</div>
-				<div class="detailItem">
-					<h2>Create Profile:</h2>
-					<div id="updateDetails" class="selectBtn">Create Now</div> 
-				</div>
-			</div>
-		</div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doggy Dating</title>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="./stylesheets/style.css" />
+    <link rel="stylesheet" href="./stylesheets/my-profile.css" />
+    <!-- Scripts -->
+    <script src="./scripts/new-profile.js"></script>
+    <script src="./scripts/utility.js"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <ul>
+            <li style="border-right: 0px;"><a href="#">Settings</a></li>
+            <li><a href="">Log Out</a></li>
+            <li><a href="profile-selection">Change Profile</a></li>
+            <li><a class="selected" href="my-profile"> My Profile</a></li>
+            <li><a href="discovery">Find Matches</a></li>
+            <li class="websiteName"><a href="index">Doggy Dating</a></li>
+        </ul>
+    </div>
+    <div class="profile">
+        <h1 id="name">Create new profile for your dog</h1>
+        <div class="profilePicture" style="padding: 1em;">
+            <div><img id="profilePicElement" src="./images/user.png" /></div>
+        </div>
+        <div class="details">
+            <div class="detailItem">
+                <h2>Name:</h2>
+                <input id="nameOption"></input>
+            </div>
+            <div class="detailItem">
+                <h2>Sex:</h2>
+                <select id="sex">
+                    <option selected="Select Sex" selected disabled hidden>Select Sex</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="detailItem">
+                <h2>About Me:</h2>
+                <textarea id="aboutme" rows="10" cols="50"></textarea>
+            </div>
+            <div class="detailItem">
+                <h2>Breed:</h2>
+                <input id="breed"></input>
+            </div>
+            <div class="detailItem">
+                <h2>Location:</h2>
+                <input id="location"></input>
+            </div>
+            <div class="detailItem">
+                <h2>Likes:</h2>
+                <textarea id="likes" rows="10" cols="50"></textarea>
+            </div>
+            <div class="detailItem">
+                <h2>Dislikes:</h2>
+                <textarea id="dislikes" rows="10" cols="50"></textarea>
+            </div>
+            <div class="detailItem">
+                <h2>Birth Day:</h2>
+                <input id="birthday" type="date"></input>
+            </div>
+            <div class="detailItem">
+                <h2>Create Profile:</h2>
+                <div id="updateDetails" class="selectBtn">Create Now</div>
+            </div>
+        </div>
+    </div>
+
 </html>

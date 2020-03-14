@@ -1,18 +1,20 @@
+import * as util from './utility.js';
+
 async function loadContent() {
-	const currentProfileData = await getProfileById(currentProfile);
-	const currentAccount = await getAccountById(localStorage.getItem('currentAccount'));
-	document.querySelector(
-		'#mainTitle'
-	).textContent = `Welcome ${currentAccount[0].acc_name}! You are currently browsing as ${currentProfileData[0].pro_name}!`;
+  const currentProfileData = await util.getProfileById(util.currentProfile);
+  const currentAccount = await util.getAccountById(localStorage.getItem('currentAccount'));
+  document.querySelector(
+    '#mainTitle',
+  ).textContent = `Welcome ${currentAccount[0].acc_name}! You are currently browsing as ${currentProfileData[0].pro_name}!`;
 }
 
 function addEventListeners() {
-	// Event listeners;
+  // Event listeners;
 }
 
 function pageLoaded() {
-	loadContent();
-	addEventListeners();
+  loadContent();
+  addEventListeners();
 }
 
 window.addEventListener('load', pageLoaded);

@@ -1,120 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Doggy Dating</title>
 
-		<!-- Style -->
-		<link rel="stylesheet" href="./stylesheets/style.css" />
-		<link rel="stylesheet" href="./stylesheets/my-profile.css" />
-		<!-- Scripts -->
-		<script src="./scripts/my-profile.js"></script>
-		<script src="./scripts/utility.js"></script>
-	</head>
-	<body>
-		<div class="navbar">
-			<ul>
-				<li style="border-right: 0px;"><a href="#">Settings</a></li>
-				<li><a href="">Log Out</a></li>
-				<li><a href="profile-selection">Change Profile</a></li>
-				<li><a class="selected" href="my-profile"> My Profile</a></li>
-				<li><a href="discovery">Find Matches</a></li>
-				<li class="websiteName"><a href="index">Doggy Dating</a></li>
-			</ul>
-		</div>
-		<div class="profile">
-			<h1 id="name"></h1>
-			<div class="profilePicture">
-				<div><img style="padding: 1em;" id="profilePicElement"/></div>
-			</div>
-			
-			<div class="details">
-				<div class="detailItem">
-					<h2>Name:</h2>
-					<input placeholder="Name" id="nameOption"></input>
-				</div>
-				<div class="detailItem">
-					<h2>Sex:</h2>
-					<select id="sex">
-						<option value="Male">Male</option>
-						<option value="Female">Female</option>
-					</select>
-				</div>
-				<div class="detailItem">
-					<h2>About Me:</h2>
-					<textarea placeholder="About me..." id="aboutme" rows="10" cols="50"> </textarea>
-				</div>
-				<div class="detailItem">
-					<h2>Breed:</h2>
-					<input id="breed"></input>
-				</div>
-				<div class="detailItem">
-					<h2>Location:</h2>
-					<input id="location"></input>
-				</div>
-				<div class="detailItem">
-					<h2>Likes:</h2>
-					<textarea id="likes" rows="10" cols="50"></textarea>
-				</div>
-				<div class="detailItem">
-					<h2>Dislikes:</h2>
-					<textarea id="dislikes" rows="10" cols="50"></textarea>
-				</div>
-				<div class="detailItem">
-					<h2>Birthday:</h2>
-					<input id="birthday" type="date"/>
-				</div>
-				<div class="detailItem">
-					<h2>Update changes to Profile:</h2>
-					<div id="updateDetails" class="selectBtn">Update</div> 
-				</div>
-				<div class="detailItem">
-					<h2>Upload Image: </h2>
-					<label><input id="imageDescInput" placeholder="Describe the image"/><p>Cannot Be Null</p></label>
-					<div><input id=fileUpload type=file accept="image/png, image/jpeg"></div>
-					<div id="uploadImageButton" class="selectBtn">Upload Image</div> 
-				</div>
-			</div>
-		</div>
-		<div id="userImageArea" class="userImageArea">
-			<h1>User Images: </h1>
-			<hr>
-			<div id="images" class="images"></div>
-		</div>
-		<div id="userReviewArea" class="userReviewArea">
-			<h1>User Reviews: </h1>
-			<hr>
-			<div id="reviews" class="reviews"></div>
-		</div>
-	</body>
-	<template id="profileImageTemplate">
-		<div class="imageDiv">
-			<img id="userImage" class="userImage">
-			<h2 id="imageDesc">Hello World</h2>
-			<button class="setProfilePic">Set as Profile Pic</button>
-			<button class="deletePic">Delete</button>
-		</div>
-	</template>
-	<template id="reviewTemplate">
-		<div class="review">
-			<div class="reviewImgDiv">
-				<img id="reviewImg"  class="reviewImg" src="./images/user.png"/>
-			</div>
-			<div class="reviewName">
-				<a class="profile-name " id="reviewProfileLink">
-					<h2 id="reviewNameText" class="reviewNameText"></h2>
-				</a>
-			</div>
-			<div id="reviewRating" class="reviewRating">
-			</div>
-			<div class="reviewTime">
-				<h3 id="reviewTimeText" class="reviewTimeText"></h3>
-			</div>
-			<div class="reviewContent">
-				<p id="reviewContentText" class="reviewContentText"></p>	
-			<div>
-		</div>
-		<br>
-	</template>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doggy Dating</title>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="./stylesheets/style.css" />
+    <link rel="stylesheet" href="./stylesheets/my-profile.css" />
+    <!-- Scripts -->
+    <script type="module" src="./scripts/my-profile.js"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <ul>
+            <li style="border-right: 0px;"><a href="#">Settings</a></li>
+            <li><a href="">Log Out</a></li>
+            <li><a href="profile-selection">Change Profile</a></li>
+            <li><a class="selected" href="my-profile"> My Profile</a></li>
+            <li><a href="discovery">Find Matches</a></li>
+            <li class="websiteName"><a href="index">Doggy Dating</a></li>
+        </ul>
+    </div>
+    <div class="profile">
+        <h1 id="name"></h1>
+        <div class="profilePicture">
+            <div><img style="padding: 1em;" id="profilePicElement" /></div>
+        </div>
+
+        <div class="details">
+            <div class="detailItem">
+                <h2>Name:</h2>
+                <input placeholder="Name" id="nameOption"></input>
+            </div>
+            <div class="detailItem">
+                <h2>Sex:</h2>
+                <select id="sex">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="detailItem">
+                <h2>About Me:</h2>
+                <textarea placeholder="About me..." id="aboutme" rows="10" cols="50"> </textarea>
+            </div>
+            <div class="detailItem">
+                <h2>Breed:</h2>
+                <input id="breed"></input>
+            </div>
+            <div class="detailItem">
+                <h2>Location:</h2>
+                <input id="location"></input>
+            </div>
+            <div class="detailItem">
+                <h2>Likes:</h2>
+                <textarea id="likes" rows="10" cols="50"></textarea>
+            </div>
+            <div class="detailItem">
+                <h2>Dislikes:</h2>
+                <textarea id="dislikes" rows="10" cols="50"></textarea>
+            </div>
+            <div class="detailItem">
+                <h2>Birthday:</h2>
+                <input id="birthday" type="date" />
+            </div>
+            <div class="detailItem">
+                <h2>Update changes to Profile:</h2>
+                <div id="updateDetails" class="selectBtn">Update</div>
+            </div>
+            <div class="detailItem">
+                <h2>Upload Image: </h2>
+                <label><input id="imageDescInput" placeholder="Describe the image" />
+                    <p>Cannot Be Null</p>
+                </label>
+                <div><input id=fileUpload type=file accept="image/png, image/jpeg"></div>
+                <div id="uploadImageButton" class="selectBtn">Upload Image</div>
+            </div>
+        </div>
+    </div>
+    <div id="userImageArea" class="userImageArea">
+        <h1>User Images: </h1>
+        <hr>
+        <div id="images" class="images"></div>
+    </div>
+    <div id="userReviewArea" class="userReviewArea">
+        <h1>User Reviews: </h1>
+        <hr>
+        <div id="reviews" class="reviews"></div>
+    </div>
+</body>
+<template id="profileImageTemplate">
+    <div class="imageDiv">
+        <img id="userImage" class="userImage">
+        <h2 id="imageDesc">Hello World</h2>
+        <button class="setProfilePic">Set as Profile Pic</button>
+        <button class="deletePic">Delete</button>
+    </div>
+</template>
+<template id="reviewTemplate">
+    <div class="review">
+        <div class="reviewImgDiv">
+            <img id="reviewImg" class="reviewImg" src="./images/user.png" />
+        </div>
+        <div class="reviewName">
+            <a class="profile-name " id="reviewProfileLink">
+                <h2 id="reviewNameText" class="reviewNameText"></h2>
+            </a>
+        </div>
+        <div id="reviewRating" class="reviewRating">
+        </div>
+        <div class="reviewTime">
+            <h3 id="reviewTimeText" class="reviewTimeText"></h3>
+        </div>
+        <div class="reviewContent">
+            <p id="reviewContentText" class="reviewContentText"></p>
+            <div>
+            </div>
+            <br>
+</template>
+
 </html>

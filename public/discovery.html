@@ -1,77 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Dog Dating - Find Partners</title>
-        
-		<!-- Style -->
-        <link rel="stylesheet" href="./stylesheets/style.css"/>
-        <link rel="stylesheet" href="./stylesheets/discovery.css"/>
-		<!-- Scripts -->
-        <script src="./scripts/discovery.js"></script>
-        <script src="./scripts/utility.js"></script>
-	</head>
-	<body>
-		<div class="navbar">
-			<ul>
-				<li style="border-right: 0px;"><a href="#">Settings</a></li>
-				<li><a href="">Log Out</a></li>
-				<li><a href="profile-selection">Change Profile</a></li>
-				<li><a href="my-profile"> My Profile</a></li>
-				<li><a class="selected" href="discovery">Find Matches</a></li>
-				<li class="websiteName"><a href="index">Doggy Dating</a></li>
-			</ul>
-		</div>
-		<div id="discover-profiles" class="profiles">
-            <h1 style="margin: 0.2em" id="welcomeName">Find Partners!</h1>
-            <h2 style="color: white;" id="resultsNum"></h2>
-            <div>
-                <p style="color: white; display: inline-block;" id="location-tag">Location: </p>
-                <select style="display: inline-block;" id="select-location">
-                    <option value="all">All</option>
-                </select>
-            </div>
-            <div>
-                <p style="color: white; display: inline-block;" id="breed-tag">Breed:</p>
-                <select style="display: inline-block;" id="select-breed">
-                    <option value="all">All</option>
-                </select>
-            </div>
-            <div>
-                <p style="color: white; display: inline-block;" id="kennelclub-tag">Kennel Club Membership: </p>
-                <select style="display: inline-block;" id="select-kennelclub">
-                    <option value="all">All</option>
-                </select>
-            </div>
-            <div>
-                <p style="color: white; display: inline-block;" id="kennelclub-tag">Sort: </p>
-                <select style="display: inline-block;" id="sort-type">
-                    <!-- I know i shouldnt include database column names here because its not secure -->
-                    <option value="default">Default</option>
-                    <option value="pro_name">Name</option>
-                    <option value="pro_location">Location</option>
-                    <option value="pro_birthday">Birthday</option>
-                    <option value="pro_breed">Breed</option>
-                </select>
-                <select style="display: inline-block; visibility: hidden;" id="sort-dir">
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
-            </div>
-            <hr>
-            <div id="profiles-area"></div>
+
+<!-- This file uses spaces instead of tabs and i have no idea why it auto corrects back -->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dog Dating - Find Partners</title>
+    <!-- Style -->
+    <link rel="stylesheet" href="./stylesheets/style.css" />
+    <link rel="stylesheet" href="./stylesheets/discovery.css" />
+    <!-- Scripts -->
+    <script type="module" src="./scripts/discovery.js"></script>
+</head>
+
+<body>
+    <div class="navbar">
+        <ul>
+            <li style="border-right: 0px;"><a href="#">Settings</a></li>
+            <li><a href="">Log Out</a></li>
+            <li><a href="profile-selection">Change Profile</a></li>
+            <li><a href="my-profile"> My Profile</a></li>
+            <li><a class="selected" href="discovery">Find Matches</a></li>
+            <li class="websiteName"><a href="index">Doggy Dating</a></li>
+        </ul>
+    </div>
+    <div id="discover-profiles" class="profiles">
+        <h1 style="margin: 0.2em" id="welcomeName">Find Partners!</h1>
+        <h2 style="color: white;" id="resultsNum"></h2>
+        <div>
+            <p style="color: white; display: inline-block;" id="location-tag">Location: </p>
+            <select style="display: inline-block;" id="select-location">
+                <option value="all">All</option>
+            </select>
         </div>
-    </body>
-    <template id="profile-item">
-        <div class="dogProfile">
-            <img id="profilePicElement"></img>
-            <div class="details">
-                <h2><a id="name" class="profile-name"></a></h2>
-                <h3 id="location"></h3>
-                <h3 id="breed"></h3>
-                <a href="" id="messageBtn" class="messageBtn"><div class="selectBtn">Message Me</div></a>
-            </div>
+        <div>
+            <p style="color: white; display: inline-block;" id="breed-tag">Breed:</p>
+            <select style="display: inline-block;" id="select-breed">
+                <option value="all">All</option>
+            </select>
         </div>
-    </template>
+        <div>
+            <p style="color: white; display: inline-block;" id="kennelclub-tag">Kennel Club Membership: </p>
+            <select style="display: inline-block;" id="select-kennelclub">
+                <option value="all">All</option>
+            </select>
+        </div>
+        <div>
+            <p style="color: white; display: inline-block;" id="kennelclub-tag">Sort: </p>
+            <select style="display: inline-block;" id="sort-type">
+                <!-- I know i shouldnt include database column names here because its not secure -->
+                <option value="default">Default</option>
+                <option value="pro_name">Name</option>
+                <option value="pro_location">Location</option>
+                <option value="pro_birthday">Birthday</option>
+                <option value="pro_breed">Breed</option>
+            </select>
+            <select style="display: inline-block; visibility: hidden;" id="sort-dir">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+        </div>
+        <hr>
+        <div id="profiles-area"></div>
+    </div>
+</body>
+<template id="profile-item">
+    <div class="dogProfile">
+        <img id="profilePicElement"></img>
+        <div class="details">
+            <h2><a id="name" class="profile-name"></a></h2>
+            <h3 id="location"></h3>
+            <h3 id="breed"></h3>
+            <a href="" id="messageBtn" class="messageBtn">
+                <div class="selectBtn">Message Me</div>
+            </a>
+        </div>
+    </div>
+</template>
+
 </html>
