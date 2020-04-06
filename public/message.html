@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Doggy Dating</title>
@@ -10,58 +9,56 @@
     <link rel="stylesheet" href="./stylesheets/style.css" />
     <link rel="stylesheet" href="./stylesheets/message.css" />
     <!-- Scripts -->
-    <script src="./scripts/message.js"></script>
-    <script src="./scripts/utility.js"></script>
-</head>
+    <script type="module" src="./scripts/message.js"></script>
+  </head>
 
-<body>
+  <body>
     <div class="navbar">
-        <ul>
-            <li style="border-right: 0px;"><a href="#">Settings</a></li>
-            <li><a href="">Log Out</a></li>
-            <li><a href="profile-selection">Change Profile</a></li>
-            <li><a href="my-profile"> My Profile</a></li>
-            <li><a href="discovery">Find Matches</a></li>
-            <li class="websiteName"><a href="index">Doggy Dating</a></li>
-        </ul>
+      <ul>
+        <li style="border-right: 0px;"><a href="#">Settings</a></li>
+        <li><a href="">Log Out</a></li>
+        <li><a href="profile-selection">Change Profile</a></li>
+        <li><a href="my-profile"> My Profile</a></li>
+        <li><a href="discovery">Find Matches</a></li>
+        <li class="websiteName"><a href="index">Doggy Dating</a></li>
+      </ul>
     </div>
     <div class="main" style="margin: 1em;">
-        <h1 id="messageTitle">Message</h1>
-        <div class="chatArea" style="text-align: center;">
-            <table id="chatTable" align="center" class="messageTable"></table>
-            <table class="messageTable" align="center">
-                <tr class="sendBox">
-                    <td class="nameColumn">Message:</td>
-                    <td class="textColumn">
-                        <textarea id="messageBox"></textarea>
-                        <button id="sendButton" class="sendButton" style="float: right;">Enter</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
+      <h1 id="messageTitle">Message</h1>
+      <div class="chatArea" style="text-align: center;">
+        <table id="chatTable" align="center" class="messageTable"></table>
+        <table class="messageTable" align="center">
+          <tr class="sendBox">
+            <td class="nameColumn">Message:</td>
+            <td class="textColumn">
+              <textarea id="messageBox"></textarea>
+              <button id="sendButton" class="sendButton" style="float: right;">Enter</button>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-</body>
-<!-- Two templates to make it easier if i want to add other features
+  </body>
+  <!-- Two templates to make it easier if i want to add other features
 	such as editing sent messages and deleting messages from the server -->
-<template id="recievedMessage">
+  <template id="recievedMessage">
     <tr class="recieved" id="">
-        <td id="name" class="nameColumn">Name:</td>
-        <td id="message" class="messageColumn"></td>
+      <td id="name" class="nameColumn">Name:</td>
+      <td id="message" class="messageColumn"></td>
     </tr>
     <tr class="recieved">
-        <td class="messageInfo"></td>
-        <td id="time" class="messageInfo">time and date</td>
+      <td class="messageInfo"></td>
+      <td id="time" class="messageInfo">time and date</td>
     </tr>
-</template>
-<template id="sentMessage">
+  </template>
+  <template id="sentMessage">
     <tr class="sent">
-        <td id="name" class="nameColumn"></td>
-        <td id="message" class="messageColumn"></td>
+      <td id="name" class="nameColumn"></td>
+      <td id="message" class="messageColumn"></td>
     </tr>
     <tr class="sent">
-        <td class="messageInfo"></td>
-        <td id="time" class="messageInfo">time and date</td>
+      <td class="messageInfo"></td>
+      <td id="time" class="messageInfo">time and date</td>
     </tr>
-</template>
-
+  </template>
 </html>

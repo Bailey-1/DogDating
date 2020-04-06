@@ -10,8 +10,8 @@ async function createProfileElement(profile) {
   const clone = document.importNode(template.content, true);
   clone.querySelector('.dogProfile').id = `profile-${profile.pro_id}`;
   clone.querySelector('#name').textContent = `${profile.pro_name}, ${util.getAgeFromDate(
-profile.pro_birthday,
-)}`;
+    profile.pro_birthday,
+  )}`;
   clone.querySelector('#breed').textContent = profile.pro_breed;
   clone.querySelector('#birthday').textContent = profile.pro_birthday;
   clone.querySelector('#sex').textContent = profile.pro_sex;

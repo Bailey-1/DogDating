@@ -2,6 +2,11 @@
 // Utility functions
 // Single page to help manage API requests and to reuse them across the site
 
+// Check to see if user has currentProfile value in localstorage if not it selects the 'Ruth' profile by default.
+if (localStorage.getItem('currentProfile') === null) {
+  localStorage.setItem('currentProfile', 'profile-9cc6db1c-48ca-4ac9-ba72-eedfafa01a4b');
+}
+
 const currentProfile = localStorage.getItem('currentProfile').substring(8);
 const currentAccount = localStorage.getItem('currentAccount');
 
@@ -124,7 +129,9 @@ async function sendMessage(id, recId, msg) {
 
 async function getMessage(id, recId, msgId) {
   const request = await fetch(`./api/profile/${id}/recipient/${recId}/message/${msgId}`);
-  if (!request.ok) { return console.warn(`Could not GET ./api/profile/${id}/recipient/${recId}/message/${msgId}`); }
+  if (!request.ok) {
+    return console.warn(`Could not GET ./api/profile/${id}/recipient/${recId}/message/${msgId}`);
+  }
   const result = await request.json();
   return result.rows[0];
 }

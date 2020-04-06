@@ -12,8 +12,8 @@ async function showProfile() {
   const profileObj = await util.getProfileById(profileID);
   console.log(profileObj[0]);
   document.querySelector('#name').textContent = `${profileObj[0].pro_name}, ${util.getAgeFromDate(
-profileObj[0].pro_birthday,
-)}`;
+    profileObj[0].pro_birthday,
+  )}`;
   document.querySelector('#breed').textContent = profileObj[0].pro_breed;
   document.querySelector('#location').textContent = profileObj[0].pro_location;
   document.querySelector('#likes').textContent = profileObj[0].pro_likes;
@@ -30,9 +30,9 @@ profileObj[0].pro_birthday,
   const imageObj = await util.getProfilePicById(profileObj[0].pro_id);
 
   const profilePicSrc =
-imageObj === false
-  ? './images/user.png'
-  : `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
+    imageObj === false
+      ? './images/user.png'
+      : `./uploadedImages/${imageObj.img_id}.${imageObj.img_ext}`;
 
   document.querySelector('#profilePicElement').src = profilePicSrc;
   document.title = `Doggy Dating - ${profileObj[0].pro_name}'s Profile`;
@@ -58,7 +58,10 @@ function createImageElement(imageObj) {
 // Show reviews for the profile.
 async function getReviews() {
   util.removeContentFrom(document.querySelector('#reviews'));
-  const reviewObj = await util.getReviewsByProfileID(util.currentProfile, window.location.hash.substring(1));
+  const reviewObj = await util.getReviewsByProfileID(
+    util.currentProfile,
+    window.location.hash.substring(1),
+  );
   await reviewObj.rows.forEach(generateReviewElement);
   console.log(reviewObj);
 }
@@ -75,9 +78,9 @@ async function generateReviewElement(reviewObj) {
   clone.querySelector('div.review').id = `rev-${profileObj[0].pro_id}`;
   clone.querySelector('#reviewTimeText').textContent = reviewObj.rev_time.substring(0, 10);
   clone.querySelector('#reviewContentText').textContent = reviewObj.rev_content;
-  clone.querySelector('#reviewNameText').textContent = `${profileObj[0].pro_name}, ${util.getAgeFromDate(
-profileObj[0].pro_birthday,
-)}`;
+  clone.querySelector('#reviewNameText').textContent = `${
+    profileObj[0].pro_name
+  }, ${util.getAgeFromDate(profileObj[0].pro_birthday)}`;
 
   clone.querySelector('#reviewProfileLink').href = `./profile#${profileObj[0].pro_id}`;
 

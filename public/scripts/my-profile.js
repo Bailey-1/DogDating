@@ -4,8 +4,8 @@ async function showProfile() {
   console.log(userProfile);
 
   document.querySelector('#name').textContent = `${userProfile[0].pro_name}, ${util.getAgeFromDate(
-		userProfile[0].pro_birthday,
-	)}`;
+    userProfile[0].pro_birthday,
+  )}`;
   document.querySelector('#nameOption').value = userProfile[0].pro_name;
   document.querySelector('#breed').value = userProfile[0].pro_breed;
   document.querySelector('#location').value = userProfile[0].pro_location;
@@ -104,17 +104,17 @@ function createImageElement(imageObj) {
 
 async function setNewProfilePic() {
   // Cheeky way to get the id of the image for every user uploaded image.
-  const img_id = event.srcElement.parentElement.id.substring(4);
-  await util.setProfilePic(util.currentProfile, img_id);
+  const imgId = event.srcElement.parentElement.id.substring(4);
+  await util.setProfilePic(util.currentProfile, imgId);
   showProfilePic();
 }
 
 async function deletePic() {
-  const img_id = event.srcElement.parentElement.id.substring(4);
-  util.deletePictureUtil(util.currentProfile, img_id);
+  const imgId = event.srcElement.parentElement.id.substring(4);
+  util.deletePictureUtil(util.currentProfile, imgId);
   // Just removes the element from the website instead of removing all images and adding them again which
   // Jumps the screen up and looks weird. This looks alot smoother.
-  document.querySelector(`#img-${img_id}`).remove();
+  document.querySelector(`#img-${imgId}`).remove();
 }
 
 function addEventListeners() {
@@ -134,9 +134,9 @@ async function showReviews() {
 
 async function generateReviewElement(reviewObj) {
   // Get the profile information for the sender of the review.
-  const profileObj = await getProfileById(reviewObj.rev_sender);
+  const profileObj = await util.getProfileById(reviewObj.rev_sender);
   console.log('profileObj', profileObj);
-  const profilePicObj = await getProfilePicById(reviewObj.rev_sender);
+  const profilePicObj = await util.getProfilePicById(reviewObj.rev_sender);
   console.log('profilePicObj', profilePicObj);
 
   const template = document.querySelector('#reviewTemplate');
@@ -144,13 +144,13 @@ async function generateReviewElement(reviewObj) {
   clone.querySelector('div.review').id = `rev-${profileObj[0].pro_id}`;
   clone.querySelector('#reviewTimeText').textContent = reviewObj.rev_time.substring(0, 10);
   clone.querySelector('#reviewContentText').textContent = reviewObj.rev_content;
-  clone.querySelector('#reviewNameText').textContent = `${profileObj[0].pro_name}, ${getAgeFromDate(
-		profileObj[0].pro_birthday,
-	)}`;
+  clone.querySelector('#reviewNameText').textContent = `${
+    profileObj[0].pro_name
+  }, ${util.getAgeFromDate(profileObj[0].pro_birthday)}`;
 
   clone.querySelector('#reviewProfileLink').href = `./profile#${profileObj[0].pro_id}`;
 
-  if (profilePicObj != false) {
+  if (profilePicObj !== false) {
     clone.querySelector(
       '#reviewImg',
     ).src = `./uploadedImages/${profilePicObj.img_id}.${profilePicObj.img_ext}`;
