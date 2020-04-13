@@ -19,6 +19,15 @@ A dog dating website. Some of the dog breeds are wrong but thats not important.
 - Users can message other profiles and they can response in real time.
 - User can leave reviews on other profiles reviewing the experience they had.
 
+# NPM Packages used
+
+- Express
+- Multer
+- Nodemon
+- Pg
+- Uuid-random
+- eslint-config-portsoc
+
 # Setup
 
 1.  Ensure PostgreSQL is running.

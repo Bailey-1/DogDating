@@ -8,6 +8,8 @@ async function loadContent() {
   ).textContent = `Welcome ${currentAccount[0].acc_name}! You are currently browsing as ${currentProfileData[0].pro_name}!`;
 }
 
+async function loadChats() {}
+
 function addEventListeners() {
   // Event listeners;
 }
@@ -15,6 +17,7 @@ function addEventListeners() {
 function pageLoaded() {
   loadContent();
   addEventListeners();
+  loadChats();
 }
 
 window.addEventListener('load', pageLoaded);

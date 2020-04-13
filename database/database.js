@@ -11,7 +11,7 @@ fs.renameAsync = fs.renameAsync || util.promisify(fs.rename);
 const sql = new Postgres(config);
 sql.connect();
 
-sql.on('error', err => {
+sql.on('error', (err) => {
   console.error('SQL Fail', err);
   sql.end();
 });
@@ -44,7 +44,8 @@ async function getDistinctFilterProperties(id) {
   q = `SELECT DISTINCT pro_breed FROM profiles WHERE pro_sex != '${usersex.rows[0].pro_sex}' ORDER BY pro_breed`;
   distinctItems.breed = await sql.query(q);
 
-  q = 'SELECT unnest(enum_range(NULL::kennelclubmembership)) AS "membership_type" ORDER BY "membership_type"';
+  q =
+    'SELECT unnest(enum_range(NULL::kennelclubmembership)) AS "membership_type" ORDER BY "membership_type"';
   distinctItems.kennelClubMembership = await sql.query(q);
 
   return distinctItems;
@@ -73,7 +74,7 @@ async function getDiscoveryByFilters(id, query) {
 
 async function updateProfileByUUID(body) {
   const result = await sql.query(
-`UPDATE profiles SET pro_name = $2, 
+    `UPDATE profiles SET pro_name = $2, 
 pro_breed = $3, 
 pro_location = $4, 
 pro_likes = $5, 
@@ -82,17 +83,17 @@ pro_birthday = $7,
 pro_aboutme = $8,
 pro_sex = $9
 WHERE pro_id = $1`,
-[
-  body.id,
-  body.name,
-  body.breed,
-  body.location,
-  body.likes,
-  body.dislikes,
-  body.birthday,
-  body.aboutme,
-  body.sex,
-],
+    [
+      body.id,
+      body.name,
+      body.breed,
+      body.location,
+      body.likes,
+      body.dislikes,
+      body.birthday,
+      body.aboutme,
+      body.sex,
+    ],
   );
   return result;
 }
@@ -112,9 +113,9 @@ async function uploadImageToDatabase(id, desc, file) {
     await fs.renameAsync(file.path, path.join('public', 'uploadedImages', newFilename));
 
     await sql.query(
-`INSERT INTO images (img_id ,img_desc, pro_id, img_ext)
+      `INSERT INTO images (img_id ,img_desc, pro_id, img_ext)
 VALUES ($1, $2, $3, $4)`,
-[imgId, desc, id, fileExt],
+      [imgId, desc, id, fileExt],
     );
 
     return imgId;
@@ -148,9 +149,9 @@ async function sendMessage(id, recId, msg) {
   const msgId = uuid();
   console.log('msg_id: ', msgId);
   await sql.query(
-`INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content) 
+    `INSERT INTO messages (msg_id, msg_sender, msg_reciever, msg_content) 
 VALUES ($1, $2, $3, $4)`,
-[msgId, id, recId, msg],
+    [msgId, id, recId, msg],
   );
   return msgId;
 }
@@ -164,9 +165,10 @@ async function setProfilePic(id, imgId) {
 }
 
 async function getProfilePic(proId) {
-  const result = await sql.query('SELECT * FROM images WHERE pro_id = $1 AND img_profilepic = True', [
-    proId,
-  ]);
+  const result = await sql.query(
+    'SELECT * FROM images WHERE pro_id = $1 AND img_profilepic = True',
+    [proId],
+  );
   return result;
 }
 
@@ -174,7 +176,7 @@ async function createProfile(body) {
   const proId = uuid();
   console.log('pro_id: ', proId);
   const result = await sql.query(
-`INSERT INTO profiles (
+    `INSERT INTO profiles (
 pro_name, 
 pro_location, 
 pro_birthday, 
@@ -187,18 +189,18 @@ acc_id,
 pro_id) VALUES (
 $1, $2, $3, $4, $5, $6, $7, $8, $9, $10
 )`,
-[
-  body.pro_name,
-  body.pro_location,
-  body.pro_birthday,
-  body.pro_sex,
-  body.pro_breed,
-  body.pro_aboutme,
-  body.pro_likes,
-  body.pro_dislikes,
-  body.acc_id,
-  proId,
-],
+    [
+      body.pro_name,
+      body.pro_location,
+      body.pro_birthday,
+      body.pro_sex,
+      body.pro_breed,
+      body.pro_aboutme,
+      body.pro_likes,
+      body.pro_dislikes,
+      body.acc_id,
+      proId,
+    ],
   );
 
   const data = { id: proId, queryResult: result };
@@ -245,6 +247,39 @@ async function createReviewForProfile(id, recId, body) {
   return result;
 }
 
+// Return a list of the last messages + info sent in chats that ID is a member of.
+async function getListOfConversations(id) {
+  // This query uses a subquery in the first from and then another subquery in the nested from.
+
+  const result = await sql.query(
+    // This query selects all of the messages that have the ID in them - either sent by the ID or recieved by the ID
+    // Then it orders the messages by time and by using distinct(other profile ID) selects only the most recent message with another profile - Each one representing a conversation
+    // Because distinct can only select one record with a distinct value - which is why columns get renamed to other so they share the same column.
+    // Because the inner order only orders the subquery table of all messages - the whole thing is nested in another subquery to order the results by time so they can be listed by time
+
+    // msg_type allows me to easily find out if the currentProfile has sent or recived the message and then can apply styling.
+    // Records also use inner joins to profile table to return names and profile IDs which means I don't have to send off another request after this to get that info.
+    `
+    select * from (
+        SELECT DISTINCT ON (other) *
+        -- The other field is used to combine all other people in the conversations into the same column - so they can be sorted easily.
+        -- And so sent and recieved messages are treated the same.
+        FROM  (
+            SELECT 'sent' AS msg_type, msg_id, msg_reciever AS other,msg_content, msg_time, p.pro_name, p.pro_id
+            FROM messages INNER JOIN profiles AS p ON messages.msg_reciever = p.pro_id WHERE msg_sender = $1
+    
+            UNION ALL
+            SELECT 'received' AS msg_type, msg_id, msg_sender AS other, msg_content, msg_time, p.pro_name, p.pro_id
+            FROM messages INNER JOIN profiles AS p ON messages.msg_sender = p.pro_id WHERE msg_reciever = $1    
+        ) AS subquery ORDER BY other, msg_time DESC)
+    -- Order the returned messages by time because the above line only orders the inner most records not the returned records. 
+    AS foo ORDER BY msg_time DESC;
+    `,
+    [id],
+  );
+  return result;
+}
+
 module.exports = {
   getProfilesByAccountId,
   getProfileById,
@@ -265,4 +300,5 @@ module.exports = {
   getPic,
   getReviewFromProfile,
   createReviewForProfile,
+  getListOfConversations,
 };

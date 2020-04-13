@@ -103,7 +103,7 @@ async function deletePic(req, res) {
     // Find image location, id and extension.
     const imgLocation = `./public/uploadedImages/${picData.rows[0].img_id}.${picData.rows[0].img_ext}`;
     // Delete image on the server.
-    fs.unlink(imgLocation, error => {
+    fs.unlink(imgLocation, (error) => {
       // Display error if a error occurs.
       if (error) throw error;
       console.log(`${imgLocation} was deleted`);
@@ -121,10 +121,14 @@ async function postReviewForProfile(req, res) {
   res.status(200).json(await db.createReviewForProfile(req.params.id, req.params.rec_id, req.body));
 }
 
+async function getConversationsById(req, res) {
+  res.status(200).json(await db.getListOfConversations(req.params.id));
+}
+
 // wrap async function for express.js error handling
 function asyncWrap(f) {
   return (req, res, next) => {
-    Promise.resolve(f(req, res, next)).catch(e => next(e || new Error()));
+    Promise.resolve(f(req, res, next)).catch((e) => next(e || new Error()));
   };
 }
 
@@ -142,6 +146,8 @@ app.get('/api/profile/:id/discovery', express.json(), asyncWrap(getDiscoveryByFi
 app.get('/api/profile/:id/recipient/:rec_id/message/:msg_id', asyncWrap(getMessage));
 
 app.get('/api/profile/:id/profilepic', asyncWrap(getProfilePicById));
+
+app.get('/api/profile/:id/conversations', asyncWrap(getConversationsById));
 
 app.post('/api/profile', express.json(), asyncWrap(createProfile)); // Create profile
 // Handle different types of requests to the same route.

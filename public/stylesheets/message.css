@@ -1,58 +1,23 @@
-table.messageTable {
-	width: 95vw;
-	font-size: 2em;
-}
-
-td.nameColumn {
-	width: 20%;
-	font-family: 'RobotoLight';
-}
-
-td.messageColumn {
-	width: 80%;
-	text-align: right;
-	font-family: 'RobotoLight';
-	padding-right: 1em;
-}
-
-tr.sent {
-	background-color: var(--main-dark-blue);
-	color: var(--main-blue);
-}
-
-tr.recieved {
-	background-color: var(--main-dark-blue);
-	color: white;
-}
-
 tr.sendBox {
-	background-color: var(--main-dark-blue);
+  background-color: var(--main-dark-blue);
 }
 
 tr.sendBox td.nameColumn {
-	color: var(--main-blue);
-	font-family: 'RobotoLight';
-}
-
-td.messageInfo {
-	font-size: 0.5em;
-	text-align: right;
-	font-family: 'RobotoLight';
-	padding-right: 1em;
-	opacity: 50%;
+  color: var(--main-blue);
+  font-family: 'RobotoLight';
 }
 
 td.textColumn textarea {
-	margin: 1em 1em 0em 1em;
-	width: 90%;
-	height: 5em;
-	font-size: 0.75em;
-	padding: 0.5em;
-	font-family: 'RobotoLight';
+  margin: 1em 1em 0em 1em;
+  width: 90%;
+  height: 5em;
+  font-size: 0.75em;
+  padding: 0.5em;
+  font-family: 'RobotoLight';
 }
 
 button.sendButton {
-	margin: 1em;
-	padding: 1em;
-	width: 5em;
+  margin: 1em;
+  padding: 1em;
+  width: 5em;
 }
