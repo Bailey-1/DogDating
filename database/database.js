@@ -252,7 +252,7 @@ async function getListOfConversations(id) {
   // This query uses a subquery in the first from and then another subquery in the nested from.
 
   const result = await sql.query(
-    // This query selects all of the messages that have the ID in them - either sent by the ID or recieved by the ID
+    // This query selects all of the messages that have the ID in them - either sent by the ID or received by the ID
     // Then it orders the messages by time and by using distinct(other profile ID) selects only the most recent message with another profile - Each one representing a conversation
     // Because distinct can only select one record with a distinct value - which is why columns get renamed to other so they share the same column.
     // Because the inner order only orders the subquery table of all messages - the whole thing is nested in another subquery to order the results by time so they can be listed by time
@@ -263,7 +263,7 @@ async function getListOfConversations(id) {
     select * from (
         SELECT DISTINCT ON (other) *
         -- The other field is used to combine all other people in the conversations into the same column - so they can be sorted easily.
-        -- And so sent and recieved messages are treated the same.
+        -- And so sent and received messages are treated the same.
         FROM  (
             SELECT 'sent' AS msg_type, msg_id, msg_reciever AS other,msg_content, msg_time, p.pro_name, p.pro_id
             FROM messages INNER JOIN profiles AS p ON messages.msg_reciever = p.pro_id WHERE msg_sender = $1

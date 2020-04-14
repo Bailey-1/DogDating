@@ -38,7 +38,7 @@ function decideTableRows(message) {
     console.log('Reciever');
     // Pass the message, template ID and the name of the sender to createTableRows
 
-    createTableRows(message, '#recievedMessage', recieverProfile.pro_name);
+    createTableRows(message, '#receivedMessage', recieverProfile.pro_name);
   }
 }
 
@@ -52,9 +52,9 @@ function createTableRows(message, tempId, name) {
   clone.querySelector('#name').textContent = `${name}:`;
   clone.querySelector('#message').textContent = message.msg_content;
   clone.querySelector('#time').textContent = `Time: ${message.msg_time.substring(
-11,
-19,
-)} - Date: ${message.msg_time.substring(0, 10)}`;
+    11,
+    19,
+  )} - Date: ${message.msg_time.substring(0, 10)}`;
   document.querySelector('#chatTable').appendChild(clone);
 }
 

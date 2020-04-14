@@ -25,6 +25,7 @@ async function testCurrentProfile() {
 }
 
 // Richs function for removing all content from a parent element.
+// CREDIT - Dr Richard Boakes, 2020
 function removeContentFrom(what) {
   while (what.firstElementChild) {
     what.firstElementChild.remove();
@@ -191,6 +192,13 @@ async function postReview(id, recId, body) {
   return result;
 }
 
+async function getConversations(id) {
+  const request = await fetch(`./api/profile/${id}/conversations`);
+  if (!request.ok) return console.warn(`Could not GET ./api/profile/${id}/conversations`);
+  const result = await request.json();
+  return result;
+}
+
 export {
   currentProfile,
   currentAccount,
@@ -214,4 +222,5 @@ export {
   deletePictureUtil,
   getReviewsByProfileID,
   postReview,
+  getConversations,
 };

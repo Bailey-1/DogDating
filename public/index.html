@@ -25,18 +25,23 @@
     <div id="main-body-content" style="margin: 1em;">
       <h1 style="color: white;" id="mainTitle"></h1>
       <div class="chatArea" style="text-align: center;">
-        <table id="chatTable" class="messageTable"></table>
-        <table class="messageTable">
-          <tr class="sent" id="msg-345690a4-7247-4c97-9d4b-576f95e12602">
-            <td id="name" class="nameColumn">Benny:</td>
-            <td id="message" class="messageColumn">Hello. How are you?</td>
-            <tr class="sent">
-                <td class="messageInfo"></td>
-                <td id="time" class="messageInfo">Time: 12:57:53 - Date: 2020-02-28</td>
-              </tr>
-            </tr>
+        <table id="chatTable" class="messageTable">
+          <thead>
+            <td class="messageTableHeading">Profile</td>
+            <td class="messageTableHeading">Chat</td>
+          </thead>
         </table>
       </div>
     </div>
   </body>
+  <template id="chat">
+    <tr class="messageContent">
+      <td class="nameColumn"><a class="" id="name">Benny:</a></td>
+      <td class="messageColumn"><a class="" id="message"></a></td>
+    </tr>
+    <tr class="messageInfo">
+      <td></td>
+      <td id="time" class="messageInfo">time and date</td>
+    </tr>
+  </template>
 </html>

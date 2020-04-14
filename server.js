@@ -109,7 +109,6 @@ async function deletePic(req, res) {
       console.log(`${imgLocation} was deleted`);
     });
   }
-
   return result;
 }
 
@@ -126,6 +125,7 @@ async function getConversationsById(req, res) {
 }
 
 // wrap async function for express.js error handling
+// CREDIT - Dr Jack Kopecky, 2020
 function asyncWrap(f) {
   return (req, res, next) => {
     Promise.resolve(f(req, res, next)).catch((e) => next(e || new Error()));
