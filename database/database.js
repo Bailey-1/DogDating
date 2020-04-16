@@ -260,6 +260,9 @@ async function getListOfConversations(id) {
     // msg_type allows me to easily find out if the currentProfile has sent or recived the message and then can apply styling.
     // Records also use inner joins to profile table to return names and profile IDs which means I don't have to send off another request after this to get that info.
     `
+    -- !!!
+    -- Adapted from https://stackoverflow.com/a/20856781
+    -- !!!
     select * from (
         SELECT DISTINCT ON (other) *
         -- The other field is used to combine all other people in the conversations into the same column - so they can be sorted easily.

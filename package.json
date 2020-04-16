@@ -8,16 +8,8 @@
     "start": "node server.js",
     "setup": "createdb doggydating && psql doggydating < database/database-setup.sql"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Bailey-1/DogDating.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Bailey-1/DogDating/issues"
-  },
-  "homepage": "https://github.com/Bailey-1/DogDating#readme",
   "dependencies": {
     "express": "^4.17.1",
     "multer": "^1.4.2",

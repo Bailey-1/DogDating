@@ -20,6 +20,14 @@ A dog dating website. Some of the dog breeds are wrong but thats not important.
 - Users can view the main home page which lists all of the conversations they are part of and all the messages they have recieved by time - like real world messaging apps.
 - User can leave reviews on other profiles reviewing the experience they had.
 
+- You can view all conversations with the selected profile by visiting:
+
+  ```
+  localhost:8080/index
+  ```
+
+  Or by clicking the button on the top left of the Navbar.
+
 # NPM Packages used:
 
 - Express
@@ -28,6 +36,67 @@ A dog dating website. Some of the dog breeds are wrong but thats not important.
 - Pg
 - Uuid-random
 - eslint-config-portsoc
+
+# Credit (Other peoples work):
+
+## Dr Richard Boakes, 2020:
+
+```
+function removeContentFrom(what) {
+  while (what.firstElementChild) {
+    what.firstElementChild.remove();
+  }
+}
+```
+
+## Dr Jack Kopecky, 2020:
+
+```
+function asyncWrap(f) {
+  return (req, res, next) => {
+    Promise.resolve(f(req, res, next)).catch((e) => next(e || new Error()));
+  };
+}
+```
+
+## Stackoverflow user 'Erwin Brandstetter':
+
+Source: https://stackoverflow.com/a/20856781
+
+### Original:
+
+```
+SELECT DISTINCT ON (user_id) *
+FROM (
+   SELECT 'out' AS type, id, receiver_id AS user_id, body, created_at
+   FROM   messages
+   WHERE  sender_id = 1
+
+   UNION  ALL
+   SELECT 'in' AS type, id, sender_id AS user_id, body, created_at
+   FROM   messages
+   WHERE  receiver_id = 1
+   ) sub
+ORDER  BY user_id, created_at DESC;
+```
+
+### My adapted version:
+
+```
+select * from (
+        SELECT DISTINCT ON (other) *
+        FROM  (
+            SELECT 'sent' AS msg_type, msg_id, msg_reciever AS other,msg_content, msg_time, p.pro_name, p.pro_id
+            FROM messages INNER JOIN profiles AS p ON messages.msg_reciever = p.pro_id
+            WHERE msg_sender = $1
+
+            UNION ALL
+            SELECT 'received' AS msg_type, msg_id, msg_sender AS other, msg_content, msg_time, p.pro_name, p.pro_id
+            FROM messages INNER JOIN profiles AS p ON messages.msg_sender = p.pro_id
+            WHERE msg_reciever = $1
+        ) AS subquery ORDER BY other, msg_time DESC)
+    AS foo ORDER BY msg_time DESC;
+```
 
 # Setup
 

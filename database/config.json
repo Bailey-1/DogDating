@@ -1,4 +1,5 @@
 {
-	"database": "doggydating",
-	"statement_timeout": 5000
+  "host": "/var/run/postgresql",
+  "database": "doggydating",
+  "statement_timeout": 5000
 }
