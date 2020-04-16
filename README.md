@@ -17,9 +17,10 @@ A dog dating website. Some of the dog breeds are wrong but thats not important.
   - And can update all infomation on them.
 - User can refresh the webpage and it will remain on the same page and the discovery page will keep the same filter and sort options.
 - Users can message other profiles and they can response in real time.
+- Users can view the main home page which lists all of the conversations they are part of and all the messages they have recieved by time - like real world messaging apps.
 - User can leave reviews on other profiles reviewing the experience they had.
 
-# NPM Packages used
+# NPM Packages used:
 
 - Express
 - Multer
@@ -60,8 +61,8 @@ A dog dating website. Some of the dog breeds are wrong but thats not important.
   - Show shortcuts to common areas such as:
     - Create new profile.
 - Message Page:
-  - List all previous conversations with other users.
-  - List name, last message time and last message in a table like a real messaging app.
+  - ~~List all previous conversations with other users.~~
+  - ~~List name, last message time and last message in a table like a real messaging app.~~
 - Profile:
   - ~~Change profile picture~~
   - ~~Upload message with user uploaded images.~~
@@ -77,9 +78,6 @@ A dog dating website. Some of the dog breeds are wrong but thats not important.
   - ~~Allow the user to create a new profile directly from the profile-selection page.~~
   - Allow the user to delete specific profiles and all of their content such as images.
   - ~~Shortcut to the my-profile page.~~
-- login page
-  - Mock login page that allows you to switch between different user accounts.
-  - **Note: this is only to show that the webpages content is dynamic and changes based on the current user and to show that messaging would actually work.**
 
 # Troubleshoot
 
