@@ -41,7 +41,7 @@ A dog dating website. Some of the dog breeds are wrong but thats not important.
 
 ## Dr Richard Boakes, 2020:
 
-```
+```javascript
 function removeContentFrom(what) {
   while (what.firstElementChild) {
     what.firstElementChild.remove();
@@ -51,7 +51,7 @@ function removeContentFrom(what) {
 
 ## Dr Jack Kopecky, 2020:
 
-```
+```javascript
 function asyncWrap(f) {
   return (req, res, next) => {
     Promise.resolve(f(req, res, next)).catch((e) => next(e || new Error()));
@@ -65,7 +65,7 @@ Source: https://stackoverflow.com/a/20856781
 
 ### Original:
 
-```
+```sql
 SELECT DISTINCT ON (user_id) *
 FROM (
    SELECT 'out' AS type, id, receiver_id AS user_id, body, created_at
@@ -82,7 +82,7 @@ ORDER  BY user_id, created_at DESC;
 
 ### My adapted version:
 
-```
+```sql
 select * from (
         SELECT DISTINCT ON (other) *
         FROM  (
