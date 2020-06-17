@@ -1,4 +1,5 @@
 # DogDating
+Note: No login system yet - idk how to do that properly
 
 A dog dating website. Some of the dog breeds are wrong but thats not important.
 
